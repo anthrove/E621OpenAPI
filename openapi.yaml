@@ -5829,7 +5829,7 @@ paths:
           required: true
           description: The ID of the ip ban.
           schema:
-            type: number
+            type: integer
       responses:
         204:
           description: Success
