@@ -509,7 +509,7 @@ components:
         creator_id:
           type: integer
         forum_topic_id:
-          type: ["number", "null"]
+          type: ["integer", "null"]
         script:
           type: string
           examples:
@@ -527,9 +527,9 @@ components:
           type: string
           format: date-time
         approver_id:
-          type: ["number", "null"]
+          type: ["integer", "null"]
         forum_post_id:
-          type: ["number", "null"]
+          type: ["integer", "null"]
         title:
           type: string
     Comment:
@@ -577,10 +577,11 @@ components:
         is_sticky:
           type: boolean
         warning_type:
-          type: ["string", "null"]
-          "$ref": "#/components/schemas/WarningTypes"
+          oneOf:
+            - type: 'null'
+            - "$ref": "#/components/schemas/WarningTypes"
         warning_user_id:
-          type: ["number", "null"]
+          type: ["integer", "null"]
         creator_name:
           type: string
         updater_name:
@@ -887,10 +888,11 @@ components:
           type: string
           format: date-time
         warning_type:
-          type: ["string", "null"]
-          "$ref": "#/components/schemas/WarningTypes"
+          oneOf:
+            - type: 'null'
+            - "$ref": "#/components/schemas/WarningTypes"
         warning_user_id:
-          type: ["number", "null"]
+          type: ["integer", "null"]
     ForumPostVote:
       type: object
       required:
@@ -1628,9 +1630,9 @@ components:
             has:
               type: boolean
             height:
-              type: ["number", "null"]
+              type: ["integer", "null"]
             width:
-              type: ["number", "null"]
+              type: ["integer", "null"]
             url:
               type: ["string", "null"]
             alternates:
@@ -1748,7 +1750,7 @@ components:
             - children
           properties:
             parent_id:
-              type: ["number", "null"]
+              type: ["integer", "null"]
             has_children:
               type: boolean
             has_active_children:
@@ -1758,7 +1760,7 @@ components:
               items:
                 type: integer
         approver_id:
-          type: ["number", "null"]
+          type: ["integer", "null"]
         uploader_id:
           type: integer
         description:
@@ -1866,7 +1868,7 @@ components:
         reason:
           type: string
         creator_id:
-          type: ["number", "null"]
+          type: ["integer", "null"]
         is_resolved:
           type: boolean
         updated_at:
@@ -2043,7 +2045,7 @@ components:
         rating:
           "$ref": "#/components/schemas/Ratings"
         parent_id:
-          type: ["number", "null"]
+          type: ["integer", "null"]
         source:
           type: string
         description:
@@ -2160,12 +2162,12 @@ components:
           type: ["string", "null"]
           format: date-time
         forum_post_id:
-          type: ["number", "null"]
+          type: ["integer", "null"]
         updated_at:
           type: ["string", "null"]
           format: date-time
         forum_topic_id:
-          type: ["number", "null"]
+          type: ["integer", "null"]
         consequent_name:
           type: string
         status:
@@ -2175,7 +2177,7 @@ components:
         post_count:
           type: integer
         approver_id:
-          type: ["number", "null"]
+          type: ["integer", "null"]
     TagImplication:
       type: object
       required:
@@ -2202,7 +2204,7 @@ components:
           type: string
           format: date-time
         forum_post_id:
-          type: ["number", "null"]
+          type: ["integer", "null"]
         antecedent_name:
           type: string
         consequent_name:
@@ -2212,7 +2214,7 @@ components:
             Note: The "error" status will be proceeded by an error, ex: "error: Validation failed: A tag alias for tag_name already exists"
           "$ref": "#/components/schemas/TagRequestStatuses"
         forum_topic_id:
-          type: ["number", "null"]
+          type: ["integer", "null"]
         updated_at:
           type: string
           format: date-time
@@ -2221,7 +2223,7 @@ components:
           items:
             type: string
         approver_id:
-          type: ["number", "null"]
+          type: ["integer", "null"]
     TagPreview:
       type: object
       required:
@@ -2430,7 +2432,7 @@ components:
         backtrace:
           type: ["string", "null"]
         post_id:
-          type: ["number", "null"]
+          type: ["integer", "null"]
         md5_confirmation:
           type: "null"
           deprecated: true
@@ -2441,7 +2443,7 @@ components:
           type: string
           format: date-time
         parent_id:
-          type: ["null", "number"]
+          type: ["null", "integer"]
         md5:
           type: ["string", "null"]
         file_ext:
