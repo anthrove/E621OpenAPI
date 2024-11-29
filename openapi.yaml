@@ -9908,8 +9908,16 @@ paths:
                 upload_whitelist[hidden]:
                   type: boolean
       responses:
-        200:
+        201:
           description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UploadWhitelist"
+        403:
+          $ref: "#/components/responses/AccessDenied"
+        422:
+          $ref: "#/components/responses/ExpectedError"
 
   /upload_whitelists/{id}.json:
     patch:
