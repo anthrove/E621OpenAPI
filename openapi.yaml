@@ -474,7 +474,7 @@ components:
         is_hidden:
           type: boolean
         warning_type:
-          "$ref": "#/components/schemas/WarningTypes"
+          $ref: "#/components/schemas/WarningTypes"
         warning_user_id:
           type: integer
         updater_id:
@@ -579,7 +579,7 @@ components:
         warning_type:
           oneOf:
             - type: 'null'
-            - "$ref": "#/components/schemas/WarningTypes"
+            - $ref: "#/components/schemas/WarningTypes"
         warning_user_id:
           type: ["integer", "null"]
         creator_name:
@@ -781,7 +781,7 @@ components:
         tags:
           type: string
         rating:
-          "$ref": "#/components/schemas/Ratings"
+          $ref: "#/components/schemas/Ratings"
         file_ext:
           type: string
         width:
@@ -890,7 +890,7 @@ components:
         warning_type:
           oneOf:
             - type: 'null'
-            - "$ref": "#/components/schemas/WarningTypes"
+            - $ref: "#/components/schemas/WarningTypes"
         warning_user_id:
           type: ["integer", "null"]
     ForumPostVote:
@@ -1134,7 +1134,7 @@ components:
         md5:
           type: string
         rating:
-          "$ref": "#/components/schemas/Ratings"
+          $ref: "#/components/schemas/Ratings"
         is_note_locked:
           type: boolean
         is_rating_locked:
@@ -1331,7 +1331,7 @@ components:
           type: string
           format: date-time
         action:
-          "$ref": "#/components/schemas/ModactionActions"
+          $ref: "#/components/schemas/ModactionActions"
     NewsUpdate:
       type: object
       required:
@@ -1475,7 +1475,7 @@ components:
         is_active:
           type: boolean
         category:
-          "$ref": "#/components/schemas/PoolCategories"
+          $ref: "#/components/schemas/PoolCategories"
         post_ids:
           type: array
           items:
@@ -1536,7 +1536,7 @@ components:
         is_locked:
           type: boolean
         category:
-          "$ref": "#/components/schemas/PoolCategories"
+          $ref: "#/components/schemas/PoolCategories"
         version:
           type: number
         added_post_ids:
@@ -1730,7 +1730,7 @@ components:
             deleted:
               type: boolean
         rating:
-          "$ref": "#/components/schemas/Ratings"
+          $ref: "#/components/schemas/Ratings"
         fav_count:
           type: integer
         sources:
@@ -1841,7 +1841,7 @@ components:
         post_id:
           type: integer
         action:
-          "$ref": "#/components/schemas/PostEventActions"
+          $ref: "#/components/schemas/PostEventActions"
         created_at:
           type: string
           format: date-time
@@ -2043,7 +2043,7 @@ components:
           type: string
           format: date-time
         rating:
-          "$ref": "#/components/schemas/Ratings"
+          $ref: "#/components/schemas/Ratings"
         parent_id:
           type: ["integer", "null"]
         source:
@@ -2097,7 +2097,7 @@ components:
         name:
           type: string
         category_id:
-          "$ref": "#/components/schemas/TagCategories"
+          $ref: "#/components/schemas/TagCategories"
     Tag:
       type: object
       required:
@@ -2125,7 +2125,7 @@ components:
           type: ["string", "null"]
           format: date-time
         category:
-          "$ref": "#/components/schemas/TagCategories"
+          $ref: "#/components/schemas/TagCategories"
         is_locked:
           type: boolean
         created_at:
@@ -2173,7 +2173,7 @@ components:
         status:
           description: |
             Note: The "error" status will be proceeded by an error, ex: "error: Validation failed: A tag alias for tag_name already exists"
-          "$ref": "#/components/schemas/TagRequestStatuses"
+          $ref: "#/components/schemas/TagRequestStatuses"
         post_count:
           type: integer
         approver_id:
@@ -2212,7 +2212,7 @@ components:
         status:
           description: |
             Note: The "error" status will be proceeded by an error, ex: "error: Validation failed: A tag alias for tag_name already exists"
-          "$ref": "#/components/schemas/TagRequestStatuses"
+          $ref: "#/components/schemas/TagRequestStatuses"
         forum_topic_id:
           type: ["integer", "null"]
         updated_at:
@@ -2246,11 +2246,11 @@ components:
         tagTypeA:
           oneOf:
             - type: 'null'
-            - "$ref": "#/components/schemas/TagCategories"
+            - $ref: "#/components/schemas/TagCategories"
         tagTypeB:
           oneOf:
             - type: 'null'
-            - "$ref": "#/components/schemas/TagCategories"
+            - $ref: "#/components/schemas/TagCategories"
     TagTypeVersion:
       type: object
       required:
@@ -2272,9 +2272,9 @@ components:
           type: string
           format: date-time
         old_type:
-          "$ref": "#/components/schemas/TagCategories"
+          $ref: "#/components/schemas/TagCategories"
         new_type:
-          "$ref": "#/components/schemas/TagCategories"
+          $ref: "#/components/schemas/TagCategories"
         is_locked:
           type: boolean
         tag_id:
@@ -2338,9 +2338,9 @@ components:
         disp_id:
           type: number
         qtype:
-          "$ref": "#/components/schemas/TicketTypes"
+          $ref: "#/components/schemas/TicketTypes"
         status:
-          "$ref": "#/components/schemas/TicketStatuses"
+          $ref: "#/components/schemas/TicketStatuses"
         created_at:
           type: string
           format: date-time
@@ -2416,7 +2416,7 @@ components:
         source:
           type: string
         rating:
-          "$ref": "#/components/schemas/Ratings"
+          $ref: "#/components/schemas/Ratings"
         uploader_id:
           type: integer
         tag_string:
@@ -2524,7 +2524,7 @@ components:
         creator_id:
           type: integer
         category:
-          "$ref": "#/components/schemas/FeedbackCategories"
+          $ref: "#/components/schemas/FeedbackCategories"
         body:
           type: string
         created_at:
@@ -2617,7 +2617,7 @@ components:
         creator_name:
           type: string
         category_id:
-          "$ref": "#/components/schemas/TagCategories"
+          $ref: "#/components/schemas/TagCategories"
     WikiPageVersion:
       type: object
       required:
@@ -6091,7 +6091,7 @@ paths:
         - in: query
           name: search[action]
           schema:
-            "$ref": "#/components/schemas/ModactionActions"
+            $ref: "#/components/schemas/ModactionActions"
       responses:
         200:
           description: Success
@@ -6554,7 +6554,7 @@ paths:
         - in: query
           name: search[category]
           schema:
-            "$ref": "#/components/schemas/PoolCategories"
+            $ref: "#/components/schemas/PoolCategories"
         - in: query
           name: search[is_active]
           schema:
@@ -6588,7 +6588,7 @@ paths:
                 pool[description]:
                   type: string
                 pool[category]:
-                  "$ref": "#/components/schemas/PoolCategories"
+                  $ref: "#/components/schemas/PoolCategories"
                 ipool[s_active]:
                   type: boolean
                 pool[post_ids_string]:
@@ -6659,7 +6659,7 @@ paths:
                 pool[is_active]:
                   type: boolean
                 pool[category]:
-                  "$ref": "#/components/schemas/PoolCategories"
+                  $ref: "#/components/schemas/PoolCategories"
                   description: If the pool has more than 30 posts, you must be Janitor+.
                 pool[post_ids_string]:
                   type: string
@@ -6983,9 +6983,9 @@ paths:
                 post[old_description]:
                   type: string
                 post[rating]:
-                  "$ref": "#/components/schemas/Ratings"
+                  $ref: "#/components/schemas/Ratings"
                 post[old_rating]:
-                  "$ref": "#/components/schemas/Ratings"
+                  $ref: "#/components/schemas/Ratings"
                 post[edit_reason]:
                   type: string
                 post[is_rating_locked]:
@@ -7706,7 +7706,7 @@ paths:
         - in: query
           name: search[action]
           schema:
-            "$ref": "#/components/schemas/PostEventActions"
+            $ref: "#/components/schemas/PostEventActions"
       responses:
         200:
           description: Success
@@ -8157,7 +8157,7 @@ paths:
         - in: query
           name: search[rating]
           schema:
-            "$ref": "#/components/schemas/Ratings"
+            $ref: "#/components/schemas/Ratings"
         - in: query
           name: search[rating_changed]
           schema:
@@ -8395,7 +8395,7 @@ paths:
           name: search[category]
           schema:
             description: Allows multiple, comma separated.
-            "$ref": "#/components/schemas/TagCategories"
+            $ref: "#/components/schemas/TagCategories"
         - in: query
           name: search[hide_empty]
           schema:
@@ -8470,7 +8470,7 @@ paths:
               type: object
               properties:
                 tag[category]:
-                  "$ref": "#/components/schemas/TagCategories"
+                  $ref: "#/components/schemas/TagCategories"
                 tag[is_locked]:
                   description: Must be Admin+.
                   type: boolean
@@ -8626,15 +8626,15 @@ paths:
         - in: query
           name: search[status]
           schema:
-            "$ref": "#/components/schemas/TagRequestStatuses"
+            $ref: "#/components/schemas/TagRequestStatuses"
         - in: query
           name: search[antecedent_tag_category]
           schema:
-            "$ref": "#/components/schemas/TagCategories"
+            $ref: "#/components/schemas/TagCategories"
         - in: query
           name: search[consequent_tag_category]
           schema:
-            "$ref": "#/components/schemas/TagCategories"
+            $ref: "#/components/schemas/TagCategories"
         - in: query
           name: search[creator_id]
           schema:
@@ -8847,15 +8847,15 @@ paths:
         - in: query
           name: search[status]
           schema:
-            "$ref": "#/components/schemas/TagRequestStatuses"
+            $ref: "#/components/schemas/TagRequestStatuses"
         - in: query
           name: search[antecedent_tag_category]
           schema:
-            "$ref": "#/components/schemas/TagCategories"
+            $ref: "#/components/schemas/TagCategories"
         - in: query
           name: search[consequent_tag_category]
           schema:
-            "$ref": "#/components/schemas/TagCategories"
+            $ref: "#/components/schemas/TagCategories"
         - in: query
           name: search[creator_id]
           schema:
@@ -9048,7 +9048,7 @@ paths:
                 query:
                   type: string
                 category_id:
-                  "$ref": "#/components/schemas/TagCategories"
+                  $ref: "#/components/schemas/TagCategories"
       responses:
         200:
           description: Success
@@ -9514,7 +9514,7 @@ paths:
         - in: query
           name: search[qtype]
           schema:
-            "$ref": "#/components/schemas/TicketTypes"
+            $ref: "#/components/schemas/TicketTypes"
         - in: query
           name: search[reason]
           description: You must be Moderator+.
@@ -9608,7 +9608,7 @@ paths:
                 ticket[response]:
                   type: string
                 ticket[record_type]:
-                  "$ref": "#/components/schemas/WarningTypes"
+                  $ref: "#/components/schemas/WarningTypes"
                 ticket[send_update_dmail]:
                   type: boolean
                   description: An update dmail will always be sent when the status is changed.
@@ -9711,7 +9711,7 @@ paths:
         - in: query
           name: search[rating]
           schema:
-            "$ref": "#/components/schemas/Ratings"
+            $ref: "#/components/schemas/Ratings"
         - in: query
           name: search[parent_id]
           schema:
@@ -9794,7 +9794,7 @@ paths:
                 upload[tag_string]:
                   type: string
                 upload[rating]:
-                  "$ref": "#/components/schemas/Ratings"
+                  $ref: "#/components/schemas/Ratings"
                 upload[parent_id]:
                   type: integer
                 upload[description]:
@@ -10326,7 +10326,7 @@ paths:
         - in: query
           name: search[category]
           schema:
-            "$ref": "#/components/schemas/FeedbackCategories"
+            $ref: "#/components/schemas/FeedbackCategories"
       responses:
         200:
           description: Success
@@ -10369,7 +10369,7 @@ paths:
                 user_feedback[body]:
                   type: string
                 user_feedback[category]:
-                  "$ref": "#/components/schemas/FeedbackCategories"
+                  $ref: "#/components/schemas/FeedbackCategories"
       responses:
         201:
           description: Success
@@ -10430,7 +10430,7 @@ paths:
                 user_feedback[body]:
                   type: string
                 user_feedback[category]:
-                  "$ref": "#/components/schemas/FeedbackCategories"
+                  $ref: "#/components/schemas/FeedbackCategories"
       responses:
         204:
           description: Success
