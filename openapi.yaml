@@ -2504,32 +2504,6 @@ components:
           type: string
         avatar_id:
           type: ["integer", "null"]
-        artist_version_count:
-          type: integer
-        comment_count:
-          type: integer
-        favorites_count:
-          type: integer
-        flag_count:
-          type: number
-        forum_post_count:
-          type: integer
-        negative_feedback_count:
-          type: integer
-        neutral_feedback_count:
-          type: integer
-        pool_version_count:
-          type: integer
-        positive_feedback_count:
-          type: integer
-        profile_about:
-          type: string
-        profile_artinfo:
-          type: string
-        upload_limit:
-          type: integer
-        wiki_page_version_count:
-          type: integer
     UserFeedback:
       type: object
       required:
