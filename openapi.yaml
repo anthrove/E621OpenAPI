@@ -2246,11 +2246,11 @@ components:
         tagTypeA:
           oneOf:
             - type: 'null'
-            - "$ref:" "#/components/schemas/TagCategories"
+            - "$ref": "#/components/schemas/TagCategories"
         tagTypeB:
           oneOf:
             - type: 'null'
-            - "$ref:" "#/components/schemas/TagCategories"
+            - "$ref": "#/components/schemas/TagCategories"
     TagTypeVersion:
       type: object
       required:
