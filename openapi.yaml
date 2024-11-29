@@ -2244,11 +2244,13 @@ components:
             - implication
             - alias
         tagTypeA:
-          type: ["number", "null"]
-          "$ref": "#/components/schemas/TagCategories"
+          oneOf:
+            - type: 'null'
+            - "$ref:" "#/components/schemas/TagCategories"
         tagTypeB:
-          type: ["number", "null"]
-          "$ref": "#/components/schemas/TagCategories"
+          oneOf:
+            - type: 'null'
+            - "$ref:" "#/components/schemas/TagCategories"
     TagTypeVersion:
       type: object
       required:
