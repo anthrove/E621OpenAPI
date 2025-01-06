@@ -1668,6 +1668,7 @@ components:
             - invalid
             - meta
             - lore
+            - contributor
           properties:
             general:
               type: array
@@ -1698,6 +1699,10 @@ components:
               items:
                 type: string
             lore:
+              type: array
+              items:
+                type: string
+            contributor:
               type: array
               items:
                 type: string
