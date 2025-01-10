@@ -10973,7 +10973,7 @@ paths:
               schema:
                 type: array
                 items:
-                  oneOf:
+                  anyOf:
                     - type: integer
                       description: ID of concerned user.
                     - type: array
