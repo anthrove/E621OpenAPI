@@ -10123,7 +10123,7 @@ paths:
           content:
             application/json:
               schema:
-                anyOf:
+                oneOf:
                   - $ref: "#/components/schemas/FullUser"
                   - $ref: "#/components/schemas/FullCurrentUser"
                     description: Extra properties included for the current user.
