@@ -1,0 +1,245 @@
+openapi: "3.0.0"
+info:
+  title: "E621"
+  description: |
+    OpenAPI definition for E621's API. You can find the source [here](https://github.com/DonovanDMC/E621OpenAPI)<br>
+    This document is intended to compliment E621's existing [API Documentation](https://e621.net/help/api).<br>
+    Note if E621's api is under attack and/or cloudflare protections are enabled, the "Try it out" buttons here will not work.<br>
+    If they are not working, you can check this [Unofficial Status Page](https://status.e621.ws).
+  license:
+    name: "MIT"
+    url: "https://opensource.org/licenses/MIT"
+
+  contact:
+    name: Donovan_DMC
+    url: https://e621.net/forum_topics/46279
+  version: "d69c34e"
+
+servers:
+  - url: https://e621.net
+    description: E621 (production)
+  - url: http://localhost:3000
+    description: E621 (Development)
+
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  parameters:
+    id:
+      $ref: "./components/parameters/id.yaml"
+    limit:
+      $ref: "./components/parameters/limit.yaml"
+    page:
+      $ref: "./components/parameters/page.yaml"
+    ip_addr:
+      $ref: "./components/parameters/ipAddr.yaml"
+  schemas:
+    ModactionActions:
+      $ref: "./components/schemas/modactionActions.yaml"
+    PostEventActions:
+      $ref: "./components/schemas/postEventActions.yaml"
+    Ratings:
+      $ref: "./components/schemas/ratings.yaml"
+    TagCategories:
+      $ref: "./components/schemas/tagCategories.yaml"
+    FeedbackCategories:
+      $ref: "./components/schemas/feedbackCategories.yaml"
+    TagRequestStatuses:
+      $ref: "./components/schemas/tagRequestStatuses.yaml"
+    WarningTypes:
+      $ref: "./components/schemas/warningTypes.yaml"
+    PoolCategories:
+      $ref: "./components/schemas/poolCategories.yaml"
+    TicketTypes:
+      $ref: "./components/schemas/ticketTypes.yaml"
+    TicketStatuses:
+      $ref: "./components/schemas/ticketStatuses.yaml"
+    Artist:
+      $ref: "./components/schemas/artist.yaml"
+    ArtistURL:
+      $ref: "./components/schemas/artistUrl.yaml"
+    ArtistVersion:
+      $ref: "./components/schemas/artistVersion.yaml"
+    AvoidPosting:
+      $ref: "./components/schemas/avoidPosting.yaml"
+    AvoidPostingVersion:
+      $ref: "./components/schemas/avoidPostingVersion.yaml"
+    Ban:
+      $ref: "./components/schemas/ban.yaml"
+    Blip:
+      $ref: "./components/schemas/blip.yaml"
+    BulkRelatedTag:
+      $ref: "./components/schemas/bulkRelatedTag.yaml"
+    BulkUpdateRequest:
+      $ref: "./components/schemas/bulkUpdateRequest.yaml"
+    Comment:
+      $ref: "./components/schemas/comment.yaml"
+    CurrentUser:
+      $ref: "./components/schemas/currentUser.yaml"
+    DMail:
+      $ref: "./components/schemas/dMail.yaml"
+    DeferredPost:
+      $ref: "./components/schemas/deferredPost.yaml"
+    DTextResponse:
+      $ref: "./components/schemas/dTextResponse.yaml"
+    EmailBlacklist:
+      $ref: "./components/schemas/emailBlacklist.yaml"
+    ForumPost:
+      $ref: "./components/schemas/forumPost.yaml"
+    ForumPostVote:
+      $ref: "./components/schemas/forumPostVote.yaml"
+    ForumTopic:
+      $ref: "./components/schemas/forumTopic.yaml"
+    FullCurrentUser:
+      $ref: "./components/schemas/fullCurrentUser.yaml"
+    FullUser:
+      $ref: "./components/schemas/fullUser.yaml"
+    Help:
+      $ref: "./components/schemas/help.yaml"
+    IPBan:
+      $ref: "./components/schemas/ipBan.yaml"
+    IQDBPost:
+      $ref: "./components/schemas/iqdbPost.yaml"
+    IQDBResponse:
+      $ref: "./components/schemas/iqdbResponse.yaml"
+    Mascot:
+      $ref: "./components/schemas/mascot.yaml"
+    ModAction:
+      $ref: "./components/schemas/modAction.yaml"
+    NewsUpdate:
+      $ref: "./components/schemas/newsUpdate.yaml"
+    Note:
+      $ref: "./components/schemas/note.yaml"
+    NoteVersion:
+      $ref: "./components/schemas/noteVersion.yaml"
+    Pool:
+      $ref: "./components/schemas/pool.yaml"
+    PoolVersion:
+      $ref: "./components/schemas/poolVersion.yaml"
+    Post:
+      $ref: "./components/schemas/post.yaml"
+    PostApproval:
+      $ref: "./components/schemas/postApproval.yaml"
+    PostDisapproval:
+      $ref: "./components/schemas/postDisapproval.yaml"
+    PostEvent:
+      $ref: "./components/schemas/postEvent.yaml"
+    PostFlag:
+      $ref: "./components/schemas/postFlag.yaml"
+    PostReplacement:
+      $ref: "./components/schemas/postReplacement.yaml"
+    PostSampleAlternate:
+      $ref: "./components/schemas/postSampleAlternate.yaml"
+    PostSet:
+      $ref: "./components/schemas/postSet.yaml"
+    PostVersion:
+      $ref: "./components/schemas/postVersion.yaml"
+    RelatedTag:
+      $ref: "./components/schemas/relatedTag.yaml"
+    Tag:
+      $ref: "./components/schemas/tag.yaml"
+    TagAlias:
+      $ref: "./components/schemas/tagAlias.yaml"
+    TagImplication:
+      $ref: "./components/schemas/tagImplication.yaml"
+    TagPreview:
+      $ref: "./components/schemas/tagPreview.yaml"
+    TagTypeVersion:
+      $ref: "./components/schemas/tagTypeVersion.yaml"
+    Takedown:
+      $ref: "./components/schemas/takedown.yaml"
+    Ticket:
+      $ref: "./components/schemas/ticket.yaml"
+    UploadWhitelist:
+      $ref: "./components/schemas/uploadWhitelist.yaml"
+    Upload:
+      $ref: "./components/schemas/upload.yaml"
+    User:
+      $ref: "./components/schemas/user.yaml"
+    UserFeedback:
+      $ref: "./components/schemas/userFeedback.yaml"
+    UserNameChangeRequest:
+      $ref: "./components/schemas/userNameChangeRequest.yaml"
+    WikiPage:
+      $ref: "./components/schemas/wikiPage.yaml"
+    WikiPageVersion:
+      $ref: "./components/schemas/wikiPageVersion.yaml"
+  responses:
+    NotFound:
+      $ref: "./components/responses/accessDenied.yaml"
+    AccessDenied:
+      $ref: "./components/responses/expectedError.yaml"
+    ExpectedError:
+      $ref: "./components/responses/messageError.yaml"
+    MessageError:
+      $ref: "./components/responses/notFound.yaml"
+  requestBodies:
+    warning:
+      $ref: "./components/requestBodies/warning.yaml"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

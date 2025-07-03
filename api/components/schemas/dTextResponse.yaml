@@ -1,0 +1,12 @@
+type: object
+required:
+  - html
+  - posts
+properties:
+  html:
+    type: string
+  posts:
+    type: object
+    patternProperties: #TODO: apparently this is not allowed?
+      "^0-9+$":
+        $ref: "./deferredPost.yaml"

@@ -1,0 +1,17 @@
+description: Invalid Input Data
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - errors
+      examples:
+        - { "errors": { "key": [ "the error" ] } }
+      properties:
+        errors:
+          type: object
+          patternProperties:
+            "^[a-z]+$":
+              type: array
+              items:
+                type: string
