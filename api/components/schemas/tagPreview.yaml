@@ -17,11 +17,6 @@ properties:
       - implication
       - alias
   tagTypeA:
-    # TODO: I think we can refactor this
-    oneOf:
-      - type: 'null'
-      - $ref: "./tagCategories.yaml"
+    $ref: "./tagCategories.yaml"
   tagTypeB:
-    oneOf:
-      - type: 'null'
-      - $ref: "./tagCategories.yaml"
+    $ref: "./tagCategories.yaml"

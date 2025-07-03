@@ -179,7 +179,7 @@ components:
     warning:
       $ref: "./components/requestBodies/warning.yaml"
 
-
+paths:
 
 
 

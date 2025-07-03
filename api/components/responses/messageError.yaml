@@ -14,4 +14,5 @@ content:
         message:
           type: string
         code:
-          type: ["string", "null"]
+          type: string
+          nullable: true

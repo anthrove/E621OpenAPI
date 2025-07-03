@@ -30,10 +30,7 @@ properties:
     type: string
     format: date-time
   warning_type:
-    # TODO: I think that this can be refactored
-    oneOf:
-      - type: 'null'
-      - $ref: "./warningTypes.yaml"
+    $ref: "./warningTypes.yaml"
   warning_user_id:
     type: integer
     nullable: true
