@@ -265,4 +265,7 @@ paths:
   /email_blacklists/{id}.json:
     $ref: "./paths/emailBlacklists/id.yaml"
 
-  
+  /favorites.json:
+    $ref: "./paths/favorites/favorites.yaml"
+  /favorites/{id}.json:
+    $ref: "./paths/favorites/id.yaml"
