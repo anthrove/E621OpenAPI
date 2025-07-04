@@ -5,7 +5,7 @@ content:
       type: object
       required:
         - errors
-      examples:
+      example:
         - { "errors": { "key": [ "the error" ] } }
       properties:
         errors:

@@ -29,6 +29,8 @@ components:
   parameters:
     id:
       $ref: "./components/parameters/id.yaml"
+    idOrName:
+      $ref: "./components/parameters/idOrName.yaml"
     limit:
       $ref: "./components/parameters/limit.yaml"
     page:
@@ -180,6 +182,16 @@ components:
       $ref: "./components/requestBodies/warning.yaml"
 
 paths:
+  /artists.json:
+    $ref: "./paths/artists/artists.yaml"
+  /artists/{idOrName}.json:
+    $ref: "./paths/artists/irOrName.yaml"
+  /artists/{idOrName}/revert.json:
+    $ref: "./paths/artists/irOrNameRevert.yaml"
+  /artist_versions:
+    $ref: "./paths/artists/version.yaml"
+  /artist_urls:
+    $ref: "./paths/artists/urls.yaml"
 
 
 
