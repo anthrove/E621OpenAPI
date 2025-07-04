@@ -188,6 +188,7 @@ paths:
     $ref: "./paths/artists/irOrName.yaml"
   /artists/{idOrName}/revert.json:
     $ref: "./paths/artists/irOrNameRevert.yaml"
+
   /artist_versions.json:
     $ref: "./paths/artists/version.yaml"
   /artist_urls.json:
@@ -228,24 +229,22 @@ paths:
     $ref: "./paths/bulkUpdateRequests/approve.yaml"
 
   /comments.json:
-      $ref: "./paths/comments/comments.yaml"
+    $ref: "./paths/comments/comments.yaml"
   /comments/{id}.json:
-      $ref: "./paths/comments/id.yaml"
+    $ref: "./paths/comments/id.yaml"
   /comments/{id}/hide.json:
-      $ref: "./paths/comments/hide.yaml"
+    $ref: "./paths/comments/hide.yaml"
   /comments/{id}/unhide.json:
-      $ref: "./paths/comments/unhide.yaml"
+    $ref: "./paths/comments/unhide.yaml"
   /comments/{id}/warning.json:
-      $ref: "./paths/comments/warning.yaml"
+    $ref: "./paths/comments/warning.yaml"
 
-
-
-
-
-
-
-
-
+  /comments/{id}/votes.json:
+    $ref: "./paths/comments/votes.yaml"
+  /comment_votes/lock.json:
+    $ref: "./paths/comments/votesLock.yaml"
+  /comment_votes/delete.json:
+    $ref: "./paths/comments/votesDelete.yaml"
 
 
 
