@@ -283,3 +283,18 @@ paths:
 
   /forum_posts/{id}/votes.json:
     $ref: "./paths/forum/votes.yaml"
+
+  /forum_topics.json:
+    $ref: "./paths/forumTopics/forumTopics.yaml"
+  /forum_topics/{id}.json:
+    $ref: "./paths/forumTopics/id.yaml"
+  /forum_topics/{id}/hide.json:
+    $ref: "./paths/forumTopics/hide.yaml"
+  /forum_topics/{id}/unhide.json:
+    $ref: "./paths/forumTopics/unhide.yaml"
+  /forum_topics/{id}/subscribe.json:
+    $ref: "./paths/forumTopics/subscribe.yaml"
+  /forum_topics/{id}/unsubscribe.json:
+    $ref: "./paths/forumTopics/unsubscribe.yaml"
+  /forum_topics/mark_all_as_read.json:
+    $ref: "./paths/forumTopics/markAllAsRead.yaml"
