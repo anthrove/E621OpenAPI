@@ -227,27 +227,16 @@ paths:
   /bulk_update_request/{id}/approve.json:
     $ref: "./paths/bulkUpdateRequests/approve.yaml"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  /comments.json:
+      $ref: "./paths/comments/comments.yaml"
+  /comments/{id}.json:
+      $ref: "./paths/comments/id.yaml"
+  /comments/{id}/hide.json:
+      $ref: "./paths/comments/hide.yaml"
+  /comments/{id}/unhide.json:
+      $ref: "./paths/comments/unhide.yaml"
+  /comments/{id}/warning.json:
+      $ref: "./paths/comments/warning.yaml"
 
 
 
