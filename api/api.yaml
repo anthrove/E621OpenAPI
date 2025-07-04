@@ -204,9 +204,10 @@ paths:
   /avoid_posting_versions.json:
     $ref: "./paths/avoidPosting/versions.yaml"
 
-
-
-
+  /bans.json:
+    $ref: "./paths/bans/bans.yaml"
+  /bans/{id}.json:
+    $ref: "./paths/bans/id.yaml"
 
 
 
