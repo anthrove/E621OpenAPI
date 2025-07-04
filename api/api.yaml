@@ -257,7 +257,9 @@ paths:
   /dmails/mark_all_as_unread.json:
     $ref: "./paths/dmails/markAllAsUnread.yaml"
   
-  
+  /dtext_preview.json:
+    $ref: "./paths/dtext/preview.yaml"
+
   
   
 
