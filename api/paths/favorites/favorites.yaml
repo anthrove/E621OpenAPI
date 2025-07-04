@@ -63,4 +63,4 @@ post:
     404:
       $ref: "../../components/responses/notFound.yaml"
     422:
-      $ref: "../../components/responses/ExpectedError"
+      $ref: "../../components/responses/expectedError.yaml"
