@@ -220,9 +220,12 @@ paths:
   /blips/{id}/warning.json:
     $ref: "./paths/blips/warning.yaml"
 
-
-
-
+  /bulk_update_requests.json:
+    $ref: "./paths/bulkUpdateRequests/bulkUpdateRequests.yaml"
+  /bulk_update_request/{id}.json:
+    $ref: "./paths/bulkUpdateRequests/id.yaml"
+  /bulk_update_request/{id}/approve.json:
+    $ref: "./paths/bulkUpdateRequests/approve.yaml"
 
 
 
