@@ -269,3 +269,14 @@ paths:
     $ref: "./paths/favorites/favorites.yaml"
   /favorites/{id}.json:
     $ref: "./paths/favorites/id.yaml"
+
+  /forum_posts.json:
+    $ref: "./paths/forum/post.yaml"
+  /forum_posts/{id}.json:
+    $ref: "./paths/forum/id.yaml"
+  /forum_posts/{id}/hide.json:
+    $ref: "./paths/forum/hide.yaml"
+  /forum_posts/{id}/unhide.json:
+    $ref: "./paths/forum/unhide.yaml"
+  /forum_posts/{id}/warning.json:
+    $ref: "./paths/forum/warning.yaml"
