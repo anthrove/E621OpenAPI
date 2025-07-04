@@ -188,16 +188,21 @@ paths:
     $ref: "./paths/artists/irOrName.yaml"
   /artists/{idOrName}/revert.json:
     $ref: "./paths/artists/irOrNameRevert.yaml"
-  /artist_versions:
+  /artist_versions.json:
     $ref: "./paths/artists/version.yaml"
-  /artist_urls:
+  /artist_urls.json:
     $ref: "./paths/artists/urls.yaml"
 
-
-
-
-
-
+  /avoid_postings.json:
+    $ref: "./paths/avoidPosting/avoid_postings.yaml"
+  /avoid_postings/{idOrArtistName}.json:
+    $ref: "./paths/avoidPosting/idOrArtistName.yaml"
+  /avoid_postings/{idOrArtistName}/delete.json:
+    $ref: "./paths/avoidPosting/idOrArtistNameDelete.yaml"
+  /avoid_postings/{idOrArtistName}/undelete.json:
+    $ref: "./paths/avoidPosting/idOrArtistNameUnDelete.yaml"
+  /avoid_posting_versions.json:
+    $ref: "./paths/avoidPosting/versions.yaml"
 
 
 
