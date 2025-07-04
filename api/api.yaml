@@ -209,15 +209,16 @@ paths:
   /bans/{id}.json:
     $ref: "./paths/bans/id.yaml"
 
-
-
-
-
-
-
-
-
-
+  /blips.json:
+    $ref: "./paths/blips/blips.yaml"
+  /blips/{id}.json:
+    $ref: "./paths/blips/id.yaml"
+  /blips/{id}/hide.json:
+    $ref: "./paths/blips/hide.yaml"
+  /blips/{id}/unhide.json:
+    $ref: "./paths/blips/unhide.yaml"
+  /blips/{id}/warning.json:
+    $ref: "./paths/blips/warning.yaml"
 
 
 
