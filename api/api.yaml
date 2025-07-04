@@ -280,3 +280,6 @@ paths:
     $ref: "./paths/forum/unhide.yaml"
   /forum_posts/{id}/warning.json:
     $ref: "./paths/forum/warning.yaml"
+
+  /forum_posts/{id}/votes.json:
+    $ref: "./paths/forum/votes.yaml"
