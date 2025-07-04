@@ -260,6 +260,9 @@ paths:
   /dtext_preview.json:
     $ref: "./paths/dtext/preview.yaml"
 
-  
-  
+  /email_blacklists.json:
+    $ref: "./paths/emailBlacklists/emailBlacklists.yaml"
+  /email_blacklists/{id}.json:
+    $ref: "./paths/emailBlacklists/id.yaml"
 
+  
