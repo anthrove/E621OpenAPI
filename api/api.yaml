@@ -298,3 +298,9 @@ paths:
     $ref: "./paths/forumTopics/unsubscribe.yaml"
   /forum_topics/mark_all_as_read.json:
     $ref: "./paths/forumTopics/markAllAsRead.yaml"
+
+  /help.json:
+    $ref: "./paths/help/help.yaml"
+  /help/{id}.json:
+    $ref: "./paths/help/id.yaml"
+
