@@ -304,3 +304,8 @@ paths:
   /help/{id}.json:
     $ref: "./paths/help/id.yaml"
 
+  /ip_bans.json:
+    $ref: "./paths/ipBans/ipBan.yaml"
+  /ip_bans/{id}.json:
+    $ref: "./paths/ipBans/id.yaml"
+
