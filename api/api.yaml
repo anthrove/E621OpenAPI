@@ -311,3 +311,9 @@ paths:
 
   /iqdb_queries.json:
     $ref: "./paths/iqdb/queries.yaml"
+
+  /mascots.json:
+    $ref: "./paths/mascots/mascots.yaml"
+  /mascots/{id}.json:
+    $ref: "./paths/mascots/id.yaml"
+
