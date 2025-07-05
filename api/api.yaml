@@ -309,3 +309,5 @@ paths:
   /ip_bans/{id}.json:
     $ref: "./paths/ipBans/id.yaml"
 
+  /iqdb_queries.json:
+    $ref: "./paths/iqdb/queries.yaml"
