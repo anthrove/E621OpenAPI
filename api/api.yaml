@@ -346,4 +346,6 @@ paths:
     $ref: "./paths/pools/element.yaml"
   /pool_versions.json:
     $ref: "./paths/pools/version.yaml"
-    
+
+  /popular.json:
+    $ref: "./paths/popular/popular.yaml"
