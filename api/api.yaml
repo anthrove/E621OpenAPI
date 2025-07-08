@@ -386,14 +386,21 @@ paths:
   
 
   /moderator/post/posts/{id}/delete.json:
-
+    $ref: "./paths/moderator/postDelete.yaml"
   /moderator/post/posts/{id}/undelete.json:
+    $ref: "./paths/moderator/postundelete.yaml"
   /moderator/post/posts/{id}/regenerate_thumbnails.json:
+    $ref: "./paths/moderator/postRegenerateThumbnails.yaml"
   /moderator/post/posts/{id}/regenerate_videos.json:
+    $ref: "./paths/moderator/postRegenerateVideos.yaml"
   /moderator/post/posts/{id}/expunge.json:
+    $ref: "./paths/moderator/postExpunge.yaml"
   /moderator/post/posts/{id}/move_favorites.json:
+    $ref: "./paths/moderator/postMoveFavorites.yaml"
   /moderator/post/approval.json:
+    $ref: "./paths/moderator/postApprovals.yaml"
+
   # Post Disapprovals
   /moderator/post/disapprovals.json:
-    $ref: "./paths/moderator/post_disapprovals.yaml"
-
+    $ref: "./paths/moderator/postDisapprovals.yaml"
+    
