@@ -352,29 +352,38 @@ paths:
 
 
   /posts.json:
-      $ref: "./paths/posts/posts.yaml"
+    $ref: "./paths/posts/posts.yaml"
   /posts/{id}.json:
-      $ref: "./paths/posts/id.yaml"
+    $ref: "./paths/posts/id.yaml"
   /posts/{id}/update_iqdb.json:
-      $ref: "./paths/posts/updateIqdb.yaml"
+    $ref: "./paths/posts/updateIqdb.yaml"
   /posts/{id}/mark_as_translated.json:
-      $ref: "./paths/posts/markAsTranslated.yaml"
+    $ref: "./paths/posts/markAsTranslated.yaml"
   /posts/{id}/copy_notes.json:
-      $ref: "./paths/posts/copyNotes.yaml"
+    $ref: "./paths/posts/copyNotes.yaml"
   /posts/{id}/revert.json:
-      $ref: "./paths/posts/revert.yaml"
+    $ref: "./paths/posts/revert.yaml"
   /posts/{id}/show_seq.json:
-      $ref: "./paths/posts/showSeq.yaml"
+    $ref: "./paths/posts/showSeq.yaml"
   /posts/{id}/flag.json:
-      $ref: "./paths/posts/flag.yaml"
+    $ref: "./paths/posts/flag.yaml"
   /posts/random.json:
-      $ref: "./paths/posts/random.yaml"
+    $ref: "./paths/posts/random.yaml"
   
-
-
-
-
-
+  /post_sets.json:
+    $ref: "./paths/postsSets/postSets.yaml"
+  /post_sets/{id}.json:
+    $ref: "./paths/postsSets/id.yaml"
+  /post_sets/{id}/update_posts.json:
+    $ref: "./paths/postsSets/update.yaml"
+  /post_sets/{id}/add_posts.json:
+    $ref: "./paths/postsSets/add.yaml"
+  /post_sets/{id}/remove_posts.json:
+    $ref: "./paths/postsSets/remove.yaml"
+  /post_sets/for_select.json:
+    $ref: "./paths/postsSets/select.yaml"
+  
+  
 
   /moderator/post/posts/{id}/delete.json:
 
