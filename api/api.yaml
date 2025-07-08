@@ -349,3 +349,42 @@ paths:
 
   /popular.json:
     $ref: "./paths/popular/popular.yaml"
+
+
+  /posts.json:
+      $ref: "./paths/posts/posts.yaml"
+  /posts/{id}.json:
+      $ref: "./paths/posts/id.yaml"
+  /posts/{id}/update_iqdb.json:
+      $ref: "./paths/posts/updateIqdb.yaml"
+  /posts/{id}/mark_as_translated.json:
+      $ref: "./paths/posts/markAsTranslated.yaml"
+  /posts/{id}/copy_notes.json:
+      $ref: "./paths/posts/copyNotes.yaml"
+  /posts/{id}/revert.json:
+      $ref: "./paths/posts/revert.yaml"
+  /posts/{id}/show_seq.json:
+      $ref: "./paths/posts/showSeq.yaml"
+  /posts/{id}/flag.json:
+      $ref: "./paths/posts/flag.yaml"
+  /posts/random.json:
+      $ref: "./paths/posts/random.yaml"
+  
+
+
+
+
+
+
+  /moderator/post/posts/{id}/delete.json:
+
+  /moderator/post/posts/{id}/undelete.json:
+  /moderator/post/posts/{id}/regenerate_thumbnails.json:
+  /moderator/post/posts/{id}/regenerate_videos.json:
+  /moderator/post/posts/{id}/expunge.json:
+  /moderator/post/posts/{id}/move_favorites.json:
+  /moderator/post/approval.json:
+  # Post Disapprovals
+  /moderator/post/disapprovals.json:
+    $ref: "./paths/moderator/post_disapprovals.yaml"
+
