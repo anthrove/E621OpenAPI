@@ -317,3 +317,5 @@ paths:
   /mascots/{id}.json:
     $ref: "./paths/mascots/id.yaml"
 
+  /mod_actions.json:
+    $ref: "./paths/modActions/id.yaml"
