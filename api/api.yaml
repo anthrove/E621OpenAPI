@@ -333,3 +333,17 @@ paths:
     $ref: "./paths/notes/revert.yaml"
   /note_versions.json:
     $ref: "./paths/notes/versions.yaml"
+
+  /pools.json:
+    $ref: "./paths/pools/pool.yaml"
+  /pools/{id}.json:
+    $ref: "./paths/pools/id.yaml"
+  /pools/{id}/revert.json:
+    $ref: "./paths/pools/revert.yaml"
+  /pool_element.js:
+    $ref: "./paths/pools/elementJs.yaml"
+  /pool_element.json:
+    $ref: "./paths/pools/element.yaml"
+  /pool_versions.json:
+    $ref: "./paths/pools/version.yaml"
+    
