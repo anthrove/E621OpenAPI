@@ -319,3 +319,10 @@ paths:
 
   /mod_actions.json:
     $ref: "./paths/modActions/id.yaml"
+
+  /news_updates.json:
+    $ref: "./paths/newsUpdates/newsUpdate.yaml"
+
+  /news_updates/{id}.json:
+    $ref: "./paths/newsUpdates/id.yaml"
+
