@@ -1,0 +1,33 @@
+post:
+  summary: List Bulk Related Tags
+  operationId: listBulkRelatedTags
+  tags:
+    - Related Tags
+  security:
+    - basicAuth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            query:
+              type: string
+            category_id:
+              $ref: "../../components/schemas/tagCategories.yaml"
+  responses:
+    200:
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            example:
+              - {"male":[{"name":"male","count":0,"category_id":0}]}
+            patternProperties:
+              "^.+$":
+                type: array
+                items:
+                  $ref: "../../components/schemas/bulkRelatedTag.yaml"
+    403:
+      $ref: "../../components/responses/accessDenied.yaml"

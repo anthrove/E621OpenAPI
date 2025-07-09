@@ -416,7 +416,38 @@ paths:
   /post_votes/delete.json:
     $ref: "./paths/postVotes/delete.yaml"
   
-  
+  /tags.json:
+    $ref: "./paths/tags/tags.yaml"
+  /tags/{id}.json:
+    $ref: "./paths/tags/id.yaml"
+  /tags/{id}/correction.json:
+    $ref: "./paths/tags/correction.yaml"
+  /tags/preview.json:
+    $ref: "./paths/tags/preview.yaml"
+
+  /tag_type_versions.json:
+    $ref: "./paths/tagTypeVersion/tagTypeVersion.yaml"
+
+  /tag_aliases.json:
+    $ref: "./paths/tagAliases/tagAliases.yaml"
+  /tag_aliases/{id}.json:
+    $ref: "./paths/tagAliases/id.yaml"
+  /tag_aliases/{id}/approve.json:
+    $ref: "./paths/tagAliases/approve.yaml"
+  /tag_alias_requests.json:
+    $ref: "./paths/tagAliases/tagAliasRequests.yaml"
+
+  /tag_implications.json:
+    $ref: "./paths/tagImplications/tagImplications.yaml"
+  /tag_implications/{id}.json:
+    $ref: "./paths/tagImplications/id.yaml"
+  /tag_implications/{id}/approve.json:
+    $ref: "./paths/tagImplications/approve.yaml"
+  /tag_implication_requests.json:
+    $ref: "./paths/tagImplications/tagImplicationRequests.yaml"
+
+  /related_tag/bulk.json:
+    $ref: "./paths/relatedTag/bulk.yaml"
 
   /moderator/post/posts/{id}/delete.json:
     $ref: "./paths/moderator/postDelete.yaml"
