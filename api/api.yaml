@@ -481,7 +481,31 @@ paths:
   /upload_whitelists/{id}/is_allowed.json:
     $ref: "./paths/uploadWhitelists/isAllowed.yaml"
   
+  /users.json:
+    $ref: "./paths/users/users.yaml"
+  /users/{id}.json:
+    $ref: "./paths/users/id.yaml"
+  /users/upload_limit.json:
+    $ref: "./paths/users/uploadLimit.yaml"
+  /maintenance/user/count_fixes.json:
+    $ref: "./paths/users/countFixes.yaml"
+  /maintenance/user/dmail_filter.json:
+    $ref: "./paths/users/dmailFilter.yaml"
 
+  /user_feedbacks.json:
+    $ref: "./paths/userFeedbacks/userFeedbacks.yaml"
+  /user_feedbacks/{id}.json:
+    $ref: "./paths/userFeedbacks/id.yaml"
+  /user_feedbacks/{id}/delete.json:
+    $ref: "./paths/userFeedbacks/delete.yaml"
+  /user_feedbacks/{id}/undelete.json:
+    $ref: "./paths/userFeedbacks/undelete.yaml"
+  
+  /user_name_change_requests.json:
+    $ref: "./paths/userNameChangeRequests/userNameChangeRequests.yaml"
+  /user_name_change_requests/{id}.json:
+    $ref: "./paths/userNameChangeRequests/id.yaml"
+  
   /moderator/post/posts/{id}/delete.json:
     $ref: "./paths/moderator/postDelete.yaml"
   /moderator/post/posts/{id}/undelete.json:
