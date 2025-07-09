@@ -450,18 +450,27 @@ paths:
     $ref: "./paths/relatedTag/bulk.yaml"
   
   /takedowns.json:
-      $ref: "./paths/takedowns/takedowns.yaml"
+    $ref: "./paths/takedowns/takedowns.yaml"
   /takedowns/{id}.json:
-      $ref: "./paths/takedowns/id.yaml"
+    $ref: "./paths/takedowns/id.yaml"
   /takedowns/{id}/add_by_ids.json:
-      $ref: "./paths/takedowns/addByIds.yaml"
+    $ref: "./paths/takedowns/addByIds.yaml"
   /takedowns/{id}/add_by_tags.json:
-      $ref: "./paths/takedowns/addByTags.yaml"
+    $ref: "./paths/takedowns/addByTags.yaml"
   /takedowns/{id}/count_matching_posts.json:
-      $ref: "./paths/takedowns/countMatchingPosts.yaml"
+    $ref: "./paths/takedowns/countMatchingPosts.yaml"
   /takedowns/{id}/remove_by_ids.json:
-      $ref: "./paths/takedowns/removeByIds.yaml"
-  
+    $ref: "./paths/takedowns/removeByIds.yaml"
+
+  /tickets.json:
+    $ref: "./paths/tickets/tickets.yaml"
+  /tickets/{id}.json:
+    $ref: "./paths/tickets/id.yaml"
+  /tickets/{id}/claim.json:
+    $ref: "./paths/tickets/claim.yaml"
+  /tickets/{id}/unclaim.json:
+    $ref: "./paths/tickets/unclaim.yaml"
+
   /moderator/post/posts/{id}/delete.json:
     $ref: "./paths/moderator/postDelete.yaml"
   /moderator/post/posts/{id}/undelete.json:
