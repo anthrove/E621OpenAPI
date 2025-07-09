@@ -383,6 +383,39 @@ paths:
   /post_sets/for_select.json:
     $ref: "./paths/postsSets/select.yaml"
   
+  /post_approvals.json:
+    $ref: "./paths/postApprovals/postApprovals.yaml"
+  /post_events.json:
+    $ref: "./paths/postEvents/postEvents.yaml"
+
+  /post_flags.json:
+    $ref: "./paths/postFlags/postFlags.yaml"
+  /post_flags/{id}.json:
+    $ref: "./paths/postFlags/id.yaml"
+
+  /post_replacements.json:
+    $ref: "./paths/postReplacements/postReplacements.yaml"
+  /post_replacements/{id}.json:
+    $ref: "./paths/postReplacements/id.yaml"
+  /post_replacements/{id}/approve.json:
+    $ref: "./paths/postReplacements/approve.yaml"
+  /post_replacements/{id}/reject.json:
+    $ref: "./paths/postReplacements/reject.yaml"
+  /post_replacements/{id}/promote.json:
+    $ref: "./paths/postReplacements/promote.yaml"
+  /post_replacements/{id}/toggle_penalize.json:
+    $ref: "./paths/postReplacements/togglePenalize.yaml"
+
+  /post_versions.json:
+    $ref: "./paths/postVersions/postVersions.yaml"
+
+  /posts/{id}/votes.json:
+    $ref: "./paths/postVotes/votes.yaml"
+  /post_votes/lock.json:
+    $ref: "./paths/postVotes/lock.yaml"
+  /post_votes/delete.json:
+    $ref: "./paths/postVotes/delete.yaml"
+  
   
 
   /moderator/post/posts/{id}/delete.json:
@@ -403,4 +436,4 @@ paths:
   # Post Disapprovals
   /moderator/post/disapprovals.json:
     $ref: "./paths/moderator/postDisapprovals.yaml"
-    
+
