@@ -518,7 +518,11 @@ paths:
   /wiki_page_versions/{id}.json:
     $ref: "./paths/wikiPageVersions/id.yaml"
   
-
+  /admin/users/alt_list.json:
+    $ref: "./paths/admin/altList.yaml"
+  /admins/users/{id}.json:
+    $ref: "./paths/admin/id.yaml"
+  
   /moderator/post/posts/{id}/delete.json:
     $ref: "./paths/moderator/postDelete.yaml"
   /moderator/post/posts/{id}/undelete.json:
