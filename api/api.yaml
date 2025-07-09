@@ -471,6 +471,17 @@ paths:
   /tickets/{id}/unclaim.json:
     $ref: "./paths/tickets/unclaim.yaml"
 
+  /uploads.json:
+    $ref: "./paths/uploads/uploads.yaml"
+  
+  /upload_whitelists.json:
+    $ref: "./paths/uploadWhitelists/uploadWhitelists.yaml"
+  /upload_whitelists/{id}.json:
+    $ref: "./paths/uploadWhitelists/id.yaml"
+  /upload_whitelists/{id}/is_allowed.json:
+    $ref: "./paths/uploadWhitelists/isAllowed.yaml"
+  
+
   /moderator/post/posts/{id}/delete.json:
     $ref: "./paths/moderator/postDelete.yaml"
   /moderator/post/posts/{id}/undelete.json:
