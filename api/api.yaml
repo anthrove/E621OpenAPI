@@ -506,6 +506,19 @@ paths:
   /user_name_change_requests/{id}.json:
     $ref: "./paths/userNameChangeRequests/id.yaml"
   
+  /wiki_pages.json:
+    $ref: "./paths/wikiPages/wikiPages.yaml"
+  /wiki_pages/{id}.json:
+    $ref: "./paths/wikiPages/id.yaml"
+  /wiki_page/{id}/revert.json:
+    $ref: "./paths/wikiPages/revert.yaml"
+    
+  /wiki_page_versions.json:
+    $ref: "./paths/wikiPageVersions/wikiPageVersions.yaml"
+  /wiki_page_versions/{id}.json:
+    $ref: "./paths/wikiPageVersions/id.yaml"
+  
+
   /moderator/post/posts/{id}/delete.json:
     $ref: "./paths/moderator/postDelete.yaml"
   /moderator/post/posts/{id}/undelete.json:
