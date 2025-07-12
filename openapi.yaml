@@ -2786,6 +2786,14 @@ components:
               code:
                 type: string
                 nullable: true
+    UserResponse:
+      description: Success
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '#/components/schemas/FullUser'
+              - $ref: '#/components/schemas/FullCurrentUser'
   requestBodies:
     warning:
       content:
@@ -10098,13 +10106,7 @@ paths:
             type: string
       responses:
         '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                oneOf:
-                  - $ref: '#/components/schemas/FullUser'
-                  - $ref: '#/components/schemas/FullCurrentUser'
+          $ref: '#/components/responses/UserResponse'
         '404':
           $ref: '#/components/responses/NotFound'
     patch:

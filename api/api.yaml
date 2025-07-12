@@ -177,6 +177,8 @@ components:
       $ref: "./components/responses/expectedError.yaml"
     MessageError:
       $ref: "./components/responses/messageError.yaml"
+    UserResponse:
+      $ref: "./components/responses/user.yaml"
   requestBodies:
     warning:
       $ref: "./components/requestBodies/warning.yaml"

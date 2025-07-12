@@ -12,13 +12,7 @@ get:
         type: 'string'
   responses:
     200:
-      description: Success
-      content:
-        application/json:
-          schema:
-            oneOf:
-              - $ref: "../../components/schemas/fullUser.yaml"
-              - $ref: "../../components/schemas/fullCurrentUser.yaml"
+      $ref: "../../components/responses/user.yaml"
     404:
       $ref: "../../components/responses/notFound.yaml"
 patch:
