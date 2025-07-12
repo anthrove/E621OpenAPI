@@ -9,7 +9,7 @@ get:
       required: true
       description: The ID or name of the tag.
       schema:
-        type: ["number", "string"]
+        type: integer
   responses:
     200:
       description: Success

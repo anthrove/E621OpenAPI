@@ -7,13 +7,8 @@ put:
     - basicAuth: []
   description: |
     If an artist is locked, you must be Janitor+ to revert them.
-  parameters:
-    - name: idOrName
-      in: path
-      required: true
-      description: The ID or name of the artist to revert.
-      schema:
-        type: ["number", "string"]
+  parameters:    
+    - $ref: "../../components/parameters/idOrName.yaml"
     - name: version_id
       in: query
       required: true

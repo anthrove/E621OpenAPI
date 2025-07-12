@@ -170,13 +170,13 @@ components:
       $ref: "./components/schemas/wikiPageVersion.yaml"
   responses:
     NotFound:
-      $ref: "./components/responses/accessDenied.yaml"
-    AccessDenied:
-      $ref: "./components/responses/expectedError.yaml"
-    ExpectedError:
-      $ref: "./components/responses/messageError.yaml"
-    MessageError:
       $ref: "./components/responses/notFound.yaml"
+    AccessDenied:
+      $ref: "./components/responses/accessDenied.yaml"
+    ExpectedError:
+      $ref: "./components/responses/expectedError.yaml"
+    MessageError:
+      $ref: "./components/responses/messageError.yaml"
   requestBodies:
     warning:
       $ref: "./components/requestBodies/warning.yaml"
@@ -185,9 +185,9 @@ paths:
   /artists.json:
     $ref: "./paths/artists/artists.yaml"
   /artists/{idOrName}.json:
-    $ref: "./paths/artists/irOrName.yaml"
+    $ref: "./paths/artists/idOrName.yaml"
   /artists/{idOrName}/revert.json:
-    $ref: "./paths/artists/irOrNameRevert.yaml"
+    $ref: "./paths/artists/idOrNameRevert.yaml"
 
   /artist_versions.json:
     $ref: "./paths/artists/version.yaml"
@@ -196,11 +196,11 @@ paths:
 
   /avoid_postings.json:
     $ref: "./paths/avoidPosting/avoid_postings.yaml"
-  /avoid_postings/{idOrArtistName}.json:
+  /avoid_postings/{idOrName}.json:
     $ref: "./paths/avoidPosting/idOrArtistName.yaml"
-  /avoid_postings/{idOrArtistName}/delete.json:
+  /avoid_postings/{idOrName}/delete.json:
     $ref: "./paths/avoidPosting/idOrArtistNameDelete.yaml"
-  /avoid_postings/{idOrArtistName}/undelete.json:
+  /avoid_postings/{idOrName}/undelete.json:
     $ref: "./paths/avoidPosting/idOrArtistNameUnDelete.yaml"
   /avoid_posting_versions.json:
     $ref: "./paths/avoidPosting/versions.yaml"

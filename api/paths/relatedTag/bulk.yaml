@@ -21,13 +21,8 @@ post:
       content:
         application/json:
           schema:
-            type: object
+            $ref: "../../components/schemas/bulkRelatedTag.yaml"
             example:
               - {"male":[{"name":"male","count":0,"category_id":0}]}
-            patternProperties:
-              "^.+$":
-                type: array
-                items:
-                  $ref: "../../components/schemas/bulkRelatedTag.yaml"
     403:
       $ref: "../../components/responses/accessDenied.yaml"

@@ -29,5 +29,3 @@ get:
                   items:
                     type: integer
                     description: ID of suspected alt.
-            examples:
-              - [[1,[2]],[2,[1]]]

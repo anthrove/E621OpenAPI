@@ -840,10 +840,7 @@ components:
         html:
           type: string
         posts:
-          type: object
-          patternProperties:
-            ^0-9+$:
-              $ref: '#/components/schemas/DeferredPost'
+          $ref: '#/components/schemas/DeferredPost'
     EmailBlacklist:
       type: object
       required:
@@ -2724,6 +2721,22 @@ components:
           nullable: true
   responses:
     NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - success
+              - reason
+            properties:
+              success:
+                type: boolean
+              reason:
+                type: string
+                enum:
+                  - not found
+    AccessDenied:
       description: Access Denied
       content:
         application/json:
@@ -2739,7 +2752,7 @@ components:
                 type: string
                 enum:
                   - Access Denied
-    AccessDenied:
+    ExpectedError:
       description: Invalid Input Data
       content:
         application/json:
@@ -2753,13 +2766,10 @@ components:
                     - the error
             properties:
               errors:
-                type: object
-                patternProperties:
-                  '^[a-z]+$':
-                    type: array
-                    items:
-                      type: string
-    ExpectedError:
+                type: array
+                items:
+                  type: string
+    MessageError:
       description: Error
       content:
         application/json:
@@ -2776,22 +2786,6 @@ components:
               code:
                 type: string
                 nullable: true
-    MessageError:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-              - success
-              - reason
-            properties:
-              success:
-                type: boolean
-              reason:
-                type: string
-                enum:
-                  - not found
   requestBodies:
     warning:
       content:
@@ -2947,9 +2941,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Artist'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/artists/{idOrName}.json':
     get:
       summary: Get Artist
@@ -2987,7 +2981,7 @@ paths:
                         items:
                           $ref: '#/components/schemas/ArtistURL'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit Artist
       operationId: editArtist
@@ -3035,11 +3029,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Delete Artist
       operationId: deleteArtist
@@ -3055,9 +3049,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/artists/{idOrName}/revert.json':
     put:
       summary: Revert Artist
@@ -3069,14 +3063,7 @@ paths:
       description: |
         If an artist is locked, you must be Janitor+ to revert them.
       parameters:
-        - name: idOrName
-          in: path
-          required: true
-          description: The ID or name of the artist to revert.
-          schema:
-            type:
-              - number
-              - string
+        - $ref: '#/components/parameters/idOrName'
         - name: version_id
           in: query
           required: true
@@ -3087,11 +3074,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/AccessDenied'
   /artist_versions.json:
     get:
       summary: Search Artist Versions
@@ -3367,10 +3354,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/AvoidPosting'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
-  '/avoid_postings/{idOrArtistName}.json':
+        '422':
+          $ref: '#/components/responses/ExpectedError'
+  '/avoid_postings/{idOrName}.json':
     get:
       summary: Get Avoid Posting Entry
       operationId: getAvoidPosting
@@ -3386,7 +3373,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/AvoidPosting'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit Avoid Posting Entry
       operationId: editAvoidPosting
@@ -3429,11 +3416,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/AvoidPosting'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Destroy Avoid Posting Entry
       operationId: destroyAvoidPosting
@@ -3448,10 +3435,10 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
-  '/avoid_postings/{idOrArtistName}/delete.json':
+          $ref: '#/components/responses/NotFound'
+  '/avoid_postings/{idOrName}/delete.json':
     put:
       summary: Delete Avoid Posting Entry
       operationId: deleteAvoidPosting
@@ -3466,10 +3453,10 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
-  '/avoid_postings/{idOrArtistName}/undelete.json':
+          $ref: '#/components/responses/NotFound'
+  '/avoid_postings/{idOrName}/undelete.json':
     put:
       summary: Undelete Avoid Posting Entry
       operationId: undeleteAvoidPosting
@@ -3681,7 +3668,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Ban'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /blips.json:
     get:
       summary: Search Blips
@@ -3764,11 +3751,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Blip'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/blips/{id}.json':
     get:
       summary: Get Blip
@@ -3792,9 +3779,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/Blip'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit Blip
       operationId: editBlip
@@ -3826,11 +3813,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Blip'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Delete Blip
       operationId: deleteBlip
@@ -3851,9 +3838,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/blips/{id}/hide.json':
     post:
       summary: Hide Blip
@@ -3879,9 +3866,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Blip'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/blips/{id}/unhide.json':
     post:
       summary: Unhide Blip
@@ -3907,9 +3894,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Blip'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/blips/{id}/warning.json':
     post:
       summary: Mark Blip
@@ -3936,9 +3923,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/DTextResponse'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /bulk_update_requests.json:
     get:
       summary: Search Bulk Update Requests
@@ -4055,9 +4042,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/BulkUpdateRequest'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/bulk_update_request/{id}.json':
     get:
       summary: Get Bulk Update Request
@@ -4079,7 +4066,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/BulkUpdateRequest'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit Bulk Update Request
       operationId: editBulkUpdateRequest
@@ -4113,11 +4100,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Reject Bulk Update Request
       operationId: rejectBulkUpdateRequest
@@ -4137,9 +4124,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/bulk_update_request/{id}/approve.json':
     post:
       summary: Approve Bulk Update Request
@@ -4158,9 +4145,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /comments.json:
     get:
       summary: Search Comments
@@ -4286,9 +4273,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Comment'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/comments/{id}.json':
     get:
       summary: Get Comment
@@ -4311,9 +4298,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Comment'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit Comment
       operationId: editComment
@@ -4348,11 +4335,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Delete Comment
       operationId: deleteComment
@@ -4373,9 +4360,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/comments/{id}/hide.json':
     post:
       summary: Hide Comment
@@ -4401,9 +4388,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Comment'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/comments/{id}/unhide.json':
     post:
       summary: Unhide Comment
@@ -4429,9 +4416,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Comment'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/comments/{id}/warning.json':
     post:
       summary: Mark Comment
@@ -4458,9 +4445,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/DTextResponse'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/comments/{id}/votes.json':
     post:
       summary: Create Comment Vote
@@ -4504,11 +4491,11 @@ paths:
                   our_score:
                     type: integer
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Delete Comment Vote
       operationId: deleteCommentVote
@@ -4527,11 +4514,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   /comment_votes/lock.json:
     post:
       summary: Lock Comment Votes
@@ -4553,11 +4540,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   /comment_votes/delete.json:
     post:
       summary: Delete Comment Vote
@@ -4579,7 +4566,7 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
   /dmails.json:
     get:
       summary: Search DMails
@@ -4667,9 +4654,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/DMail'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     delete:
       summary: Delete DMail
       operationId: deleteDMail
@@ -4689,9 +4676,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/dmails/{id}/mark_as_read.json':
     put:
       summary: Mark DMail As Read
@@ -4711,9 +4698,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/dmails/{id}/mark_as_unread.json':
     put:
       summary: Mark DMail As Unread
@@ -4733,9 +4720,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /dmails/mark_all_as_unread.json:
     put:
       summary: Mark All DMails As Unread
@@ -4748,9 +4735,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /dtext_preview.json:
     post:
       summary: Preview DText
@@ -4852,7 +4839,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/EmailBlacklist'
         '422':
-          $ref: '#/components/responses/AccessDenied'
+          $ref: '#/components/responses/ExpectedError'
   '/email_blacklists/{id}.json':
     delete:
       summary: Delete Email Blacklist
@@ -4873,9 +4860,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /favorites.json:
     get:
       summary: List Favorites
@@ -4905,9 +4892,9 @@ paths:
                     items:
                       $ref: '#/components/schemas/Post'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     post:
       summary: Add Favorite
       operationId: addFavorite
@@ -4938,11 +4925,11 @@ paths:
                   post:
                     $ref: '#/components/schemas/Post'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/favorites/{id}.json':
     delete:
       summary: Remove Favorite
@@ -4961,11 +4948,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   /forum_posts.json:
     get:
       summary: Search Forum Posts
@@ -5058,9 +5045,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ForumPost'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/forum_posts/{id}.json':
     get:
       summary: Get Forum Post
@@ -5083,9 +5070,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ForumPost'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit Forum Post
       operationId: editForumPost
@@ -5113,11 +5100,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Delete Forum Post
       operationId: deleteForumPost
@@ -5137,9 +5124,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/forum_posts/{id}/hide.json':
     post:
       summary: Hide Forum Post
@@ -5164,9 +5151,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ForumPost'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/forum_posts/{id}/unhide.json':
     post:
       summary: Unhide Forum Post
@@ -5191,9 +5178,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ForumPost'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/forum_posts/{id}/warning.json':
     post:
       summary: Mark Forum Post
@@ -5221,9 +5208,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/DTextResponse'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/forum_posts/{id}/votes.json':
     post:
       summary: Create Forum Post Vote
@@ -5261,11 +5248,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ForumPostVote'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Delete Forum Post Vote
       operationId: deleteForumPostVote
@@ -5284,11 +5271,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   /forum_topics.json:
     get:
       summary: Search Forum Topics
@@ -5380,9 +5367,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ForumTopic'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/forum_topics/{id}.json':
     get:
       summary: Get Forum Forum Topic
@@ -5405,9 +5392,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ForumTopic'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit Forum Topic
       operationId: editForumTopic
@@ -5448,11 +5435,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Delete Forum Topic
       operationId: deleteForumTopic
@@ -5472,9 +5459,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/forum_topics/{id}/hide.json':
     post:
       summary: Hide Forum Topic
@@ -5499,9 +5486,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ForumTopic'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/forum_topics/{id}/unhide.json':
     post:
       summary: Unhide Forum Topic
@@ -5526,9 +5513,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ForumTopic'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/forum_topics/{id}/subscribe.json':
     post:
       summary: Subscribe To Forum Topic
@@ -5552,9 +5539,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ForumTopic'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/forum_topics/{id}/unsubscribe.json':
     post:
       summary: Unsubscribe From Forum Topic
@@ -5578,9 +5565,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ForumTopic'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /forum_topics/mark_all_as_read.json:
     post:
       summary: Mark All Forum Topics As Read
@@ -5603,7 +5590,7 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
   /help.json:
     get:
       summary: List Help Pages
@@ -5654,9 +5641,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Help'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/help/{id}.json':
     get:
       summary: Get Help Page
@@ -5678,9 +5665,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Help'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit Help Page
       operationId: editHelpPage
@@ -5715,11 +5702,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Delete Help Page
       operationId: deleteHelpPage
@@ -5739,9 +5726,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /ip_bans.json:
     get:
       summary: List IP Bans
@@ -5822,9 +5809,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/IPBan'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/ip_bans/{id}.json':
     delete:
       summary: Delete IP Ban
@@ -5845,9 +5832,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /iqdb_queries.json:
     get:
       summary: Query IQDB
@@ -5886,7 +5873,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/IQDBResponse'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
     post:
       summary: Query IQDB
       operationId: queryIQDPost
@@ -5936,7 +5923,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/IQDBResponse'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
   /mascots.json:
     get:
       summary: Search Mascots
@@ -6012,9 +5999,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Mascot'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/mascots/{id}.json':
     patch:
       summary: Edit Mascot
@@ -6059,11 +6046,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Delete Mascot
       operationId: deleteMascot
@@ -6083,9 +6070,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /mod_actions.json:
     get:
       summary: Search Mod Actions
@@ -6185,9 +6172,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/NewsUpdate'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/news_updates/{id}.json':
     patch:
       summary: Edit News Update
@@ -6218,11 +6205,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Delete News Update
       operationId: deleteNewsUpdate
@@ -6242,9 +6229,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /notes.json:
     get:
       summary: Search Notes
@@ -6364,9 +6351,9 @@ paths:
                         type: string
                         description: 'Passthrough, used in frontend.'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/notes/{id}.json':
     get:
       summary: Get Note
@@ -6388,7 +6375,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Note'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit Note
       operationId: editNote
@@ -6423,11 +6410,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Delete Note
       operationId: deleteNote
@@ -6446,9 +6433,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/notes/{id}/revert.json':
     post:
       summary: Revert Note
@@ -6474,11 +6461,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   /note_versions.json:
     get:
       summary: Search Note Versions
@@ -6633,9 +6620,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Pool'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/pools/{id}.json':
     get:
       summary: Get Pool
@@ -6657,7 +6644,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Pool'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit Pool
       operationId: editPool
@@ -6698,11 +6685,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Delete Pool
       operationId: deletePool
@@ -6722,9 +6709,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/pools/{id}/revert.json':
     put:
       summary: Revert Pool
@@ -6750,11 +6737,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   /pool_element.js:
     post:
       summary: Add Post To Pool
@@ -6955,7 +6942,7 @@ paths:
                   post:
                     $ref: '#/components/schemas/Post'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit Post
       operationId: editPost
@@ -7041,11 +7028,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Post'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/posts/{id}/update_iqdb.json':
     get:
       summary: Update Post IQDB
@@ -7075,11 +7062,11 @@ paths:
                   post:
                     $ref: '#/components/schemas/Post'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/posts/{id}/mark_as_translated.json':
     post:
       summary: Mark Post As Translated
@@ -7119,11 +7106,11 @@ paths:
                   post:
                     $ref: '#/components/schemas/Post'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/posts/{id}/copy_notes.json':
     put:
       summary: Copy Notes To Post
@@ -7153,11 +7140,11 @@ paths:
         '204':
           description: Success
         '400':
-          $ref: '#/components/responses/ExpectedError'
-        '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
           $ref: '#/components/responses/MessageError'
+        '403':
+          $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
   '/posts/{id}/revert.json':
     post:
       summary: Revert Post
@@ -7183,11 +7170,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/posts/{id}/show_seq.json':
     get:
       summary: Get Post In Sequence
@@ -7222,11 +7209,11 @@ paths:
                   post:
                     $ref: '#/components/schemas/Post'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/posts/{id}/flag.json':
     delete:
       summary: Unflag Post
@@ -7256,9 +7243,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /posts/random.json:
     get:
       summary: Get Random Post
@@ -7283,7 +7270,7 @@ paths:
                   post:
                     $ref: '#/components/schemas/Post'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /post_sets.json:
     get:
       summary: Search Post Sets
@@ -7390,9 +7377,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/PostSet'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/post_sets/{id}.json':
     get:
       summary: Get Post Set
@@ -7415,9 +7402,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/PostSet'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit Post Set
       operationId: editPostSet
@@ -7453,11 +7440,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Delete Post Set
       operationId: deletePostSet
@@ -7477,9 +7464,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/post_sets/{id}/update_posts.json':
     post:
       summary: Update Post Set Posts
@@ -7514,11 +7501,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/PostSet'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/post_sets/{id}/add_posts.json':
     post:
       summary: Add Posts To Post Set
@@ -7556,11 +7543,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/PostSet'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/post_sets/{id}/remove_posts.json':
     post:
       summary: Remove Posts From Post Set
@@ -7598,11 +7585,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/PostSet'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   /post_sets/for_select.json:
     get:
       summary: List Post Sets For Select
@@ -7633,9 +7620,9 @@ paths:
                         - type: string
                         - type: number
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   /post_approvals.json:
     get:
       summary: Search Post Approvals
@@ -7843,9 +7830,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/PostFlag'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/post_flags/{id}.json':
     get:
       summary: Get Post Flag
@@ -7867,7 +7854,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/PostFlag'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /post_replacements.json:
     get:
       summary: Search Post Replacements
@@ -7989,11 +7976,11 @@ paths:
                     type: string
                     example: /posts/1
         '403':
-          $ref: '#/components/responses/NotFound'
-        '412':
-          $ref: '#/components/responses/ExpectedError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '412':
+          $ref: '#/components/responses/MessageError'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/post_replacements/{id}.json':
     delete:
       summary: Delete Post Replacement
@@ -8014,9 +8001,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/post_replacements/{id}/approve.json':
     put:
       summary: Approve Post Replacement
@@ -8037,11 +8024,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/post_replacements/{id}/reject.json':
     put:
       summary: Reject Post Replacement
@@ -8070,11 +8057,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/post_replacements/{id}/promote.json':
     post:
       summary: Promote Post Replacement
@@ -8104,11 +8091,11 @@ paths:
                   post:
                     $ref: '#/components/schemas/Post'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/post_replacements/{id}/toggle_penalize.json':
     put:
       summary: Toggle Post Replacement Penalty
@@ -8129,11 +8116,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   /post_versions.json:
     get:
       summary: Search Post Versions
@@ -8294,11 +8281,11 @@ paths:
                   our_score:
                     type: integer
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Delete Post Vote
       operationId: deletePostVote
@@ -8317,11 +8304,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   /post_votes/lock.json:
     post:
       summary: Lock Post Vote
@@ -8342,11 +8329,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   /post_votes/delete.json:
     post:
       summary: Delete Post Vote
@@ -8367,7 +8354,7 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
   /tags.json:
     get:
       summary: Search Tags
@@ -8448,9 +8435,7 @@ paths:
           required: true
           description: The ID or name of the tag.
           schema:
-            type:
-              - number
-              - string
+            type: integer
       responses:
         '200':
           description: Success
@@ -8459,7 +8444,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Tag'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit Tag
       operationId: editTag
@@ -8490,11 +8475,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/tags/{id}/correction.json':
     post:
       summary: Correct Tag
@@ -8526,9 +8511,9 @@ paths:
         '302':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /tags/preview.json:
     get:
       summary: Preview Tags
@@ -8555,9 +8540,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/TagPreview'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /tag_type_versions.json:
     get:
       summary: Search Tag Versions
@@ -8700,7 +8685,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/TagAlias'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit Tag Alias
       operationId: editTagAlias
@@ -8732,11 +8717,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Reject Tag Alias
       operationId: rejectTagAlias
@@ -8756,9 +8741,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/tag_aliases/{id}/approve.json':
     post:
       summary: Approve Tag Alias
@@ -8779,11 +8764,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   /tag_alias_requests.json:
     post:
       summary: Create Tag Alias
@@ -8816,7 +8801,7 @@ paths:
         '302':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '406':
           description: Failure
   /tag_implications.json:
@@ -8920,7 +8905,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/TagImplication'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit Tag Implication
       operationId: editTagImplication
@@ -8952,11 +8937,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Reject Tag Implication
       operationId: rejectTagImplication
@@ -8976,9 +8961,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/tag_implications/{id}/approve.json':
     post:
       summary: Approve Tag Implication
@@ -8999,11 +8984,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   /tag_implication_requests.json:
     post:
       summary: Create Tag Implication
@@ -9036,7 +9021,7 @@ paths:
         '302':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '406':
           description: Failure
   /related_tag/bulk.json:
@@ -9063,19 +9048,14 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/BulkRelatedTag'
                 example:
                   - male:
                       - name: male
                         count: 0
                         category_id: 0
-                patternProperties:
-                  ^.+$:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/BulkRelatedTag'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
   /takedowns.json:
     get:
       summary: Search Takedowns
@@ -9222,9 +9202,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Takedown'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/takedowns/{id}.json':
     get:
       summary: Get Takedown
@@ -9246,7 +9226,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Takedown'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit Takedown
       operationId: editTakedown
@@ -9283,11 +9263,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Delete Takedown
       operationId: deleteTakedown
@@ -9307,9 +9287,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/takedowns/{id}/add_by_ids.json':
     post:
       summary: Add Posts To Takedown By IDs
@@ -9354,9 +9334,9 @@ paths:
                     items:
                       type: integer
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/takedowns/{id}/add_by_tags.json':
     post:
       summary: Add Posts To Takedown By Tags
@@ -9401,9 +9381,9 @@ paths:
                     items:
                       type: integer
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/takedowns/{id}/count_matching_posts.json':
     post:
       summary: Count Matching Posts
@@ -9443,9 +9423,9 @@ paths:
                   matched_post_count:
                     type: integer
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/takedowns/{id}/remove_by_ids.json':
     post:
       summary: Remove Posts From Takedown By IDs
@@ -9476,9 +9456,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /tickets.json:
     get:
       summary: Search Tickets
@@ -9558,7 +9538,7 @@ paths:
                         type: array
                         maxItems: 0
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
   '/tickets/{id}.json':
     get:
       summary: Get Ticket
@@ -9583,9 +9563,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Ticket'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit Ticket
       operationId: editTicket
@@ -9625,9 +9605,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/tickets/{id}/claim.json':
     post:
       summary: Claim Ticket
@@ -9652,9 +9632,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Ticket'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/tickets/{id}/unclaim.json':
     post:
       summary: Unclaim Ticket
@@ -9679,9 +9659,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Ticket'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /uploads.json:
     get:
       summary: Search Uploads
@@ -9837,9 +9817,9 @@ paths:
                   post_id:
                     type: integer
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '412':
-          $ref: '#/components/responses/ExpectedError'
+          $ref: '#/components/responses/MessageError'
   /upload_whitelists.json:
     get:
       summary: Search Upload Whitelists
@@ -9922,9 +9902,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/UploadWhitelist'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/upload_whitelists/{id}.json':
     patch:
       summary: Edit Upload Whitelist
@@ -9960,11 +9940,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Delete Upload Whitelist
       operationId: deleteUploadWhitelist
@@ -9984,9 +9964,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/upload_whitelists/{id}/is_allowed.json':
     get:
       summary: Check If URL Is Allowed
@@ -10028,11 +10008,11 @@ paths:
                   reason:
                     type: string
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   /users.json:
     get:
       summary: Search Users
@@ -10126,7 +10106,7 @@ paths:
                   - $ref: '#/components/schemas/FullUser'
                   - $ref: '#/components/schemas/FullCurrentUser'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit Current User
       operationId: editCurrentUser
@@ -10212,9 +10192,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   /users/upload_limit.json:
     get:
       summary: Get Current User
@@ -10234,7 +10214,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CurrentUser'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
   /maintenance/user/count_fixes.json:
     post:
       summary: Fix User Counts
@@ -10247,7 +10227,7 @@ paths:
         '302':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
   /maintenance/user/dmail_filter.json:
     patch:
       summary: Update User Dmail Filter
@@ -10277,7 +10257,7 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
   /user_feedbacks.json:
     get:
       summary: Search User Feedbacks
@@ -10380,9 +10360,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/UserFeedback'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/user_feedbacks/{id}.json':
     get:
       summary: Get User Feedback
@@ -10405,9 +10385,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/UserFeedback'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit User Feedback
       operationId: editUserFeedback
@@ -10437,11 +10417,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Destroy User Feedback
       operationId: destroyUserFeedback
@@ -10461,9 +10441,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/user_feedbacks/{id}/delete.json':
     put:
       summary: Delete User Feedback
@@ -10484,9 +10464,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/user_feedbacks/{id}/undelete.json':
     put:
       summary: Undelete User Feedback
@@ -10507,9 +10487,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /user_name_change_requests.json:
     get:
       summary: Search User Name Change Requests
@@ -10588,9 +10568,9 @@ paths:
         '302':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/user_name_change_requests/{id}.json':
     get:
       summary: Get User Name Change Request
@@ -10615,9 +10595,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/UserNameChangeRequest'
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /wiki_pages.json:
     get:
       summary: Search Wiki Pages
@@ -10728,9 +10708,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/WikiPage'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/wiki_pages/{id}.json':
     get:
       summary: Get Wiki Page
@@ -10752,7 +10732,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/WikiPage'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     patch:
       summary: Edit Wiki Page
       operationId: editWikiPage
@@ -10797,11 +10777,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
     delete:
       summary: Delete Wiki Page
       operationId: deleteWikiPage
@@ -10821,9 +10801,9 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   '/wiki_page/{id}/revert.json':
     put:
       summary: Revert Wiki Page
@@ -10849,11 +10829,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   /wiki_page_versions.json:
     get:
       summary: Search Wiki Page Versions
@@ -10940,7 +10920,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/WikiPageVersion'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /admin/users/alt_list.json:
     get:
       summary: Get Alt List
@@ -10973,11 +10953,6 @@ paths:
                       items:
                         type: integer
                         description: ID of suspected alt.
-                examples:
-                  - - - 1
-                      - - 2
-                    - - 2
-                      - - 1
   '/admins/users/{id}.json':
     patch:
       summary: Admin Edit User
@@ -11031,13 +11006,13 @@ paths:
         '204':
           description: Success
         '400':
-          $ref: '#/components/responses/ExpectedError'
-        '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
           $ref: '#/components/responses/MessageError'
-        '422':
+        '403':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/moderator/post/posts/{id}/delete.json':
     post:
       summary: Delete Post
@@ -11081,11 +11056,11 @@ paths:
         '302':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/moderator/post/posts/{id}/undelete.json':
     post:
       summary: Undelete Post
@@ -11115,11 +11090,11 @@ paths:
                   post:
                     $ref: '#/components/schemas/Post'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/moderator/post/posts/{id}/regenerate_thumbnails.json':
     post:
       summary: Regenerate Post Thumbnails
@@ -11149,11 +11124,11 @@ paths:
                   post:
                     $ref: '#/components/schemas/Post'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/moderator/post/posts/{id}/regenerate_videos.json':
     post:
       summary: Regenerate Post Videos
@@ -11174,11 +11149,11 @@ paths:
         '204':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/moderator/post/posts/{id}/expunge.json':
     post:
       summary: Expunge Post
@@ -11216,11 +11191,11 @@ paths:
                   post:
                     $ref: '#/components/schemas/Post'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '404':
-          $ref: '#/components/responses/MessageError'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   '/moderator/post/posts/{id}/move_favorites.json':
     post:
       summary: Move Post Favorites
@@ -11254,9 +11229,9 @@ paths:
         '302':
           description: Success
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /moderator/post/approval.json:
     post:
       summary: Approve Post
@@ -11283,9 +11258,9 @@ paths:
         '204':
           description: Failure
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
     delete:
       summary: Unapprove Post
       operationId: unapprovePost
@@ -11309,9 +11284,9 @@ paths:
         '204':
           description: Success/Failure
         '403':
-          $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          $ref: '#/components/responses/MessageError'
+          $ref: '#/components/responses/NotFound'
   /moderator/post/disapprovals.json:
     get:
       summary: Search Post Disapprovals
@@ -11415,6 +11390,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/PostDisapproval'
         '403':
-          $ref: '#/components/responses/NotFound'
-        '422':
           $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'

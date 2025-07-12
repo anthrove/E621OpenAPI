@@ -9,9 +9,6 @@ content:
         - { "errors": { "key": [ "the error" ] } }
       properties:
         errors:
-          type: object
-          patternProperties:
-            "^[a-z]+$":
-              type: array
-              items:
-                type: string
+          type: array
+          items:
+            type: string
