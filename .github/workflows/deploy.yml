@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - uses: actions/setup-node@v4
         with:
-          version: latest
+          node-version: latest
       - name: Install Dependencies
-        run: pnpm i --frozen-lockfile --ignore-scripts
+        run: npm ci --ignore-scripts
       - name: Build
-        run: pnpm run build:production
+        run: npm run build:production
       - name: Upload Build
         uses: actions/upload-pages-artifact@v3
         with:
