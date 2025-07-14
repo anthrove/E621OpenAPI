@@ -63,6 +63,11 @@ parameters:
     schema:
       type: string
   - in: query
+    name: search[creator_logged_in]
+    description: Must be Moderator+ to use.
+    schema:
+      type: boolean
+  - in: query
     description: Must be Admin+ to use.
     name: search[email]
     schema:
