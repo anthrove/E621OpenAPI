@@ -1,0 +1,20 @@
+summary: Get Tag Alias
+operationId: getTagAlias
+tags:
+  - Tag Aliases
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the tag alias.
+    schema:
+      type: integer
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/tagAlias.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

@@ -1,0 +1,66 @@
+summary: Search Wiki Pages
+operationId: searchWikiPages
+tags:
+  - Wiki Pages
+parameters:
+  - $ref: "../../components/parameters/limit.yaml"
+  - $ref: "../../components/parameters/page.yaml"
+  - $ref: "../../components/parameters/id.yaml"
+  - name: search[order]
+    in: query
+    schema:
+      type: string
+      enum:
+        - id_asc
+        - id_desc
+        - title
+        - post_count
+  - in: query
+    name: search[title]
+    schema:
+      type: string
+  - in: query
+    name: search[title_matches]
+    schema:
+      type: string
+  - in: query
+    name: search[body_matches]
+    schema:
+      type: string
+  - in: query
+    name: search[other_names_match]
+    schema:
+      type: string
+  - in: query
+    name: search[creator_id]
+    schema:
+      type: integer
+  - in: query
+    name: search[creator_name]
+    schema:
+      type: string
+  - in: query
+    name: search[parent]
+    schema:
+      type: string
+  - in: query
+    name: search[other_names_present]
+    schema:
+      type: boolean
+  - in: query
+    name: search[is_locked]
+    schema:
+      type: boolean
+  - in: query
+    name: search[is_deleted]
+    schema:
+      type: boolean
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: "../../components/schemas/wikiPage.yaml"

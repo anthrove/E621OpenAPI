@@ -1,0 +1,20 @@
+summary: Get Wiki Page
+operationId: getWikiPage
+tags:
+  - Wiki Pages
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID or name of the wiki page.
+    schema:
+      type: integer
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/wikiPage.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

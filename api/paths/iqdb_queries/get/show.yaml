@@ -1,0 +1,37 @@
+summary: Query IQDB
+operationId: queryIQDBGet
+tags:
+  - IQDB
+parameters:
+  - name: search[score_cutoff]
+    in: query
+    schema:
+      type: number
+  - name: search[url]
+    in: query
+    schema:
+      type: string
+  - name: search[post_id]
+    in: query
+    schema:
+      type: integer
+  - name: search[hash]
+    in: query
+    schema:
+      type: string
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - posts
+          properties:
+            posts:
+              type: array
+              items:
+                $ref: "../../../components/schemas/iqdbResponse.yaml"
+  403:
+    $ref: "../../../components/responses/accessDenied.yaml"

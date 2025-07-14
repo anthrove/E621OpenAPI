@@ -1,0 +1,21 @@
+summary: Delete DMail
+operationId: deleteDMail
+tags:
+  - DMails
+security:
+  - basicAuth: []
+description: Deleting simply hides your copy of the dmail.
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the dmail.
+    schema:
+      type: integer
+responses:
+  204:
+    description: Success
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

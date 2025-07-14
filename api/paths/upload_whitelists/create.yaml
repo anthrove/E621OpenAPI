@@ -1,0 +1,37 @@
+summary: Create Upload Whitelist
+operationId: createUploadWhitelist
+tags:
+  - Upload Whitelists
+security:
+  - basicAuth: []
+description: You must be Admin+.
+requestBody:
+  content:
+    application/x-www-form-urlencoded:
+      schema:
+        type: object
+        required:
+          - upload_whitelist[allowed]
+          - upload_whitelist[pattern]
+        properties:
+          upload_whitelist[allowed]:
+            type: string
+          upload_whitelist[pattern]:
+            type: string
+          upload_whitelist[reason]:
+            type: string
+          upload_whitelist[note]:
+            type: string
+          upload_whitelist[hidden]:
+            type: boolean
+responses:
+  201:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/uploadWhitelist.yaml"
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  422:
+    $ref: "../../components/responses/expectedError.yaml"

@@ -1,0 +1,20 @@
+summary: Get Takedown
+operationId: getTakedown
+tags:
+  - Takedowns
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the takedown.
+    schema:
+      type: integer
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/takedown.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

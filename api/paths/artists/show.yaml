@@ -1,0 +1,34 @@
+summary: Get Artist
+operationId: getArtist
+tags:
+  - Artists
+parameters:
+  - $ref: "../../components/parameters/idOrName.yaml"
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          allOf:
+            - $ref: "../../components/schemas/artist.yaml"
+            - type: object
+              required:
+                - domains
+                - urls
+              properties:
+                domains:
+                  type: array
+                  items:
+                    type: array
+                    example: [["e621.net", 1]]
+                    items:
+                      anyOf:
+                        - type: string
+                        - type: number
+                urls:
+                  type: array
+                  items:
+                    $ref: "../../components/schemas/artistUrl.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://json.schemastore.org/yamllint.json
 openapi: "3.0.0"
 info:
   title: "E621"
@@ -39,8 +40,8 @@ components:
     ip_addr:
       $ref: "./components/parameters/ipAddr.yaml"
   schemas:
-    ModactionActions:
-      $ref: "./components/schemas/modactionActions.yaml"
+    ModActionActions:
+      $ref: "./components/schemas/modActionActions.yaml"
     PostEventActions:
       $ref: "./components/schemas/postEventActions.yaml"
     Ratings:
@@ -186,360 +187,662 @@ components:
 
 paths:
   /artists.json:
-    $ref: "./paths/artists/artists.yaml"
+    get:
+      $ref: "./paths/artists/index.yaml"
+    post:
+      $ref: "./paths/artists/create.yaml"
   /artists/{idOrName}.json:
-    $ref: "./paths/artists/idOrName.yaml"
+    get:
+      $ref: "./paths/artists/show.yaml"
+    patch:
+      $ref: "./paths/artists/update.yaml"
+    delete:
+      $ref: "./paths/artists/destroy.yaml"
   /artists/{idOrName}/revert.json:
-    $ref: "./paths/artists/idOrNameRevert.yaml"
+    put:
+      $ref: "./paths/artists/revert.yaml"
 
   /artist_versions.json:
-    $ref: "./paths/artists/version.yaml"
+    get:
+      $ref: "./paths/artist_versions/index.yaml"
   /artist_urls.json:
-    $ref: "./paths/artists/urls.yaml"
+    get:
+      $ref: "./paths/artist_urls/index.yaml"
 
   /avoid_postings.json:
-    $ref: "./paths/avoidPosting/avoid_postings.yaml"
+    get:
+      $ref: "./paths/avoid_postings/index.yaml"
+    post:
+      $ref: "./paths/avoid_postings/create.yaml"
   /avoid_postings/{idOrName}.json:
-    $ref: "./paths/avoidPosting/idOrArtistName.yaml"
+    get:
+      $ref: "./paths/avoid_postings/show.yaml"
+    patch:
+      $ref: "./paths/avoid_postings/update.yaml"
+    delete:
+      $ref: "./paths/avoid_postings/destroy.yaml"
   /avoid_postings/{idOrName}/delete.json:
-    $ref: "./paths/avoidPosting/idOrArtistNameDelete.yaml"
+    put:
+      $ref: "./paths/avoid_postings/delete.yaml"
   /avoid_postings/{idOrName}/undelete.json:
-    $ref: "./paths/avoidPosting/idOrArtistNameUnDelete.yaml"
+    put:
+      $ref: "./paths/avoid_postings/undelete.yaml"
   /avoid_posting_versions.json:
-    $ref: "./paths/avoidPosting/versions.yaml"
+    get:
+      $ref: "./paths/avoid_posting_versions/index.yaml"
 
   /bans.json:
-    $ref: "./paths/bans/bans.yaml"
+    get:
+      $ref: "./paths/bans/index.yaml"
   /bans/{id}.json:
-    $ref: "./paths/bans/id.yaml"
+    get:
+      $ref: "./paths/bans/show.yaml"
 
   /blips.json:
-    $ref: "./paths/blips/blips.yaml"
+    get:
+      $ref: "./paths/blips/index.yaml"
+    post:
+      $ref: "./paths/blips/create.yaml"
   /blips/{id}.json:
-    $ref: "./paths/blips/id.yaml"
+    get:
+      $ref: "./paths/blips/show.yaml"
+    patch:
+      $ref: "./paths/blips/update.yaml"
+    delete:
+      $ref: "./paths/blips/destroy.yaml"
   /blips/{id}/hide.json:
-    $ref: "./paths/blips/hide.yaml"
+    post:
+      $ref: "./paths/blips/hide.yaml"
   /blips/{id}/unhide.json:
-    $ref: "./paths/blips/unhide.yaml"
+    post:
+      $ref: "./paths/blips/unhide.yaml"
   /blips/{id}/warning.json:
-    $ref: "./paths/blips/warning.yaml"
+    post:
+      $ref: "./paths/blips/warning.yaml"
 
   /bulk_update_requests.json:
-    $ref: "./paths/bulkUpdateRequests/bulkUpdateRequests.yaml"
+    get:
+      $ref: "./paths/bulk_update_requests/index.yaml"
+    post:
+      $ref: "./paths/bulk_update_requests/create.yaml"
   /bulk_update_request/{id}.json:
-    $ref: "./paths/bulkUpdateRequests/id.yaml"
+    get:
+      $ref: "./paths/bulk_update_requests/show.yaml"
+    patch:
+      $ref: "./paths/bulk_update_requests/update.yaml"
+    delete:
+      $ref: "./paths/bulk_update_requests/destroy.yaml"
   /bulk_update_request/{id}/approve.json:
-    $ref: "./paths/bulkUpdateRequests/approve.yaml"
+    post:
+      $ref: "./paths/bulk_update_requests/approve.yaml"
 
   /comments.json:
-    $ref: "./paths/comments/comments.yaml"
+    get:
+      $ref: "./paths/comments/index.yaml"
+    post:
+      $ref: "./paths/comments/create.yaml"
   /comments/{id}.json:
-    $ref: "./paths/comments/id.yaml"
+    get:
+      $ref: "./paths/comments/show.yaml"
+    patch:
+      $ref: "./paths/comments/update.yaml"
+    delete:
+      $ref: "./paths/comments/destroy.yaml"
   /comments/{id}/hide.json:
-    $ref: "./paths/comments/hide.yaml"
+    post:
+      $ref: "./paths/comments/hide.yaml"
   /comments/{id}/unhide.json:
-    $ref: "./paths/comments/unhide.yaml"
+    post:
+      $ref: "./paths/comments/unhide.yaml"
   /comments/{id}/warning.json:
-    $ref: "./paths/comments/warning.yaml"
+    post:
+      $ref: "./paths/comments/warning.yaml"
 
   /comments/{id}/votes.json:
-    $ref: "./paths/comments/votes.yaml"
+    post:
+      $ref: "./paths/comments/votes/create.yaml"
+    delete:
+      $ref: "./paths/comments/votes/destroy.yaml"
   /comment_votes/lock.json:
-    $ref: "./paths/comments/votesLock.yaml"
+    post:
+      $ref: "./paths/comment_votes/lock.yaml"
   /comment_votes/delete.json:
-    $ref: "./paths/comments/votesDelete.yaml"
+    post:
+      $ref: "./paths/comment_votes/delete.yaml"
 
   /dmails.json:
-    $ref: "./paths/dmails/dmails.yaml"
+    get:
+      $ref: "./paths/dmails/index.yaml"
   /dmails/{id}.json:
-    $ref: "./paths/dmails/id.yaml"
+    get:
+      $ref: "./paths/dmails/show.yaml"
+    delete:
+      $ref: "./paths/dmails/destroy.yaml"
   /dmails/{id}/mark_as_read.json:
-    $ref: "./paths/dmails/markAsRead.yaml"
+    put:
+      $ref: "./paths/dmails/mark_as_read.yaml"
   /dmails/{id}/mark_as_unread.json:
-    $ref: "./paths/dmails/markAsUnread.yaml"
-  /dmails/mark_all_as_unread.json:
-    $ref: "./paths/dmails/markAllAsUnread.yaml"
+    put:
+      $ref: "./paths/dmails/mark_as_unread.yaml"
+  /dmails/mark_all_as_read.json:
+    put:
+      $ref: "./paths/dmails/mark_all_as_read.yaml"
 
   /dtext_preview.json:
-    $ref: "./paths/dtext/preview.yaml"
+    post:
+      $ref: "./paths/dtext_preview/index.yaml"
 
   /email_blacklists.json:
-    $ref: "./paths/emailBlacklists/emailBlacklists.yaml"
+    get:
+      $ref: "./paths/email_blacklists/index.yaml"
+    post:
+      $ref: "./paths/email_blacklists/create.yaml"
   /email_blacklists/{id}.json:
-    $ref: "./paths/emailBlacklists/id.yaml"
+    delete:
+      $ref: "./paths/email_blacklists/destroy.yaml"
 
   /favorites.json:
-    $ref: "./paths/favorites/favorites.yaml"
+    get:
+      $ref: "./paths/favorites/index.yaml"
+    post:
+      $ref: "./paths/favorites/create.yaml"
   /favorites/{id}.json:
-    $ref: "./paths/favorites/id.yaml"
+    delete:
+      $ref: "./paths/favorites/destroy.yaml"
 
   /forum_posts.json:
-    $ref: "./paths/forum/post.yaml"
+    get:
+      $ref: "./paths/forum_posts/index.yaml"
+    post:
+      $ref: "./paths/forum_posts/create.yaml"
   /forum_posts/{id}.json:
-    $ref: "./paths/forum/id.yaml"
+    get:
+      $ref: "./paths/forum_posts/show.yaml"
+    patch:
+      $ref: "./paths/forum_posts/update.yaml"
+    delete:
+      $ref: "./paths/forum_posts/destroy.yaml"
   /forum_posts/{id}/hide.json:
-    $ref: "./paths/forum/hide.yaml"
+    post:
+      $ref: "./paths/forum_posts/hide.yaml"
   /forum_posts/{id}/unhide.json:
-    $ref: "./paths/forum/unhide.yaml"
+    post:
+      $ref: "./paths/forum_posts/unhide.yaml"
   /forum_posts/{id}/warning.json:
-    $ref: "./paths/forum/warning.yaml"
+    post:
+      $ref: "./paths/forum_posts/warning.yaml"
 
   /forum_posts/{id}/votes.json:
-    $ref: "./paths/forum/votes.yaml"
+    post:
+      $ref: "./paths/forum_posts/votes/create.yaml"
+    delete:
+      $ref: "./paths/forum_posts/votes/destroy.yaml"
 
   /forum_topics.json:
-    $ref: "./paths/forumTopics/forumTopics.yaml"
+    get:
+      $ref: "./paths/forum_topics/index.yaml"
+    post:
+      $ref: "./paths/forum_topics/create.yaml"
   /forum_topics/{id}.json:
-    $ref: "./paths/forumTopics/id.yaml"
+    get:
+      $ref: "./paths/forum_topics/show.yaml"
+    patch:
+      $ref: "./paths/forum_topics/update.yaml"
+    delete:
+      $ref: "./paths/forum_topics/destroy.yaml"
   /forum_topics/{id}/hide.json:
-    $ref: "./paths/forumTopics/hide.yaml"
+    post:
+      $ref: "./paths/forum_topics/hide.yaml"
   /forum_topics/{id}/unhide.json:
-    $ref: "./paths/forumTopics/unhide.yaml"
+    post:
+      $ref: "./paths/forum_topics/unhide.yaml"
   /forum_topics/{id}/subscribe.json:
-    $ref: "./paths/forumTopics/subscribe.yaml"
+    post:
+      $ref: "./paths/forum_topics/subscribe.yaml"
   /forum_topics/{id}/unsubscribe.json:
-    $ref: "./paths/forumTopics/unsubscribe.yaml"
+    post:
+      $ref: "./paths/forum_topics/unsubscribe.yaml"
   /forum_topics/mark_all_as_read.json:
-    $ref: "./paths/forumTopics/markAllAsRead.yaml"
+    post:
+      $ref: "./paths/forum_topics/mark_all_as_read.yaml"
 
   /help.json:
-    $ref: "./paths/help/help.yaml"
+    get:
+      $ref: "./paths/help/index.yaml"
+    post:
+      $ref: "./paths/help/create.yaml"
   /help/{id}.json:
-    $ref: "./paths/help/id.yaml"
+    get:
+      $ref: "./paths/help/show.yaml"
+    patch:
+      $ref: "./paths/help/update.yaml"
+    delete:
+      $ref: "./paths/help/destroy.yaml"
 
   /ip_bans.json:
-    $ref: "./paths/ipBans/ipBan.yaml"
+    get:
+      $ref: "./paths/ip_bans/index.yaml"
+    post:
+      $ref: "./paths/ip_bans/create.yaml"
   /ip_bans/{id}.json:
-    $ref: "./paths/ipBans/id.yaml"
+    delete:
+      $ref: "./paths/ip_bans/destroy.yaml"
 
   /iqdb_queries.json:
-    $ref: "./paths/iqdb/queries.yaml"
+    get:
+      $ref: "./paths/iqdb_queries/get/show.yaml"
+    post:
+      $ref: "./paths/iqdb_queries/post/show.yaml"
 
   /mascots.json:
-    $ref: "./paths/mascots/mascots.yaml"
+    get:
+      $ref: "./paths/mascots/index.yaml"
+    post:
+      $ref: "./paths/mascots/create.yaml"
   /mascots/{id}.json:
-    $ref: "./paths/mascots/id.yaml"
+    patch:
+      $ref: "./paths/mascots/update.yaml"
+    delete:
+      $ref: "./paths/mascots/destroy.yaml"
 
   /mod_actions.json:
-    $ref: "./paths/modActions/id.yaml"
+    get:
+      $ref: "./paths/mod_actions/index.yaml"
+  /mod_actions/{id}.json:
+    get:
+      $ref: "./paths/mod_actions/show.yaml"
 
   /news_updates.json:
-    $ref: "./paths/newsUpdates/newsUpdate.yaml"
+    get:
+      $ref: "./paths/news_updates/index.yaml"
+    post:
+      $ref: "./paths/news_updates/create.yaml"
   /news_updates/{id}.json:
-    $ref: "./paths/newsUpdates/id.yaml"
+    patch:
+      $ref: "./paths/news_updates/update.yaml"
+    delete:
+      $ref: "./paths/news_updates/destroy.yaml"
 
   /notes.json:
-    $ref: "./paths/notes/note.yaml"
+    get:
+      $ref: "./paths/notes/index.yaml"
+    post:
+      $ref: "./paths/notes/create.yaml"
   /notes/{id}.json:
-    $ref: "./paths/notes/id.yaml"
+    get:
+      $ref: "./paths/notes/show.yaml"
+    patch:
+      $ref: "./paths/notes/update.yaml"
+    delete:
+      $ref: "./paths/notes/destroy.yaml"
   /notes/{id}/revert.json:
-    $ref: "./paths/notes/revert.yaml"
+    post:
+      $ref: "./paths/notes/revert.yaml"
   /note_versions.json:
-    $ref: "./paths/notes/versions.yaml"
+    get:
+      $ref: "./paths/note_versions/index.yaml"
 
   /pools.json:
-    $ref: "./paths/pools/pool.yaml"
+    get:
+      $ref: "./paths/pools/index.yaml"
+    post:
+      $ref: "./paths/pools/create.yaml"
   /pools/{id}.json:
-    $ref: "./paths/pools/id.yaml"
+    get:
+      $ref: "./paths/pools/show.yaml"
+    patch:
+      $ref: "./paths/pools/update.yaml"
+    delete:
+      $ref: "./paths/pools/destroy.yaml"
   /pools/{id}/revert.json:
-    $ref: "./paths/pools/revert.yaml"
+    put:
+      $ref: "./paths/pools/revert.yaml"
   /pool_element.js:
-    $ref: "./paths/pools/elementJs.yaml"
+    post:
+      $ref: "./paths/pool_elements/create.yaml"
   /pool_element.json:
-    $ref: "./paths/pools/element.yaml"
+    delete:
+      $ref: "./paths/pool_elements/destroy.yaml"
   /pool_versions.json:
-    $ref: "./paths/pools/version.yaml"
+    get:
+      $ref: "./paths/pool_versions/index.yaml"
 
   /popular.json:
-    $ref: "./paths/popular/popular.yaml"
+    get:
+      $ref: "./paths/popular/index.yaml"
 
   /posts.json:
-    $ref: "./paths/posts/posts.yaml"
+    get:
+      $ref: "./paths/posts/index.yaml"
   /posts/{id}.json:
-    $ref: "./paths/posts/id.yaml"
+    get:
+      $ref: "./paths/posts/show.yaml"
+    patch:
+      $ref: "./paths/posts/update.yaml"
   /posts/{id}/update_iqdb.json:
-    $ref: "./paths/posts/updateIqdb.yaml"
+    get:
+      $ref: "./paths/posts/update_iqdb.yaml"
   /posts/{id}/mark_as_translated.json:
-    $ref: "./paths/posts/markAsTranslated.yaml"
+    post:
+      $ref: "./paths/posts/mark_as_translated.yaml"
   /posts/{id}/copy_notes.json:
-    $ref: "./paths/posts/copyNotes.yaml"
+    put:
+      $ref: "./paths/posts/copy_notes.yaml"
   /posts/{id}/revert.json:
-    $ref: "./paths/posts/revert.yaml"
+    post:
+      $ref: "./paths/posts/revert.yaml"
   /posts/{id}/show_seq.json:
-    $ref: "./paths/posts/showSeq.yaml"
+    get:
+      $ref: "./paths/posts/show_seq.yaml"
   /posts/{id}/flag.json:
-    $ref: "./paths/posts/flag.yaml"
+    delete:
+      $ref: "./paths/posts/flag/destroy.yaml"
   /posts/random.json:
-    $ref: "./paths/posts/random.yaml"
+    get:
+      $ref: "./paths/posts/random.yaml"
+  /posts/{id}/votes.json:
+    post:
+      $ref: "./paths/posts/votes/create.yaml"
+    delete:
+      $ref: "./paths/posts/votes/destroy.yaml"
 
   /post_sets.json:
-    $ref: "./paths/postsSets/postSets.yaml"
+    get:
+      $ref: "./paths/post_sets/index.yaml"
+    post:
+      $ref: "./paths/post_sets/create.yaml"
   /post_sets/{id}.json:
-    $ref: "./paths/postsSets/id.yaml"
+    get:
+      $ref: "./paths/post_sets/show.yaml"
+    patch:
+      $ref: "./paths/post_sets/update.yaml"
+    delete:
+      $ref: "./paths/post_sets/destroy.yaml"
   /post_sets/{id}/update_posts.json:
-    $ref: "./paths/postsSets/update.yaml"
+    post:
+      $ref: "./paths/post_sets/update_posts.yaml"
   /post_sets/{id}/add_posts.json:
-    $ref: "./paths/postsSets/add.yaml"
+    post:
+      $ref: "./paths/post_sets/add_posts.yaml"
   /post_sets/{id}/remove_posts.json:
-    $ref: "./paths/postsSets/remove.yaml"
+    post:
+      $ref: "./paths/post_sets/remove_posts.yaml"
   /post_sets/for_select.json:
-    $ref: "./paths/postsSets/select.yaml"
+    get:
+      $ref: "./paths/post_sets/for_select.yaml"
 
   /post_approvals.json:
-    $ref: "./paths/postApprovals/postApprovals.yaml"
+    get:
+      $ref: "./paths/post_approvals/index.yaml"
   /post_events.json:
-    $ref: "./paths/postEvents/postEvents.yaml"
+    get:
+      $ref: "./paths/post_events/index.yaml"
 
   /post_flags.json:
-    $ref: "./paths/postFlags/postFlags.yaml"
+    get:
+      $ref: "./paths/post_flags/index.yaml"
+    post:
+      $ref: "./paths/post_flags/create.yaml"
   /post_flags/{id}.json:
-    $ref: "./paths/postFlags/id.yaml"
+    get:
+      $ref: "./paths/post_flags/show.yaml"
 
   /post_replacements.json:
-    $ref: "./paths/postReplacements/postReplacements.yaml"
+    get:
+      $ref: "./paths/post_replacements/index.yaml"
+    post:
+      $ref: "./paths/post_replacements/create.yaml"
   /post_replacements/{id}.json:
-    $ref: "./paths/postReplacements/id.yaml"
+    delete:
+      $ref: "./paths/post_replacements/destroy.yaml"
   /post_replacements/{id}/approve.json:
-    $ref: "./paths/postReplacements/approve.yaml"
+    put:
+      $ref: "./paths/post_replacements/approve.yaml"
   /post_replacements/{id}/reject.json:
-    $ref: "./paths/postReplacements/reject.yaml"
+    put:
+      $ref: "./paths/post_replacements/reject.yaml"
   /post_replacements/{id}/promote.json:
-    $ref: "./paths/postReplacements/promote.yaml"
+    post:
+      $ref: "./paths/post_replacements/promote.yaml"
   /post_replacements/{id}/toggle_penalize.json:
-    $ref: "./paths/postReplacements/togglePenalize.yaml"
+    put:
+      $ref: "./paths/post_replacements/toggle_penalize.yaml"
 
   /post_versions.json:
-    $ref: "./paths/postVersions/postVersions.yaml"
+    get:
+      $ref: "./paths/post_versions/index.yaml"
 
-  /posts/{id}/votes.json:
-    $ref: "./paths/postVotes/votes.yaml"
   /post_votes/lock.json:
-    $ref: "./paths/postVotes/lock.yaml"
+    post:
+      $ref: "./paths/post_votes/lock.yaml"
   /post_votes/delete.json:
-    $ref: "./paths/postVotes/delete.yaml"
+    post:
+      $ref: "./paths/post_votes/delete.yaml"
 
   /tags.json:
-    $ref: "./paths/tags/tags.yaml"
+    get:
+      $ref: "./paths/tags/index.yaml"
   /tags/{id}.json:
-    $ref: "./paths/tags/id.yaml"
+    get:
+      $ref: "./paths/tags/show.yaml"
+    patch:
+      $ref: "./paths/tags/update.yaml"
   /tags/{id}/correction.json:
-    $ref: "./paths/tags/correction.yaml"
+    get:
+      $ref: "./paths/tag_corrections/show.yaml"
+    post:
+      $ref: "./paths/tag_corrections/create.yaml"
   /tags/preview.json:
-    $ref: "./paths/tags/preview.yaml"
+    get:
+      $ref: "./paths/tags/preview.yaml"
 
   /tag_type_versions.json:
-    $ref: "./paths/tagTypeVersion/tagTypeVersion.yaml"
+    get:
+      $ref: "./paths/tag_type_versions/index.yaml"
 
   /tag_aliases.json:
-    $ref: "./paths/tagAliases/tagAliases.yaml"
+    get:
+      $ref: "./paths/tag_aliases/index.yaml"
   /tag_aliases/{id}.json:
-    $ref: "./paths/tagAliases/id.yaml"
+    get:
+      $ref: "./paths/tag_aliases/show.yaml"
+    patch:
+      $ref: "./paths/tag_aliases/update.yaml"
+    delete:
+      $ref: "./paths/tag_aliases/destroy.yaml"
   /tag_aliases/{id}/approve.json:
-    $ref: "./paths/tagAliases/approve.yaml"
+    post:
+      $ref: "./paths/tag_aliases/approve.yaml"
   /tag_alias_requests.json:
-    $ref: "./paths/tagAliases/tagAliasRequests.yaml"
+    post:
+      $ref: "./paths/tag_alias_requests/create.yaml"
 
   /tag_implications.json:
-    $ref: "./paths/tagImplications/tagImplications.yaml"
+    get:
+      $ref: "./paths/tag_implications/index.yaml"
   /tag_implications/{id}.json:
-    $ref: "./paths/tagImplications/id.yaml"
+    get:
+      $ref: "./paths/tag_implications/show.yaml"
+    patch:
+      $ref: "./paths/tag_implications/update.yaml"
+    delete:
+      $ref: "./paths/tag_implications/destroy.yaml"
   /tag_implications/{id}/approve.json:
-    $ref: "./paths/tagImplications/approve.yaml"
+    post:
+      $ref: "./paths/tag_implications/approve.yaml"
   /tag_implication_requests.json:
-    $ref: "./paths/tagImplications/tagImplicationRequests.yaml"
+    post:
+      $ref: "./paths/tag_implication_requests/create.yaml"
 
   /related_tag/bulk.json:
-    $ref: "./paths/relatedTag/bulk.yaml"
+    post:
+      $ref: "./paths/related_tags/bulk.yaml"
 
   /takedowns.json:
-    $ref: "./paths/takedowns/takedowns.yaml"
+    get:
+      $ref: "./paths/takedowns/index.yaml"
+    post:
+      $ref: "./paths/takedowns/create.yaml"
   /takedowns/{id}.json:
-    $ref: "./paths/takedowns/id.yaml"
+    get:
+      $ref: "./paths/takedowns/show.yaml"
+    patch:
+      $ref: "./paths/takedowns/update.yaml"
+    delete:
+      $ref: "./paths/takedowns/destroy.yaml"
   /takedowns/{id}/add_by_ids.json:
-    $ref: "./paths/takedowns/addByIds.yaml"
+    post:
+      $ref: "./paths/takedowns/add_by_ids.yaml"
   /takedowns/{id}/add_by_tags.json:
-    $ref: "./paths/takedowns/addByTags.yaml"
+    post:
+      $ref: "./paths/takedowns/add_by_tags.yaml"
   /takedowns/{id}/count_matching_posts.json:
-    $ref: "./paths/takedowns/countMatchingPosts.yaml"
+    post:
+      $ref: "./paths/takedowns/count_matching_posts.yaml"
   /takedowns/{id}/remove_by_ids.json:
-    $ref: "./paths/takedowns/removeByIds.yaml"
+    post:
+      $ref: "./paths/takedowns/remove_by_ids.yaml"
 
   /tickets.json:
-    $ref: "./paths/tickets/tickets.yaml"
+    get:
+      $ref: "./paths/tickets/index.yaml"
   /tickets/{id}.json:
-    $ref: "./paths/tickets/id.yaml"
+    get:
+      $ref: "./paths/tickets/show.yaml"
+    patch:
+      $ref: "./paths/tickets/update.yaml"
   /tickets/{id}/claim.json:
-    $ref: "./paths/tickets/claim.yaml"
+    post:
+      $ref: "./paths/tickets/claim.yaml"
   /tickets/{id}/unclaim.json:
-    $ref: "./paths/tickets/unclaim.yaml"
+    post:
+      $ref: "./paths/tickets/unclaim.yaml"
 
   /uploads.json:
-    $ref: "./paths/uploads/uploads.yaml"
+    get:
+      $ref: "./paths/uploads/index.yaml"
+    post:
+      $ref: "./paths/uploads/create.yaml"
+  /uploads/{id}.json:
+    get:
+      $ref: "./paths/uploads/show.yaml"
 
   /upload_whitelists.json:
-    $ref: "./paths/uploadWhitelists/uploadWhitelists.yaml"
+    get:
+      $ref: "./paths/upload_whitelists/index.yaml"
+    post:
+      $ref: "./paths/upload_whitelists/create.yaml"
   /upload_whitelists/{id}.json:
-    $ref: "./paths/uploadWhitelists/id.yaml"
+    patch:
+      $ref: "./paths/upload_whitelists/update.yaml"
+    delete:
+      $ref: "./paths/upload_whitelists/destroy.yaml"
   /upload_whitelists/{id}/is_allowed.json:
-    $ref: "./paths/uploadWhitelists/isAllowed.yaml"
+    get:
+      $ref: "./paths/upload_whitelists/is_allowed.yaml"
 
   /users.json:
-    $ref: "./paths/users/users.yaml"
+    get:
+      $ref: "./paths/users/index.yaml"
   /users/{id}.json:
-    $ref: "./paths/users/id.yaml"
+    get:
+      $ref: "./paths/users/show.yaml"
+    patch:
+      $ref: "./paths/users/update.yaml"
   /users/upload_limit.json:
-    $ref: "./paths/users/uploadLimit.yaml"
+    get:
+      $ref: "./paths/users/upload_limit.yaml"
   /maintenance/user/count_fixes.json:
-    $ref: "./paths/users/countFixes.yaml"
+    post:
+      $ref: "./paths/maintenance/user/count_fixes/create.yaml"
   /maintenance/user/dmail_filter.json:
-    $ref: "./paths/users/dmailFilter.yaml"
+    patch:
+      $ref: "./paths/maintenance/user/dmail_filters/update.yaml"
 
   /user_feedbacks.json:
-    $ref: "./paths/userFeedbacks/userFeedbacks.yaml"
+    get:
+      $ref: "./paths/user_feedbacks/index.yaml"
+    post:
+      $ref: "./paths/user_feedbacks/create.yaml"
   /user_feedbacks/{id}.json:
-    $ref: "./paths/userFeedbacks/id.yaml"
+    get:
+      $ref: "./paths/user_feedbacks/show.yaml"
+    patch:
+      $ref: "./paths/user_feedbacks/update.yaml"
+    delete:
+      $ref: "./paths/user_feedbacks/destroy.yaml"
   /user_feedbacks/{id}/delete.json:
-    $ref: "./paths/userFeedbacks/delete.yaml"
+    put:
+      $ref: "./paths/user_feedbacks/delete.yaml"
   /user_feedbacks/{id}/undelete.json:
-    $ref: "./paths/userFeedbacks/undelete.yaml"
+    put:
+      $ref: "./paths/user_feedbacks/undelete.yaml"
 
   /user_name_change_requests.json:
-    $ref: "./paths/userNameChangeRequests/userNameChangeRequests.yaml"
+    get:
+      $ref: "./paths/user_name_change_requests/index.yaml"
+    post:
+      $ref: "./paths/user_name_change_requests/create.yaml"
   /user_name_change_requests/{id}.json:
-    $ref: "./paths/userNameChangeRequests/id.yaml"
+    get:
+      $ref: "./paths/user_name_change_requests/show.yaml"
 
   /wiki_pages.json:
-    $ref: "./paths/wikiPages/wikiPages.yaml"
+    get:
+      $ref: "./paths/wiki_pages/index.yaml"
+    post:
+      $ref: "./paths/wiki_pages/create.yaml"
   /wiki_pages/{id}.json:
-    $ref: "./paths/wikiPages/id.yaml"
+    get:
+      $ref: "./paths/wiki_pages/show.yaml"
+    patch:
+      $ref: "./paths/wiki_pages/update.yaml"
+    delete:
+      $ref: "./paths/wiki_pages/destroy.yaml"
   /wiki_page/{id}/revert.json:
-    $ref: "./paths/wikiPages/revert.yaml"
+    put:
+      $ref: "./paths/wiki_pages/revert.yaml"
 
   /wiki_page_versions.json:
-    $ref: "./paths/wikiPageVersions/wikiPageVersions.yaml"
+    get:
+      $ref: "./paths/wiki_page_versions/index.yaml"
   /wiki_page_versions/{id}.json:
-    $ref: "./paths/wikiPageVersions/id.yaml"
+    get:
+      $ref: "./paths/wiki_page_versions/show.yaml"
 
   /admin/users/alt_list.json:
-    $ref: "./paths/admin/altList.yaml"
+    get:
+      $ref: "./paths/admin/users/alt_list.yaml"
   /admins/users/{id}.json:
-    $ref: "./paths/admin/id.yaml"
+    patch:
+      $ref: "./paths/admin/users/update.yaml"
 
   /moderator/post/posts/{id}/delete.json:
-    $ref: "./paths/moderator/postDelete.yaml"
+    post:
+      $ref: "./paths/moderator/post/posts/delete.yaml"
   /moderator/post/posts/{id}/undelete.json:
-    $ref: "./paths/moderator/postundelete.yaml"
+    post:
+      $ref: "./paths/moderator/post/posts/undelete.yaml"
   /moderator/post/posts/{id}/regenerate_thumbnails.json:
-    $ref: "./paths/moderator/postRegenerateThumbnails.yaml"
+    post:
+      $ref: "./paths/moderator/post/posts/regenerate_thumbnails.yaml"
   /moderator/post/posts/{id}/regenerate_videos.json:
-    $ref: "./paths/moderator/postRegenerateVideos.yaml"
+    post:
+      $ref: "./paths/moderator/post/posts/regenerate_videos.yaml"
   /moderator/post/posts/{id}/expunge.json:
-    $ref: "./paths/moderator/postExpunge.yaml"
+    post:
+      $ref: "./paths/moderator/post/posts/expunge.yaml"
   /moderator/post/posts/{id}/move_favorites.json:
-    $ref: "./paths/moderator/postMoveFavorites.yaml"
+    post:
+      $ref: "./paths/moderator/post/posts/move_favorites.yaml"
   /moderator/post/approval.json:
-    $ref: "./paths/moderator/postApprovals.yaml"
+    post:
+      $ref: "./paths/moderator/post/approvals/create.yaml"
+    delete:
+      $ref: "./paths/moderator/post/approvals/destroy.yaml"
 
-  # Post Disapprovals
   /moderator/post/disapprovals.json:
-    $ref: "./paths/moderator/postDisapprovals.yaml"
+    get:
+      $ref: "./paths/moderator/post/disapprovals/index.yaml"
+    post:
+      $ref: "./paths/moderator/post/disapprovals/create.yaml"

@@ -1,0 +1,21 @@
+summary: Reject Tag Alias
+operationId: rejectTagAlias
+tags:
+  - Tag Aliases
+description: You must be the creator of the request (if pending), or Admin+.
+security:
+  - basicAuth: []
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the tag alias.
+    schema:
+      type: integer
+responses:
+  204:
+    description: Success
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

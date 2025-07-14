@@ -1,0 +1,66 @@
+summary: Search Post Disapprovals
+operationId: searchPostDisapprovals
+tags:
+  - Post Disapprovals
+security:
+  - basicAuth: []
+description: You must have the "Approve Posts" permission When no results are found, an object with a `post_disapprovals` key is returned.
+parameters:
+  - $ref: "../../../../components/parameters/limit.yaml"
+  - $ref: "../../../../components/parameters/page.yaml"
+  - $ref: "../../../../components/parameters/id.yaml"
+  - name: search[order]
+    in: query
+    schema:
+      type: string
+      enum:
+        - id_asc
+        - id_desc
+        - post_id
+        - post_id_desc
+  - in: query
+    name: search[creator_id]
+    schema:
+      type: integer
+  - in: query
+    name: search[creator_name]
+    schema:
+      type: string
+  - in: query
+    name: search[post_id]
+    schema:
+      type: integer
+  - in: query
+    name: search[message]
+    schema:
+      type: string
+  - in: query
+    name: search[post_tags_match]
+    schema:
+      type: string
+  - in: query
+    name: search[reason]
+    schema:
+      type: string
+  - in: query
+    name: search[has_message]
+    schema:
+      type: boolean
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          anyOf:
+            - type: array
+              items:
+                $ref: "../../../../components/schemas/postDisapproval.yaml"
+            - type: object
+              description: No Results
+              required:
+                - post_disapprovals
+              properties:
+                post_disapprovals:
+                  type: array
+                  maxItems: 0

@@ -1,0 +1,20 @@
+summary: Get Note
+operationId: getNote
+tags:
+  - Notes
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the note.
+    schema:
+      type: integer
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/note.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

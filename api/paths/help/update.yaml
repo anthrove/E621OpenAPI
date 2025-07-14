@@ -1,0 +1,38 @@
+summary: Edit Help Page
+operationId: editHelpPage
+tags:
+  - Help Pages
+security:
+  - basicAuth: []
+description: You must be Admin+
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the help page.
+    schema:
+      type: integer
+requestBody:
+  content:
+    application/x-www-form-urlencoded:
+      schema:
+        type: object
+        properties:
+          help_page[name]:
+            type: string
+          help_page[wiki_page]:
+            type: string
+          help_page[related]:
+            type: string
+            description: Separate with a comma followed by a space.
+          help_page[title]:
+            type: string
+responses:
+  204:
+    description: Success
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"
+  422:
+    $ref: "../../components/responses/expectedError.yaml"

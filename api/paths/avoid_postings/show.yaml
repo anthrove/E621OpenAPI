@@ -1,0 +1,15 @@
+summary: Get Avoid Posting Entry
+operationId: getAvoidPosting
+tags:
+  - Avoid Posting Entries
+parameters:
+  - $ref: "../../components/parameters/idOrName.yaml"
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/avoidPosting.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

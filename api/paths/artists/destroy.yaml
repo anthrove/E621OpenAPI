@@ -1,0 +1,17 @@
+summary: Delete Artist
+operationId: deleteArtist
+tags:
+  - Artists
+security:
+  - basicAuth: []
+description: |
+  You must be an Admin+ to delete an artist.
+parameters:
+  - $ref: "../../components/parameters/idOrName.yaml"
+responses:
+  204:
+    description: Success
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

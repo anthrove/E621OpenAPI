@@ -1,0 +1,20 @@
+summary: Get Tag
+operationId: getTag
+tags:
+  - Tags
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID or name of the tag.
+    schema:
+      type: integer
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/tag.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

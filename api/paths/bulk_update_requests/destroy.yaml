@@ -1,0 +1,21 @@
+summary: Reject Bulk Update Request
+operationId: rejectBulkUpdateRequest
+tags:
+  - Bulk Update Requests
+security:
+  - basicAuth: []
+description: You must be the creator of the BUR, or Admin+.
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the bulk update request.
+    schema:
+      type: integer
+responses:
+  204:
+    description: Success
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

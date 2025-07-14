@@ -1,0 +1,92 @@
+summary: Search Takedowns
+operationId: searchTakedowns
+tags:
+  - Takedowns
+description: When no results are found, an object with an `takedowns` key is returned.
+parameters:
+  - $ref: "../../components/parameters/limit.yaml"
+  - $ref: "../../components/parameters/page.yaml"
+  - $ref: "../../components/parameters/id.yaml"
+  - $ref: "../../components/parameters/ipAddr.yaml"
+  - in: query
+    name: search[order]
+    schema:
+      type: string
+      description: Must Admin+ to use.
+      enum:
+        - id_asc
+        - id_desc
+        - status
+        - post_count
+  - in: query
+    name: search[status]
+    schema:
+      type: string
+  - in: query
+    name: search[source]
+    description: Must be Moderator+ to use.
+    schema:
+      type: string
+  - in: query
+    name: search[reason]
+    description: Must be Moderator+ to use.
+    schema:
+      type: string
+  - in: query
+    name: search[creator_id]
+    description: Must be Moderator+ to use.
+    schema:
+      type: integer
+  - in: query
+    name: search[creator_name]
+    description: Must be Moderator+ to use.
+    schema:
+      type: string
+  - in: query
+    name: search[reason_hidden]
+    description: Must be Moderator+ to use.
+    schema:
+      type: boolean
+  - in: query
+    name: search[instructions]
+    description: Must be Moderator+ to use.
+    schema:
+      type: string
+  - in: query
+    description: Must be Moderator+ to use.
+    name: search[post_id]
+    schema:
+      type: integer
+  - in: query
+    description: Must be Moderator+ to use.
+    name: search[notes]
+    schema:
+      type: string
+  - in: query
+    description: Must be Admin+ to use.
+    name: search[email]
+    schema:
+      type: string
+  - in: query
+    name: search[vericode]
+    description: Must be Admin+ to use.
+    schema:
+      type: string
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          anyOf:
+            - type: array
+              items:
+                $ref: "../../components/schemas/takedown.yaml"
+            - type: object
+              description: No Results
+              required:
+                - takedowns
+              properties:
+                takedowns:
+                  type: array
+                  maxItems: 0

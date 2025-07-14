@@ -17,4 +17,4 @@ properties:
     type: string
     format: date-time
   action:
-    $ref: "./modactionActions.yaml"
+    $ref: "./modActionActions.yaml"

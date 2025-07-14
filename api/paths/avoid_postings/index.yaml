@@ -1,0 +1,78 @@
+summary: Search Avoid Posting Entries
+operationId: searchAvoidPostings
+tags:
+  - Avoid Posting Entries
+description: When no results are found, an object with an `avoid_postings` key is returned.
+parameters:
+  - $ref: "../../components/parameters/limit.yaml"
+  - $ref: "../../components/parameters/page.yaml"
+  - $ref: "../../components/parameters/id.yaml"
+  - $ref: "../../components/parameters/ipAddr.yaml"
+  - name: search[order]
+    in: query
+    schema:
+      type: string
+      enum:
+        - id_asc
+        - id_desc
+  - name: search[creator_name]
+    in: query
+    schema:
+      type: string
+  - name: search[creator_id]
+    in: query
+    schema:
+      type: string
+  - name: search[any_name_matches]
+    in: query
+    description: Any name matching.
+    schema:
+      type: string
+  - name: search[artist_name]
+    in: query
+    description: The artist name of the avoid posting entry.
+    schema:
+      type: string
+  - name: search[artist_id]
+    in: query
+    description: The artist id for the avoid posting entry.
+    schema:
+      type: string
+  - name: search[any_other_name_matches]
+    in: query
+    description: Any other name matching.
+    schema:
+      type: string
+  - name: search[details]
+    in: query
+    description: The details of the avoid posting entry.
+    schema:
+      type: string
+  - name: search[staff_notes]
+    in: query
+    description: The staff notes on the avoid posting entry. Must be Janitor+ to use.
+    schema:
+      type: string
+  - name: search[is_active]
+    in: query
+    description: If the avoid posting entry is active.
+    schema:
+      type: boolean
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          anyOf:
+            - type: array
+              items:
+                $ref: "../../components/schemas/avoidPosting.yaml"
+            - type: object
+              description: No Results
+              required:
+                - avoid_postings
+              properties:
+                avoid_postings:
+                  type: array
+                  maxItems: 0

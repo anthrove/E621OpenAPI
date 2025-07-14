@@ -1,0 +1,44 @@
+summary: Create Wiki Page
+operationId: createWikiPage
+tags:
+  - Wiki Pages
+security:
+  - basicAuth: []
+requestBody:
+  content:
+    application/x-www-form-urlencoded:
+      schema:
+        type: object
+        required:
+          - wiki_page[title]
+          - wiki_page[body]
+        properties:
+          wiki_page[title]:
+            type: string
+          wiki_page[body]:
+            type: string
+          wiki_page[edit_reason]:
+            type: string
+          wiki_page[parent]:
+            type: string
+            description: Must be Privileged+ to use.
+          wiki_page[is_locked]:
+            type: boolean
+            description: Must be Janitor+ to use.
+          wiki_page[is_deleted]:
+            type: boolean
+            description: Must be Janitor+ to use.
+          wiki_page[skip_secondary_validations]:
+            type: boolean
+            description: Must be Janitor+ to use.
+responses:
+  201:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/wikiPage.yaml"
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  422:
+    $ref: "../../components/responses/expectedError.yaml"

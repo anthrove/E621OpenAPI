@@ -1,0 +1,26 @@
+summary: Create User Name Change Request
+operationId: createUserNameChangeRequest
+tags:
+  - User Name Change Requests
+security:
+  - basicAuth: []
+description: You must be Moderator+.
+requestBody:
+  content:
+    application/x-www-form-urlencoded:
+      schema:
+        type: object
+        required:
+          - user_name_change_request[desired_name]
+        properties:
+          user_name_change_request[desired_name]:
+            type: string
+          user_name_change_request[change_reason]:
+            type: string
+responses:
+  302:
+    description: Success
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  422:
+    $ref: "../../components/responses/expectedError.yaml"

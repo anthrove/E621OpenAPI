@@ -1,0 +1,20 @@
+summary: Get Pool
+operationId: getPool
+tags:
+  - Pools
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the pool.
+    schema:
+      type: integer
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/pool.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

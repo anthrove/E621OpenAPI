@@ -1,0 +1,20 @@
+summary: Get Tag Implication
+operationId: getTagImplication
+tags:
+  - Tag Implications
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the tag implication.
+    schema:
+      type: integer
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/tagImplication.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

@@ -1,0 +1,20 @@
+summary: Get Bulk Update Request
+operationId: getBulkUpdateRequest
+tags:
+  - Bulk Update Requests
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the bulk update request.
+    schema:
+      type: integer
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/bulkUpdateRequest.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

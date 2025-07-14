@@ -1,0 +1,38 @@
+summary: Create Comment
+operationId: createComment
+tags:
+  - Comments
+security:
+  - basicAuth: []
+requestBody:
+  content:
+    application/x-www-form-urlencoded:
+      schema:
+        type: object
+        required:
+          - comment[body]
+          - comment[post_id]
+        properties:
+          comment[body]:
+            type: string
+          comment[post_id]:
+            type: integer
+          comment[do_not_bump_post]:
+            type: boolean
+          comment[is_sticky]:
+            type: boolean
+            description: Only usable for Janitor+
+          comment[is_hidden]:
+            type: boolean
+            description: Only usable for Moderator+
+responses:
+  201:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/comment.yaml"
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  422:
+    $ref: "../../components/responses/expectedError.yaml"

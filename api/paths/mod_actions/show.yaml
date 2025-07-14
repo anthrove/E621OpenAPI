@@ -1,0 +1,23 @@
+# TODO: this can be massively overhauled
+summary: Get Mod Action
+operationId: getModAction
+tags:
+  - Mod Actions
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the mod action.
+    schema:
+      type: integer
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/modAction.yaml"
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

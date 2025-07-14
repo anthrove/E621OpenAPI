@@ -1,0 +1,16 @@
+summary: Get User
+operationId: getUser
+tags:
+  - Users
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID or Username of the user.
+    schema:
+      type: 'string'
+responses:
+  200:
+    $ref: "../../components/responses/user.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

@@ -1,0 +1,36 @@
+summary: Create Post Set
+operationId: createPostSet
+tags:
+  - Post Sets
+security:
+  - basicAuth: []
+requestBody:
+  content:
+    application/x-www-form-urlencoded:
+      schema:
+        type: object
+        required:
+          - post_set[name]
+          - post_set[shortname]
+        properties:
+          post_set[name]:
+            type: string
+          post_set[shortname]:
+            type: string
+          post_set[description]:
+            type: string
+          post_set[is_public]:
+            type: boolean
+          post_set[ransfer_on_delete]:
+            type: boolean
+responses:
+  201:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/postSet.yaml"
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  422:
+    $ref: "../../components/responses/expectedError.yaml"

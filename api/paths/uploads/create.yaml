@@ -1,0 +1,66 @@
+summary: Upload Post
+operationId: uploadPost
+tags:
+  - Uploads
+  - Posts
+security:
+  - basicAuth: []
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - upload[tag_string]
+          - upload[rating]
+        properties:
+          upload[file]:
+            type: string
+            format: binary
+            description: Mutually exclusive with direct_url.
+          upload[direct_url]:
+            type: string
+            description: Mutually exclusive with file.
+          upload[source]:
+            type: string
+          upload[tag_string]:
+            type: string
+          upload[rating]:
+            $ref: "../../components/schemas/ratings.yaml"
+          upload[parent_id]:
+            type: integer
+          upload[description]:
+            type: string
+          upload[as_pending]:
+            type: boolean
+            description: Must have the "Unrestricted Uploads" permission.
+          upload[locked_rating]:
+            type: boolean
+            description: Must be Privileged+ to use.
+          upload[locked_tags]:
+            type: string
+            description: Must be Admin+ to use.
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - success
+            - location
+            - post_id
+          properties:
+            success:
+              type: boolean
+              enum:
+                - true
+            location:
+              type: string
+            post_id:
+              type: integer
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  412:
+    $ref: "../../components/responses/messageError.yaml"

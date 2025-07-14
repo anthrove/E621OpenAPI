@@ -1,0 +1,30 @@
+summary: List Favorites
+operationId: listFavorites
+tags:
+  - Favorites
+parameters:
+  - $ref: "../../components/parameters/limit.yaml"
+  - $ref: "../../components/parameters/page.yaml"
+  - in: query
+    name: user_id
+    description: You must be the user or Moderator+ if the user has their favorites hidden.
+    schema:
+      type: integer
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - posts
+          properties:
+            posts:
+              type: array
+              items:
+                $ref: "../../components/schemas/post.yaml"
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

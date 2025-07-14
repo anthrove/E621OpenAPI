@@ -1,0 +1,52 @@
+summary: Create Post Replacement
+operationId: createPostReplacement
+tags:
+  - Post Replacements
+security:
+  - basicAuth: []
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - post_replacement[reason]
+        properties:
+          post_replacement[replacement_file]:
+            type: string
+            format: binary
+            description: Mutually exclusive with replacement_url.
+          post_replacement[replacement_url]:
+            type: string
+            description: Mutually exclusive with replacement_file.
+          post_replacement[reason]:
+            type: string
+          post_replacement[source]:
+            type: string
+          post_replacement[as_pending]:
+            type: boolean
+            description: You must be Janitor+.
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - success
+            - location
+          properties:
+            success:
+              type: boolean
+              enum:
+                - true
+            location:
+              type: string
+              example: "/posts/1"
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  412:
+    $ref: "../../components/responses/messageError.yaml"
+  422:
+    $ref: "../../components/responses/expectedError.yaml"

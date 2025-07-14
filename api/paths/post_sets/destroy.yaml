@@ -1,0 +1,21 @@
+summary: Delete Post Set
+operationId: deletePostSet
+tags:
+  - Post Sets
+security:
+  - basicAuth: []
+description: You must be the owner of the set, or Admin+.
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the post set.
+    schema:
+      type: integer
+responses:
+  204:
+    description: Success
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

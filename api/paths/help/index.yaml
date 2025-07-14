@@ -1,0 +1,14 @@
+summary: List Help Pages
+operationId: listHelpPages
+description: Will error if no help pages exist.
+tags:
+  - Help Pages
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: "../../components/schemas/help.yaml"

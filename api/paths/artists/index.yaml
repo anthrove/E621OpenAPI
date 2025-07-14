@@ -1,0 +1,86 @@
+summary: Search Artists
+operationId: searchArtists
+tags:
+  - Artists
+parameters:
+  - $ref: "../../components/parameters/limit.yaml"
+  - $ref: "../../components/parameters/page.yaml"
+  - $ref: "../../components/parameters/id.yaml"
+  - name: search[order]
+    in: query
+    schema:
+      type: string
+      enum:
+        - id_asc
+        - id_desc
+        - updated_at
+        - name
+        - post_count
+  - name: search[name]
+    in: query
+    schema:
+      type: string
+  - name: search[group_name]
+    in: query
+    schema:
+      type: string
+  - name: search[any_other_name_like]
+    in: query
+    schema:
+      type: string
+  - name: search[any_name_matches]
+    in: query
+    schema:
+      type: string
+  - name: search[any_name_or_url_matches]
+    in: query
+    schema:
+      type: string
+  - name: search[url_matches]
+    in: query
+    schema:
+      type: string
+  - name: search[creator_name]
+    in: query
+    schema:
+      type: string
+  - name: search[creator_id]
+    in: query
+    schema:
+      type: string
+  - name: search[has_tag]
+    in: query
+    schema:
+      type: string
+  - name: search[is_linked]
+    in: query
+    schema:
+      type: string
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            allOf:
+              - $ref: "../../components/schemas/artist.yaml"
+              - type: object
+                required:
+                  - domains
+                  - urls
+                properties:
+                  domains:
+                    type: array
+                    example: [["e621.net", 1]]
+                    items:
+                      type: array
+                      items:
+                        anyOf:
+                          - type: string
+                          - type: number
+                  urls:
+                    type: array
+                    items:
+                      $ref: "../../components/schemas/artistUrl.yaml"

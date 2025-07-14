@@ -1,0 +1,51 @@
+summary: Search Pools
+operationId: searchPools
+tags:
+  - Pools
+parameters:
+  - $ref: "../../components/parameters/limit.yaml"
+  - $ref: "../../components/parameters/page.yaml"
+  - $ref: "../../components/parameters/id.yaml"
+  - name: search[order]
+    in: query
+    schema:
+      type: string
+      enum:
+        - id_asc
+        - id_desc
+        - name
+        - created_at
+        - post_count
+  - in: query
+    name: search[name_matches]
+    schema:
+      type: string
+  - in: query
+    name: search[description_matches]
+    schema:
+      type: string
+  - in: query
+    name: search[creator_id]
+    schema:
+      type: integer
+  - in: query
+    name: search[creator_name]
+    schema:
+      type: string
+  - in: query
+    name: search[category]
+    schema:
+      $ref: "../../components/schemas/poolCategories.yaml"
+  - in: query
+    name: search[is_active]
+    schema:
+      type: boolean
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: "../../components/schemas/pool.yaml"

@@ -1,0 +1,23 @@
+summary: Get Forum Forum Topic
+operationId: getForumTopic
+tags:
+  - Forum Topics
+description: If the forum topic is hidden, you must be the creator or Moderator+ to see it.
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the forum topic.
+    schema:
+      type: integer
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/forumTopic.yaml"
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

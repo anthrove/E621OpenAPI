@@ -1,0 +1,22 @@
+summary: Get Help Page
+operationId: getHelpPage
+tags:
+  - Help Pages
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID or name of the help page.
+    schema:
+      type: string
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/help.yaml"
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

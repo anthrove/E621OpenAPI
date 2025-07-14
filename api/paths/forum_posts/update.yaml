@@ -1,0 +1,31 @@
+summary: Edit Forum Post
+operationId: editForumPost
+tags:
+  - Forum Posts
+security:
+  - basicAuth: []
+description: You must be the creator of the forum post, or Admin+ to edit. Marked forum posts cannot be edited.
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the forum post.
+    schema:
+      type: integer
+requestBody:
+  content:
+    application/x-www-form-urlencoded:
+      schema:
+        type: object
+        properties:
+          forum_post[body]:
+            type: string
+responses:
+  204:
+    description: Success
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"
+  422:
+    $ref: "../../components/responses/expectedError.yaml"

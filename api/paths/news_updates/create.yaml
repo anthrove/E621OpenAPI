@@ -1,0 +1,28 @@
+summary: Create News Update
+operationId: createNewsUpdate
+tags:
+  - News Updates
+security:
+  - basicAuth: []
+description: You must be Admin+.
+requestBody:
+  content:
+    application/x-www-form-urlencoded:
+      schema:
+        type: object
+        required:
+          - news_update[message]
+        properties:
+          news_update[message]:
+            type: string
+responses:
+  201:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/newsUpdate.yaml"
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  422:
+    $ref: "../../components/responses/expectedError.yaml"

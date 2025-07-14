@@ -1,0 +1,85 @@
+summary: Search Post Replacements
+operationId: searchPostReplacements
+tags:
+  - Post Replacements
+description: When no results are found, an object with an `post_replacements` key is returned.
+parameters:
+  - $ref: "../../components/parameters/limit.yaml"
+  - $ref: "../../components/parameters/page.yaml"
+  - $ref: "../../components/parameters/id.yaml"
+  - in: query
+    name: search[file_ext]
+    schema:
+      type: string
+  - in: query
+    name: search[md5]
+    schema:
+      type: string
+  - in: query
+    name: search[status]
+    schema:
+      type: string
+  - in: query
+    name: search[creator_id]
+    schema:
+      type: integer
+  - in: query
+    name: search[creator_name]
+    schema:
+      type: string
+  - in: query
+    name: search[approver_id]
+    schema:
+      type: integer
+  - in: query
+    name: search[approver_name]
+    schema:
+      type: string
+  - in: query
+    name: search[uploader_name_on_approve]
+    schema:
+      type: string
+  - in: query
+    name: search[uploader_id_on_approve]
+    schema:
+      type: integer
+  - in: query
+    name: search[post_id]
+    description: |
+      Allows a comma separated list of up to 100 post IDs.
+    schema:
+      type: string
+  - in: query
+    name: search[reason]
+    schema:
+      type: string
+  - in: query
+    name: search[penalized]
+    schema:
+      type: boolean
+  - in: query
+    name: search[source]
+    schema:
+      type: string
+  - in: query
+    name: search[file_name]
+    schema:
+      type: string
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          anyOf:
+            - type: array
+              items:
+                $ref: "../../components/schemas/postReplacement.yaml"
+            - type: object
+              description: No Results
+              required:
+                - post_replacements
+              properties:
+                post_replacements:
+                  type: array
+                  maxItems: 0

@@ -1,0 +1,23 @@
+summary: Get Upload
+operationId: getUpload
+tags:
+  - Uploads
+description: You must be Janitor+.
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the upload.
+    schema:
+      type: integer
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/upload.yaml"
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

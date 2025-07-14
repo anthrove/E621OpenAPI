@@ -1,0 +1,11 @@
+summary: Get User Upload Limit
+operationId: getUserUploadLimit
+tags:
+  - Users
+security:
+  - basicAuth: []
+responses:
+  200:
+    $ref: "../../components/responses/user.yaml"
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"

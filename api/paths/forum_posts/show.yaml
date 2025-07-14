@@ -1,0 +1,23 @@
+summary: Get Forum Post
+operationId: getForumPost
+tags:
+  - Forum Posts
+description: If the forum post is hidden, you must be the creator or Moderator+ to see it.
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the forum post.
+    schema:
+      type: integer
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/forumPost.yaml"
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

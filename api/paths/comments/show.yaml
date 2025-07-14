@@ -1,0 +1,23 @@
+summary: Get Comment
+operationId: getComment
+tags:
+  - Comments
+description: If the comment is hidden, you must be the creator or Moderator+ to see it.
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the comment.
+    schema:
+      type: integer
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/comment.yaml"
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

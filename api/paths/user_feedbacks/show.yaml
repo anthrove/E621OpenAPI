@@ -1,0 +1,23 @@
+summary: Get User Feedback
+operationId: getUserFeedback
+tags:
+  - User Feedbacks
+description: You must be Moderator+ if the feedback is deleted.
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the feedback.
+    schema:
+      type: integer
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/userFeedback.yaml"
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

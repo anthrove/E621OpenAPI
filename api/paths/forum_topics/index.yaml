@@ -1,0 +1,49 @@
+summary: Search Forum Topics
+operationId: searchForumTopics
+tags:
+  - Forum Topics
+parameters:
+  - $ref: "../../components/parameters/limit.yaml"
+  - $ref: "../../components/parameters/page.yaml"
+  - $ref: "../../components/parameters/id.yaml"
+  - name: search[order]
+    in: query
+    schema:
+      type: string
+      enum:
+        - id_asc
+        - id_desc
+        - sticky
+  - in: query
+    name: search[title]
+    schema:
+      type: string
+  - in: query
+    name: search[title_matches]
+    schema:
+      type: string
+  - in: query
+    name: search[category_id]
+    schema:
+      type: integer
+  - in: query
+    name: search[is_sticky]
+    schema:
+      type: boolean
+  - in: query
+    name: search[is_locked]
+    schema:
+      type: boolean
+  - in: query
+    name: search[is_hidden]
+    schema:
+      type: boolean
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: "../../components/schemas/forumTopic.yaml"

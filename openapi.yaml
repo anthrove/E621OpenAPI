@@ -62,7 +62,7 @@ components:
       schema:
         type: string
   schemas:
-    ModactionActions:
+    ModActionActions:
       type: string
       enum:
         - artist_page_rename
@@ -186,6 +186,7 @@ components:
         - replacement_deleted
         - expunged
         - changed_bg_color
+        - replacement_penalty_changed
     Ratings:
       type: string
       enum:
@@ -1346,7 +1347,7 @@ components:
           type: string
           format: date-time
         action:
-          $ref: '#/components/schemas/ModactionActions'
+          $ref: '#/components/schemas/ModActionActions'
     NewsUpdate:
       type: object
       required:
@@ -1658,12 +1659,24 @@ components:
             alternates:
               type: object
               properties:
-                480p:
-                  $ref: '#/components/schemas/PostSampleAlternate'
-                720p:
-                  $ref: '#/components/schemas/PostSampleAlternate'
+                has:
+                  type: boolean
                 original:
                   $ref: '#/components/schemas/PostSampleAlternate'
+                variants:
+                  type: object
+                  properties:
+                    webm:
+                      $ref: '#/components/schemas/PostSampleAlternate'
+                    mp4:
+                      $ref: '#/components/schemas/PostSampleAlternate'
+                samples:
+                  type: object
+                  properties:
+                    480p:
+                      $ref: '#/components/schemas/PostSampleAlternate'
+                    720p:
+                      $ref: '#/components/schemas/PostSampleAlternate'
         score:
           type: object
           required:
@@ -1969,34 +1982,34 @@ components:
             - approved
             - rejected
             - pending
+            - original
         reason:
           type: string
     PostSampleAlternate:
       type: object
       required:
-        - type
-        - height
+        - fps
+        - codec
+        - size
         - width
-        - urls
+        - height
+        - url
       properties:
-        type:
+        fps:
+          type: number
+          format: float
+        codec:
           type: string
-          enum:
-            - video
-        height:
+        size:
           type: integer
+          format: int64
         width:
           type: integer
-        urls:
-          type: array
-          items:
-            anyOf:
-              - type: string
-                nullable: true
-                format: uri
-              - type: string
-                nullable: true
-                format: uri
+        height:
+          type: integer
+        url:
+          type: string
+          format: uri
     PostSet:
       type: object
       required:
@@ -3479,37 +3492,9 @@ paths:
         '204':
           description: Success
         '403':
-          description: Access Denied
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - success
-                  - reason
-                properties:
-                  success:
-                    type: boolean
-                  reason:
-                    type: string
-                    enum:
-                      - Access Denied
+          $ref: '#/components/responses/AccessDenied'
         '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - success
-                  - reason
-                properties:
-                  success:
-                    type: boolean
-                  reason:
-                    type: string
-                    enum:
-                      - not found
+          $ref: '#/components/responses/NotFound'
   /avoid_posting_versions.json:
     get:
       summary: Search Avoid Posting Versions
@@ -4731,10 +4716,10 @@ paths:
           $ref: '#/components/responses/AccessDenied'
         '404':
           $ref: '#/components/responses/NotFound'
-  /dmails/mark_all_as_unread.json:
+  /dmails/mark_all_as_read.json:
     put:
-      summary: Mark All DMails As Unread
-      operationId: markAllDMailsAsUnread
+      summary: Mark All DMails As Read
+      operationId: markAllDMailsAsRead
       tags:
         - DMails
       security:
@@ -6116,7 +6101,7 @@ paths:
         - in: query
           name: 'search[action]'
           schema:
-            $ref: '#/components/schemas/ModactionActions'
+            $ref: '#/components/schemas/ModActionActions'
       responses:
         '200':
           description: Success
@@ -6126,6 +6111,30 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ModAction'
+  '/mod_actions/{id}.json':
+    get:
+      summary: Get Mod Action
+      operationId: getModAction
+      tags:
+        - Mod Actions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the mod action.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModAction'
+        '403':
+          $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /news_updates.json:
     get:
       summary: List News Updates
@@ -7279,6 +7288,83 @@ paths:
                     $ref: '#/components/schemas/Post'
         '404':
           $ref: '#/components/responses/NotFound'
+  '/posts/{id}/votes.json':
+    post:
+      summary: Create Post Vote
+      operationId: createPostVote
+      tags:
+        - Post Votes
+      security:
+        - basicAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the post.
+          schema:
+            type: string
+        - name: score
+          in: query
+          required: true
+          schema:
+            type: integer
+            enum:
+              - -1
+              - 1
+        - name: no_unvote
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - score
+                  - up
+                  - down
+                  - our_score
+                properties:
+                  score:
+                    type: integer
+                  up:
+                    type: integer
+                  down:
+                    type: integer
+                  our_score:
+                    type: integer
+        '403':
+          $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
+    delete:
+      summary: Delete Post Vote
+      operationId: deletePostVote
+      tags:
+        - Post Votes
+      security:
+        - basicAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the post.
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Success
+        '403':
+          $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
   /post_sets.json:
     get:
       summary: Search Post Sets
@@ -7903,14 +7989,6 @@ paths:
           schema:
             type: string
         - in: query
-          name: 'search[rejector_id]'
-          schema:
-            type: integer
-        - in: query
-          name: 'search[rejector_name]'
-          schema:
-            type: string
-        - in: query
           name: 'search[uploader_name_on_approve]'
           schema:
             type: string
@@ -7918,6 +7996,28 @@ paths:
           name: 'search[uploader_id_on_approve]'
           schema:
             type: integer
+        - in: query
+          name: 'search[post_id]'
+          description: |
+            Allows a comma separated list of up to 100 post IDs.
+          schema:
+            type: string
+        - in: query
+          name: 'search[reason]'
+          schema:
+            type: string
+        - in: query
+          name: 'search[penalized]'
+          schema:
+            type: boolean
+        - in: query
+          name: 'search[source]'
+          schema:
+            type: string
+        - in: query
+          name: 'search[file_name]'
+          schema:
+            type: string
       responses:
         '200':
           description: Success
@@ -8053,14 +8153,6 @@ paths:
           description: The ID of the post replacement.
           schema:
             type: integer
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                reason:
-                  type: string
       responses:
         '204':
           description: Success
@@ -8240,83 +8332,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/PostVersion'
-  '/posts/{id}/votes.json':
-    post:
-      summary: Create Post Vote
-      operationId: createPostVote
-      tags:
-        - Post Votes
-      security:
-        - basicAuth: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The ID of the post.
-          schema:
-            type: string
-        - name: score
-          in: query
-          required: true
-          schema:
-            type: integer
-            enum:
-              - -1
-              - 1
-        - name: no_unvote
-          in: query
-          schema:
-            type: boolean
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - score
-                  - up
-                  - down
-                  - our_score
-                properties:
-                  score:
-                    type: integer
-                  up:
-                    type: integer
-                  down:
-                    type: integer
-                  our_score:
-                    type: integer
-        '403':
-          $ref: '#/components/responses/AccessDenied'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '422':
-          $ref: '#/components/responses/ExpectedError'
-    delete:
-      summary: Delete Post Vote
-      operationId: deletePostVote
-      tags:
-        - Post Votes
-      security:
-        - basicAuth: []
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The ID of the post.
-          schema:
-            type: string
-      responses:
-        '204':
-          description: Success
-        '403':
-          $ref: '#/components/responses/AccessDenied'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '422':
-          $ref: '#/components/responses/ExpectedError'
   /post_votes/lock.json:
     post:
       summary: Lock Post Vote
@@ -8489,6 +8504,49 @@ paths:
         '422':
           $ref: '#/components/responses/ExpectedError'
   '/tags/{id}/correction.json':
+    get:
+      summary: Get Tag Correction
+      operationId: getTagCorrection
+      tags:
+        - Tags
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the tag.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - post
+                properties:
+                  post:
+                    type: object
+                    required:
+                      - post_count
+                      - real_post_count
+                      - category
+                      - category_cache
+                      - tag
+                    properties:
+                      post_count:
+                        type: integer
+                      real_post_count:
+                        type: integer
+                      category:
+                        $ref: '#/components/schemas/TagCategories'
+                      category_cache:
+                        $ref: '#/components/schemas/TagCategories'
+                      tag:
+                        $ref: '#/components/schemas/Tag'
+        '404':
+          $ref: '#/components/responses/NotFound'
     post:
       summary: Correct Tag
       operationId: correctTag
@@ -9828,6 +9886,31 @@ paths:
           $ref: '#/components/responses/AccessDenied'
         '412':
           $ref: '#/components/responses/MessageError'
+  '/uploads/{id}.json':
+    get:
+      summary: Get Upload
+      operationId: getUpload
+      tags:
+        - Uploads
+      description: You must be Janitor+.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the upload.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Upload'
+        '403':
+          $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /upload_whitelists.json:
     get:
       summary: Search Upload Whitelists
@@ -10199,22 +10282,15 @@ paths:
           $ref: '#/components/responses/ExpectedError'
   /users/upload_limit.json:
     get:
-      summary: Get Current User
-      operationId: getCurrentUser
+      summary: Get User Upload Limit
+      operationId: getUserUploadLimit
       tags:
         - Users
       security:
         - basicAuth: []
-      description: |
-        This is a crude but effective way to get the currently authenticated user without scraping HTML.
-        Note that this route does not include some properties included in the show action.
       responses:
         '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CurrentUser'
+          $ref: '#/components/responses/UserResponse'
         '403':
           $ref: '#/components/responses/AccessDenied'
   /maintenance/user/count_fixes.json:

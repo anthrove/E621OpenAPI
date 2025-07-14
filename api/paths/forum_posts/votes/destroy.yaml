@@ -1,0 +1,22 @@
+summary: Delete Forum Post Vote
+operationId: deleteForumPostVote
+tags:
+  - Forum Post Votes
+security:
+  - basicAuth: []
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the forum post.
+    schema:
+      type: string
+responses:
+  204:
+    description: Success
+  403:
+    $ref: "../../../components/responses/accessDenied.yaml"
+  404:
+    $ref: "../../../components/responses/notFound.yaml"
+  422:
+    $ref: "../../../components/responses/expectedError.yaml"
