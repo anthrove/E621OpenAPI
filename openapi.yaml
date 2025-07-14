@@ -4286,7 +4286,7 @@ paths:
       operationId: getComment
       tags:
         - Comments
-      description: 'If the comment is hidden, you must be the creator or Moderator+ to see it.'
+      description: 'If the comment is hidden, you must be the creator or Janitor+ to see it.'
       parameters:
         - name: id
           in: path
@@ -10376,6 +10376,13 @@ paths:
         - Users
       security:
         - basicAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the user.
+          schema:
+            type: integer
       responses:
         '200':
           $ref: '#/components/responses/UserResponse'

@@ -2,7 +2,7 @@ summary: Get Comment
 operationId: getComment
 tags:
   - Comments
-description: If the comment is hidden, you must be the creator or Moderator+ to see it.
+description: If the comment is hidden, you must be the creator or Janitor+ to see it.
 parameters:
   - name: id
     in: path
