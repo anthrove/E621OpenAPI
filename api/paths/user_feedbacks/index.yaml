@@ -47,6 +47,15 @@ parameters:
     name: search[category]
     schema:
       $ref: "../../components/schemas/feedbackCategories.yaml"
+  - in: query
+    name: search[deleted]
+    description: You must be Janitor+.
+    schema:
+      type: string
+      enum:
+        - included
+        - excluded
+        - only
 responses:
   200:
     description: Success

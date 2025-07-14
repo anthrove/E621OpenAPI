@@ -2,7 +2,7 @@ summary: Get User Feedback
 operationId: getUserFeedback
 tags:
   - User Feedbacks
-description: You must be Moderator+ if the feedback is deleted.
+description: You must be Janitor+ if the feedback is deleted.
 parameters:
   - name: id
     in: path
