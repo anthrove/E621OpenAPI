@@ -81,6 +81,9 @@ enum:
   - nuke_tag
   - takedown_delete
   - takedown_process
+  - user_flush_favorites
+  - post_version_hide
+  - post_version_unhide
   # legacy
   - created_positive_record
   - created_neutral_record
@@ -97,4 +100,3 @@ enum:
   - post_replacement_accept
   - post_replacement_reject
   - post_replacement_delete
-  - user_flush_favorites

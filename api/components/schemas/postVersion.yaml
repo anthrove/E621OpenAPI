@@ -24,6 +24,7 @@ required:
   - obsolete_removed_tags
   - unchanged_tags
   - updater_name
+  - is_hidden
 properties:
   id:
     type: integer
@@ -85,3 +86,5 @@ properties:
     type: string
   updater_name:
     type: string
+  is_hidden:
+    type: boolean

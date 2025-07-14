@@ -146,6 +146,9 @@ components:
         - nuke_tag
         - takedown_delete
         - takedown_process
+        - user_flush_favorites
+        - post_version_hide
+        - post_version_unhide
         - created_positive_record
         - created_neutral_record
         - created_negative_record
@@ -161,7 +164,6 @@ components:
         - post_replacement_accept
         - post_replacement_reject
         - post_replacement_delete
-        - user_flush_favorites
     PostEventActions:
       type: string
       enum:
@@ -2079,6 +2081,7 @@ components:
         - obsolete_removed_tags
         - unchanged_tags
         - updater_name
+        - is_hidden
       properties:
         id:
           type: integer
@@ -2140,6 +2143,8 @@ components:
           type: string
         updater_name:
           type: string
+        is_hidden:
+          type: boolean
     RelatedTag:
       type: object
       required:
@@ -8333,6 +8338,52 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/PostVersion'
+  '/post_versions/{id}/hide.json':
+    put:
+      summary: Hide Post Version
+      operationId: hidePostVersion
+      tags:
+        - Post Versions
+      security:
+        - basicAuth: []
+      description: You must be Admin+.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the post version.
+          schema:
+            type: integer
+      responses:
+        '302':
+          description: Success
+        '403':
+          $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  '/post_versions/{id}/unhide.json':
+    put:
+      summary: Unhide Post Version
+      operationId: unhidePostVersion
+      tags:
+        - Post Versions
+      security:
+        - basicAuth: []
+      description: You must be Admin+.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the post version.
+          schema:
+            type: integer
+      responses:
+        '302':
+          description: Success
+        '403':
+          $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /post_votes/lock.json:
     post:
       summary: Lock Post Vote

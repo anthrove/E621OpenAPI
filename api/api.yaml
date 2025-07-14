@@ -611,6 +611,12 @@ paths:
   /post_versions.json:
     get:
       $ref: "./paths/post_versions/index.yaml"
+  /post_versions/{id}/hide.json:
+    put:
+      $ref: "./paths/post_versions/hide.yaml"
+  /post_versions/{id}/unhide.json:
+    put:
+      $ref: "./paths/post_versions/unhide.yaml"
 
   /post_votes/lock.json:
     post:

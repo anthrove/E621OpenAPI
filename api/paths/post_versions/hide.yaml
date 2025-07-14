@@ -1,0 +1,21 @@
+summary: Hide Post Version
+operationId: hidePostVersion
+tags:
+  - Post Versions
+security:
+  - basicAuth: []
+description: You must be Admin+.
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the post version.
+    schema:
+      type: integer
+responses:
+  302:
+    description: Success
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

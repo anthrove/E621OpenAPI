@@ -146,6 +146,9 @@ components:
         - nuke_tag
         - takedown_delete
         - takedown_process
+        - user_flush_favorites
+        - post_version_hide
+        - post_version_unhide
         - created_positive_record
         - created_neutral_record
         - created_negative_record
@@ -161,7 +164,6 @@ components:
         - post_replacement_accept
         - post_replacement_reject
         - post_replacement_delete
-        - user_flush_favorites
     PostEventActions:
       type: string
       enum:
@@ -2076,6 +2078,9 @@ components:
             - nuke_tag
             - takedown_delete
             - takedown_process
+            - user_flush_favorites
+            - post_version_hide
+            - post_version_unhide
             - created_positive_record
             - created_neutral_record
             - created_negative_record
@@ -2091,7 +2096,6 @@ components:
             - post_replacement_accept
             - post_replacement_reject
             - post_replacement_delete
-            - user_flush_favorites
     NewsUpdate:
       type: object
       required:
@@ -2971,6 +2975,7 @@ components:
         - obsolete_removed_tags
         - unchanged_tags
         - updater_name
+        - is_hidden
       properties:
         id:
           type: integer
@@ -3036,6 +3041,8 @@ components:
           type: string
         updater_name:
           type: string
+        is_hidden:
+          type: boolean
     RelatedTag:
       type: object
       required:
@@ -13577,6 +13584,9 @@ paths:
               - nuke_tag
               - takedown_delete
               - takedown_process
+              - user_flush_favorites
+              - post_version_hide
+              - post_version_unhide
               - created_positive_record
               - created_neutral_record
               - created_negative_record
@@ -13592,7 +13602,6 @@ paths:
               - post_replacement_accept
               - post_replacement_reject
               - post_replacement_delete
-              - user_flush_favorites
       responses:
         '200':
           description: Success
@@ -13703,6 +13712,9 @@ paths:
                         - nuke_tag
                         - takedown_delete
                         - takedown_process
+                        - user_flush_favorites
+                        - post_version_hide
+                        - post_version_unhide
                         - created_positive_record
                         - created_neutral_record
                         - created_negative_record
@@ -13718,7 +13730,6 @@ paths:
                         - post_replacement_accept
                         - post_replacement_reject
                         - post_replacement_delete
-                        - user_flush_favorites
   '/mod_actions/{id}.json':
     get:
       summary: Get Mod Action
@@ -13840,6 +13851,9 @@ paths:
                       - nuke_tag
                       - takedown_delete
                       - takedown_process
+                      - user_flush_favorites
+                      - post_version_hide
+                      - post_version_unhide
                       - created_positive_record
                       - created_neutral_record
                       - created_negative_record
@@ -13855,7 +13869,6 @@ paths:
                       - post_replacement_accept
                       - post_replacement_reject
                       - post_replacement_delete
-                      - user_flush_favorites
         '403':
           description: Access Denied
           content:
@@ -21920,6 +21933,7 @@ paths:
                     - obsolete_removed_tags
                     - unchanged_tags
                     - updater_name
+                    - is_hidden
                   properties:
                     id:
                       type: integer
@@ -21985,6 +21999,110 @@ paths:
                       type: string
                     updater_name:
                       type: string
+                    is_hidden:
+                      type: boolean
+  '/post_versions/{id}/hide.json':
+    put:
+      summary: Hide Post Version
+      operationId: hidePostVersion
+      tags:
+        - Post Versions
+      security:
+        - basicAuth: []
+      description: You must be Admin+.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the post version.
+          schema:
+            type: integer
+      responses:
+        '302':
+          description: Success
+        '403':
+          description: Access Denied
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - reason
+                properties:
+                  success:
+                    type: boolean
+                  reason:
+                    type: string
+                    enum:
+                      - Access Denied
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - reason
+                properties:
+                  success:
+                    type: boolean
+                  reason:
+                    type: string
+                    enum:
+                      - not found
+  '/post_versions/{id}/unhide.json':
+    put:
+      summary: Unhide Post Version
+      operationId: unhidePostVersion
+      tags:
+        - Post Versions
+      security:
+        - basicAuth: []
+      description: You must be Admin+.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the post version.
+          schema:
+            type: integer
+      responses:
+        '302':
+          description: Success
+        '403':
+          description: Access Denied
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - reason
+                properties:
+                  success:
+                    type: boolean
+                  reason:
+                    type: string
+                    enum:
+                      - Access Denied
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - reason
+                properties:
+                  success:
+                    type: boolean
+                  reason:
+                    type: string
+                    enum:
+                      - not found
   /post_votes/lock.json:
     post:
       summary: Lock Post Vote
