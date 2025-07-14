@@ -37,14 +37,6 @@ get:
       schema:
         type: string
     - in: query
-      name: search[rejector_id]
-      schema:
-        type: integer
-    - in: query
-      name: search[rejector_name]
-      schema:
-        type: string
-    - in: query
       name: search[uploader_name_on_approve]
       schema:
         type: string
@@ -52,6 +44,28 @@ get:
       name: search[uploader_id_on_approve]
       schema:
         type: integer
+    - in: query
+      name: search[post_id]
+      description: |
+        Allows a comma separated list of up to 100 post IDs.
+      schema:
+        type: string
+    - in: query
+      name: search[reason]
+      schema:
+        type: string
+    - in: query
+      name: search[penalized]
+      schema:
+        type: boolean
+    - in: query
+      name: search[source]
+      schema:
+        type: string
+    - in: query
+      name: search[file_name]
+      schema:
+        type: string
   responses:
     200:
       description: Success

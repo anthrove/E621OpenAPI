@@ -53,5 +53,6 @@ properties:
       - approved
       - rejected
       - pending
+      - original
   reason:
     type: string

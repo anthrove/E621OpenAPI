@@ -22,3 +22,4 @@ enum:
   - replacement_deleted
   - expunged
   - changed_bg_color
+  - replacement_penalty_changed
