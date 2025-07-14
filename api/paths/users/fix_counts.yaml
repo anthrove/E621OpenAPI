@@ -1,5 +1,5 @@
-summary: Fix User Counts
-operationId: fixUserCounts
+summary: Fix Specific User Counts
+operationId: fixSpecificUserCounts
 tags:
   - Users
 description: You must be Janitor+.
@@ -7,7 +7,7 @@ parameters:
   - name: id
     in: path
     required: true
-    description: The ID of the user. 
+    description: The ID of the user.
     schema:
       type: integer
 security:

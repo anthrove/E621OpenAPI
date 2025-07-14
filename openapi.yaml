@@ -10673,8 +10673,8 @@ paths:
           $ref: '#/components/responses/NotFound'
   '/users/{id}/fix_counts.json':
     get:
-      summary: Fix User Counts
-      operationId: fixUserCounts
+      summary: Fix Specific User Counts
+      operationId: fixSpecificUserCounts
       tags:
         - Users
       description: You must be Janitor+.
@@ -10780,7 +10780,7 @@ paths:
               - id_desc
         - in: query
           name: 'search[deleted]'
-          description: You must be Moderator+.
+          description: You must be Janitor+.
           schema:
             type: string
             enum:
@@ -10811,15 +10811,6 @@ paths:
           name: 'search[category]'
           schema:
             $ref: '#/components/schemas/FeedbackCategories'
-        - in: query
-          name: 'search[deleted]'
-          description: You must be Janitor+.
-          schema:
-            type: string
-            enum:
-              - included
-              - excluded
-              - only
       responses:
         '200':
           description: Success

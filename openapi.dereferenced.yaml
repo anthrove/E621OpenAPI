@@ -28013,8 +28013,8 @@ paths:
                       - not found
   '/users/{id}/fix_counts.json':
     get:
-      summary: Fix User Counts
-      operationId: fixUserCounts
+      summary: Fix Specific User Counts
+      operationId: fixSpecificUserCounts
       tags:
         - Users
       description: You must be Janitor+.
@@ -28220,7 +28220,7 @@ paths:
               - id_desc
         - in: query
           name: 'search[deleted]'
-          description: You must be Moderator+.
+          description: You must be Janitor+.
           schema:
             type: string
             enum:
@@ -28255,15 +28255,6 @@ paths:
               - negative
               - neutral
               - positive
-        - in: query
-          name: 'search[deleted]'
-          description: You must be Janitor+.
-          schema:
-            type: string
-            enum:
-              - included
-              - excluded
-              - only
       responses:
         '200':
           description: Success
