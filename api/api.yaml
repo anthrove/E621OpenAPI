@@ -627,6 +627,8 @@ paths:
       $ref: "./paths/tags/show.yaml"
     patch:
       $ref: "./paths/tags/update.yaml"
+    delete:
+      $ref: "./paths/tags/destroy.yaml"
   /tags/{id}/correction.json:
     get:
       $ref: "./paths/tag_corrections/show.yaml"

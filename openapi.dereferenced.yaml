@@ -22392,6 +22392,58 @@ paths:
                     type: array
                     items:
                       type: string
+    delete:
+      summary: Delete Tag
+      operationId: deleteTag
+      tags:
+        - Tags
+      security:
+        - basicAuth: []
+      description: You must have the bd staff user flag.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the tag.
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Success
+        '302':
+          description: Failure
+        '403':
+          description: Access Denied
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - reason
+                properties:
+                  success:
+                    type: boolean
+                  reason:
+                    type: string
+                    enum:
+                      - Access Denied
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - reason
+                properties:
+                  success:
+                    type: boolean
+                  reason:
+                    type: string
+                    enum:
+                      - not found
   '/tags/{id}/correction.json':
     get:
       summary: Get Tag Correction

@@ -8504,6 +8504,30 @@ paths:
           $ref: '#/components/responses/NotFound'
         '422':
           $ref: '#/components/responses/ExpectedError'
+    delete:
+      summary: Delete Tag
+      operationId: deleteTag
+      tags:
+        - Tags
+      security:
+        - basicAuth: []
+      description: You must have the bd staff user flag.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the tag.
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Success
+        '302':
+          description: Failure
+        '403':
+          $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
   '/tags/{id}/correction.json':
     get:
       summary: Get Tag Correction
