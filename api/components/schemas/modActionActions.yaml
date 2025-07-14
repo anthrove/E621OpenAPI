@@ -85,6 +85,10 @@ enum:
   - post_version_hide
   - post_version_unhide
   - user_uploads_toggle
+  - staff_note_create
+  - staff_note_update
+  - staff_note_delete
+  - staff_note_undelete
   # legacy
   - created_positive_record
   - created_neutral_record

@@ -150,6 +150,10 @@ components:
         - post_version_hide
         - post_version_unhide
         - user_uploads_toggle
+        - staff_note_create
+        - staff_note_update
+        - staff_note_delete
+        - staff_note_undelete
         - created_positive_record
         - created_neutral_record
         - created_negative_record
@@ -7038,6 +7042,9 @@ paths:
                   description: You must be Janitor+.
                 'post[is_comment_locked]':
                   type: boolean
+                  description: You must be Moderator+.
+                'post[is_comment_disabled]':
+                  type: boolean
                   description: You must be Admin+.
                 'post[is_status_locked]':
                   type: boolean
@@ -10804,6 +10811,15 @@ paths:
           name: 'search[category]'
           schema:
             $ref: '#/components/schemas/FeedbackCategories'
+        - in: query
+          name: 'search[deleted]'
+          description: You must be Janitor+.
+          schema:
+            type: string
+            enum:
+              - included
+              - excluded
+              - only
       responses:
         '200':
           description: Success

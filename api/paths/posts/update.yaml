@@ -61,6 +61,9 @@ requestBody:
             description: You must be Janitor+.
           post[is_comment_locked]:
             type: boolean
+            description: You must be Moderator+.
+          post[is_comment_disabled]:
+            type: boolean
             description: You must be Admin+.
           post[is_status_locked]:
             type: boolean
