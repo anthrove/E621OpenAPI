@@ -30,6 +30,8 @@ requestBody:
               - inferior
           post_flag[parent_id]:
             type: integer
+          post_flag[note]:
+            type: string
 responses:
   201:
     description: Success

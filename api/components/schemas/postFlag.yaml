@@ -9,6 +9,7 @@ required:
   - updated_at
   - is_deletion
   - type
+  - note
 properties:
   id:
     type: integer
@@ -34,3 +35,6 @@ properties:
     enum:
       - flag
       - deletion
+  note:
+    type: string
+    nullable: true

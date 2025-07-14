@@ -2798,6 +2798,7 @@ components:
         - updated_at
         - is_deletion
         - type
+        - note
       properties:
         id:
           type: integer
@@ -2823,6 +2824,9 @@ components:
           enum:
             - flag
             - deletion
+        note:
+          type: string
+          nullable: true
     PostReplacement:
       type: object
       required:
@@ -20613,6 +20617,7 @@ paths:
                         - updated_at
                         - is_deletion
                         - type
+                        - note
                       properties:
                         id:
                           type: integer
@@ -20638,6 +20643,9 @@ paths:
                           enum:
                             - flag
                             - deletion
+                        note:
+                          type: string
+                          nullable: true
                   - type: object
                     description: No Results
                     required:
@@ -20679,6 +20687,8 @@ paths:
                     - inferior
                 'post_flag[parent_id]':
                   type: integer
+                'post_flag[note]':
+                  type: string
       responses:
         '201':
           description: Success
@@ -20696,6 +20706,7 @@ paths:
                   - updated_at
                   - is_deletion
                   - type
+                  - note
                 properties:
                   id:
                     type: integer
@@ -20721,6 +20732,9 @@ paths:
                     enum:
                       - flag
                       - deletion
+                  note:
+                    type: string
+                    nullable: true
         '403':
           description: Access Denied
           content:
@@ -20784,6 +20798,7 @@ paths:
                   - updated_at
                   - is_deletion
                   - type
+                  - note
                 properties:
                   id:
                     type: integer
@@ -20809,6 +20824,9 @@ paths:
                     enum:
                       - flag
                       - deletion
+                  note:
+                    type: string
+                    nullable: true
         '404':
           description: Not Found
           content:
