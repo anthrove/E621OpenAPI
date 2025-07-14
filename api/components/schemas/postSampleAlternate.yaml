@@ -1,26 +1,24 @@
 type: object
 required:
-  - type
-  - height
+  - fps
+  - codec
+  - size
   - width
-  - urls
+  - height
+  - url
 properties:
-  type:
+  fps:
+    type: number
+    format: float
+  codec:
     type: string
-    enum:
-      - video
-  height:
+  size:
     type: integer
+    format: int64
   width:
     type: integer
-  urls:
-    type: array
-    # TODO: i think we can refactor this
-    items:
-      anyOf:
-        - type: string
-          nullable: true
-          format: "uri"
-        - type: string
-          nullable: true
-          format: "uri"
+  height:
+    type: integer
+  url:
+    type: string
+    format: uri

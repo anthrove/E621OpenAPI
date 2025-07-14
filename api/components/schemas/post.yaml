@@ -93,12 +93,24 @@ properties:
       alternates:
         type: object
         properties:
-          480p:
-            $ref: "./postSampleAlternate.yaml"
-          720p:
-            $ref: "./postSampleAlternate.yaml"
+          has:
+            type: boolean
           original:
             $ref: "./postSampleAlternate.yaml"
+          variants:
+            type: object
+            properties:
+              webm:
+                $ref: "./postSampleAlternate.yaml"
+              mp4:
+                $ref: "./postSampleAlternate.yaml"
+          samples:
+            type: object
+            properties:
+              480p:
+                $ref: "./postSampleAlternate.yaml"
+              720p:
+                $ref: "./postSampleAlternate.yaml"
   score:
     type: object
     required:
