@@ -78,6 +78,8 @@ requestBody:
           user[enable_compact_uploader]:
             type: boolean
             description: You must have uploaded at least 10 posts.
+          user[forum_notification_dot]:
+            type: boolean
 responses:
   204:
     description: Success

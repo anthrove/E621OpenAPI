@@ -711,6 +711,7 @@ components:
             - favorite_limit
             - tag_query_limit
             - has_mail
+            - forum_notification_dot
           properties:
             blacklist_users:
               type: boolean
@@ -793,6 +794,8 @@ components:
             tag_query_limit:
               type: integer
             has_mail:
+              type: boolean
+            forum_notification_dot:
               type: boolean
     DMail:
       type: object
@@ -1209,6 +1212,7 @@ components:
                 - favorite_limit
                 - tag_query_limit
                 - has_mail
+                - forum_notification_dot
               properties:
                 blacklist_users:
                   type: boolean
@@ -1291,6 +1295,8 @@ components:
                 tag_query_limit:
                   type: integer
                 has_mail:
+                  type: boolean
+                forum_notification_dot:
                   type: boolean
         - allOf:
             - type: object
@@ -3988,6 +3994,7 @@ components:
                           - favorite_limit
                           - tag_query_limit
                           - has_mail
+                          - forum_notification_dot
                         properties:
                           blacklist_users:
                             type: boolean
@@ -4070,6 +4077,8 @@ components:
                           tag_query_limit:
                             type: integer
                           has_mail:
+                            type: boolean
+                          forum_notification_dot:
                             type: boolean
                   - allOf:
                       - type: object
@@ -26663,6 +26672,7 @@ paths:
                               - favorite_limit
                               - tag_query_limit
                               - has_mail
+                              - forum_notification_dot
                             properties:
                               blacklist_users:
                                 type: boolean
@@ -26745,6 +26755,8 @@ paths:
                               tag_query_limit:
                                 type: integer
                               has_mail:
+                                type: boolean
+                              forum_notification_dot:
                                 type: boolean
                       - allOf:
                           - type: object
@@ -26930,6 +26942,8 @@ paths:
                 'user[enable_compact_uploader]':
                   type: boolean
                   description: You must have uploaded at least 10 posts.
+                'user[forum_notification_dot]':
+                  type: boolean
       responses:
         '204':
           description: Success
@@ -27160,6 +27174,7 @@ paths:
                               - favorite_limit
                               - tag_query_limit
                               - has_mail
+                              - forum_notification_dot
                             properties:
                               blacklist_users:
                                 type: boolean
@@ -27242,6 +27257,8 @@ paths:
                               tag_query_limit:
                                 type: integer
                               has_mail:
+                                type: boolean
+                              forum_notification_dot:
                                 type: boolean
                       - allOf:
                           - type: object

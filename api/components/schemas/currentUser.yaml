@@ -39,6 +39,7 @@ allOf:
       - favorite_limit
       - tag_query_limit
       - has_mail
+      - forum_notification_dot
     properties:
       blacklist_users:
         type: boolean
@@ -121,4 +122,6 @@ allOf:
       tag_query_limit:
         type: integer
       has_mail:
+        type: boolean
+      forum_notification_dot:
         type: boolean
