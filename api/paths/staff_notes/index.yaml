@@ -1,0 +1,70 @@
+summary: Search Staff Notes
+operationId: searchStaffNotes
+tags:
+  - Staff Notes
+description: When no results are found, an object with an `staff_notes` key is returned.
+parameters:
+  - $ref: "../../components/parameters/limit.yaml"
+  - $ref: "../../components/parameters/page.yaml"
+  - $ref: "../../components/parameters/id.yaml"
+  - name: search[order]
+    in: query
+    schema:
+      type: string
+      enum:
+        - id_asc
+        - id_desc
+  - name: search[creator_id]
+    in: query
+    schema:
+      type: integer
+  - name: search[creator_name]
+    in: query
+    schema:
+      type: string
+  - name: search[updater_id]
+    in: query
+    schema:
+      type: integer
+  - name: search[updater_name]
+    in: query
+    schema:
+      type: string
+  - name: search[user_id]
+    in: query
+    schema:
+      type: integer
+  - name: search[user_name]
+    in: query
+    schema:
+      type: string
+  - name: search[body_matches]
+    in: query
+    schema:
+      type: string
+  - name: search[without_system_user]
+    in: query
+    schema:
+      type: boolean
+  - name: search[include_deleted]
+    in: query
+    schema:
+      type: boolean
+responses:
+  200:
+    description: Success
+    content:
+      application/json:
+        schema:
+          anyOf:
+            - type: array
+              items:
+                $ref: "../../components/schemas/staffNote.yaml"
+            - type: object
+              description: No Results
+              required:
+                - staff_notes
+              properties:
+                blips:
+                  type: array
+                  maxItems: 0

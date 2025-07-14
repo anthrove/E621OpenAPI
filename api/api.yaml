@@ -686,6 +686,23 @@ paths:
     post:
       $ref: "./paths/related_tags/bulk.yaml"
 
+  /staff_notes.json:
+    get:
+      $ref: "./paths/staff_notes/index.yaml"
+    post:
+      $ref: "./paths/staff_notes/create.yaml"
+  /staff_notes/{id}.json:
+    get:
+      $ref: "./paths/staff_notes/show.yaml"
+    patch:
+      $ref: "./paths/staff_notes/update.yaml"
+  /staff_notes/{id}/delete.json:
+    put:
+      $ref: "./paths/staff_notes/delete.yaml"
+  /staff_notes/{id}/undelete.json:
+    put:
+      $ref: "./paths/staff_notes/undelete.yaml"
+
   /takedowns.json:
     get:
       $ref: "./paths/takedowns/index.yaml"

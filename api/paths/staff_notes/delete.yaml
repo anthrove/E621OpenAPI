@@ -1,0 +1,26 @@
+summary: Delete Staff Note
+operationId: deleteStaffNote
+tags:
+  - Staff Notes
+security:
+  - basicAuth: []
+description: |
+  You must be the creator or Admin+.
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the staff note.
+    schema:
+      type: integer
+responses:
+  201:
+    description: Success
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/staffNote.yaml"
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

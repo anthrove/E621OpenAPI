@@ -9208,6 +9208,254 @@ paths:
                         category_id: 0
         '403':
           $ref: '#/components/responses/AccessDenied'
+  /staff_notes.json:
+    get:
+      summary: Search Staff Notes
+      operationId: searchStaffNotes
+      tags:
+        - Staff Notes
+      description: 'When no results are found, an object with an `staff_notes` key is returned.'
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/id'
+        - name: 'search[order]'
+          in: query
+          schema:
+            type: string
+            enum:
+              - id_asc
+              - id_desc
+        - name: 'search[creator_id]'
+          in: query
+          schema:
+            type: integer
+        - name: 'search[creator_name]'
+          in: query
+          schema:
+            type: string
+        - name: 'search[updater_id]'
+          in: query
+          schema:
+            type: integer
+        - name: 'search[updater_name]'
+          in: query
+          schema:
+            type: string
+        - name: 'search[user_id]'
+          in: query
+          schema:
+            type: integer
+        - name: 'search[user_name]'
+          in: query
+          schema:
+            type: string
+        - name: 'search[body_matches]'
+          in: query
+          schema:
+            type: string
+        - name: 'search[without_system_user]'
+          in: query
+          schema:
+            type: boolean
+        - name: 'search[include_deleted]'
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - type: array
+                    items:
+                      $ref: '#/paths/~1staff_notes.json/post/responses/201/content/application~1json/schema'
+                  - type: object
+                    description: No Results
+                    required:
+                      - staff_notes
+                    properties:
+                      blips:
+                        type: array
+                        maxItems: 0
+    post:
+      summary: Create Staff Note
+      operationId: createStaffNote
+      tags:
+        - Staff Notes
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - 'staff_note[body]'
+              properties:
+                'staff_note[body]':
+                  type: string
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - id
+                  - created_at
+                  - updated_at
+                  - user_id
+                  - creator_id
+                  - body
+                  - is_deleted
+                  - updater_id
+                properties:
+                  id:
+                    type: integer
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+                  user_id:
+                    type: integer
+                  creator_id:
+                    type: integer
+                  body:
+                    type: string
+                  is_deleted:
+                    type: boolean
+                  updater_id:
+                    type: integer
+        '403':
+          $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
+  '/staff_notes/{id}.json':
+    get:
+      summary: Get Staff Note
+      operationId: getStaffNote
+      tags:
+        - Staff Notes
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the staff note to get.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/paths/~1staff_notes.json/post/responses/201/content/application~1json/schema'
+        '403':
+          $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      summary: Edit Staff Note
+      operationId: editStaffNote
+      tags:
+        - Staff Notes
+      security:
+        - basicAuth: []
+      description: You must be the creator or Admin+.
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the staff note.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                'staff_note[body]':
+                  type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1staff_notes.json/post/responses/201/content/application~1json/schema'
+        '403':
+          $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
+  '/staff_notes/{id}/delete.json':
+    put:
+      summary: Delete Staff Note
+      operationId: deleteStaffNote
+      tags:
+        - Staff Notes
+      security:
+        - basicAuth: []
+      description: |
+        You must be the creator or Admin+.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the staff note.
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1staff_notes.json/post/responses/201/content/application~1json/schema'
+        '403':
+          $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  '/staff_notes/{id}/undelete.json':
+    put:
+      summary: Undelete Staff Note
+      operationId: undeleteStaffNote
+      tags:
+        - Staff Notes
+      security:
+        - basicAuth: []
+      description: |
+        You must be the creator or Admin+.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the staff note.
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1staff_notes.json/post/responses/201/content/application~1json/schema'
+        '403':
+          $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /takedowns.json:
     get:
       summary: Search Takedowns
