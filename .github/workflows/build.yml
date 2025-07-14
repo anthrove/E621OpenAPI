@@ -1,0 +1,35 @@
+name: Build
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build-openapi:
+    runs-on: ubuntu-latest
+    name: Build OpenAPI
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
+      - name: Install Dependencies
+        run: pnpm i --frozen-lockfile --ignore-scripts
+      - name: Build
+        run: pnpm run build:openapi
+  build-webpack:
+    runs-on: ubuntu-latest
+    name: Build Webpack
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: latest
+      - name: Install Dependencies
+        run: pnpm i --frozen-lockfile --ignore-scripts
+      - name: Build
+        run: pnpm run build:webpack

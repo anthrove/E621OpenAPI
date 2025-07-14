@@ -4,9 +4,10 @@
   "description": "This repository is the home of OpenAPI documentation for https://e621.net. It is maintained by [Donovan_DMC](https://e621.net/users/323290). ## You can find the rendered version [here](https://donovandmc.github.io/E621OpenAPI).",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build:openapi && webpack",
-    "build:production": "npm run build:openapi && NODE_ENV=production webpack",
-    "build:openapi":"node node_modules/swagger-cli/swagger-cli.js bundle ./api/api.yaml --outfile ./openapi.yaml --type yaml",
+    "build": "npm run build:openapi && npm run build:webpack",
+    "build:production": "npm run build:openapi && NODE_ENV=production npm run build:webpack",
+    "build:webpack": "webpack",
+    "build:openapi": "node node_modules/swagger-cli/swagger-cli.js bundle ./api/api.yaml --outfile ./openapi.yaml --type yaml",
     "start": "webpack-dev-server --open",
     "lint": "eslint src",
     "lint:api": "redocly lint openapi.yaml"
