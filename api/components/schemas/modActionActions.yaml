@@ -97,3 +97,4 @@ enum:
   - post_replacement_accept
   - post_replacement_reject
   - post_replacement_delete
+  - user_flush_favorites

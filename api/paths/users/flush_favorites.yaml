@@ -1,0 +1,21 @@
+summary: Clear User Favorites
+operationId: clearUserFavorites
+tags:
+  - Users
+description: You must be Admin+.
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the user. 
+    schema:
+      type: integer
+security:
+  - basicAuth: []
+responses:
+  302:
+    description: Success
+  403:
+    $ref: "../../components/responses/accessDenied.yaml"
+  422:
+    $ref: "../../components/responses/expectedError.yaml"

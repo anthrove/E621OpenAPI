@@ -749,6 +749,9 @@ paths:
       $ref: "./paths/users/show.yaml"
     patch:
       $ref: "./paths/users/update.yaml"
+  /users/{id}/flush_favorites.json:
+    post:
+      $ref: "./paths/users/flush_favorites.yaml"
   /users/upload_limit.json:
     get:
       $ref: "./paths/users/upload_limit.yaml"

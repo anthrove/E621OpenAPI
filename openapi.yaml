@@ -161,6 +161,7 @@ components:
         - post_replacement_accept
         - post_replacement_reject
         - post_replacement_delete
+        - user_flush_favorites
     PostEventActions:
       type: string
       enum:
@@ -10275,6 +10276,29 @@ paths:
                   description: You must have uploaded at least 10 posts.
       responses:
         '204':
+          description: Success
+        '403':
+          $ref: '#/components/responses/AccessDenied'
+        '422':
+          $ref: '#/components/responses/ExpectedError'
+  '/users/{id}/flush_favorites.json':
+    post:
+      summary: Clear User Favorites
+      operationId: clearUserFavorites
+      tags:
+        - Users
+      description: You must be Admin+.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the user.
+          schema:
+            type: integer
+      security:
+        - basicAuth: []
+      responses:
+        '302':
           description: Success
         '403':
           $ref: '#/components/responses/AccessDenied'
