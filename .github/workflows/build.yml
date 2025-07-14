@@ -1,35 +1,78 @@
 name: Build
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
   workflow_dispatch:
+  workflow_call:
+
+permissions:
+  actions: write
+  contents: read
 
 jobs:
-  build-openapi:
+  pre:
+    runs-on: ubuntu-latest
+    name: Check Artifacts
+    outputs:
+      openapi: ${{ steps.openapi.outputs.exists }}
+      openapi_dereferenced: ${{ steps.openapi_dereferenced.outputs.exists }}
+      webpack: ${{ steps.webpack.outputs.exists }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/artifact-exists
+        id: openapi
+        with:
+          artifact_name: openapi.yaml
+      - uses: ./.github/actions/artifact-exists
+        id: openapi_dereferenced
+        with:
+          artifact_name: openapi.dereferenced.yaml
+      - uses: ./.github/actions/artifact-exists
+        id: webpack
+        with:
+          artifact_name: webpack
+
+  openapi:
     runs-on: ubuntu-latest
     name: Build OpenAPI
+    needs: pre
+    if: needs.pre.outputs.openapi != 'true' || needs.pre.outputs.openapi_dereferenced != 'true'
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-        with:
-          version: latest
-      - name: Install Dependencies
-        run: pnpm i --frozen-lockfile --ignore-scripts
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/pnpm
       - name: Build
         run: pnpm run build:openapi
-  build-webpack:
+      - name: Upload OpenAPI
+        uses: actions/upload-artifact@v4
+        with:
+          path: openapi.yaml
+          overwrite: true
+          if-no-files-found: error
+          compression-level: 0
+          name: openapi.yaml
+      # dereferencing catches circular reference issues
+      - name: Build (Dereferenced)
+        run: pnpm run build:openapi:dereferenced
+      - name: Upload OpenAPI
+        uses: actions/upload-artifact@v4
+        with:
+          path: openapi.dereferenced.yaml
+          overwrite: true
+          if-no-files-found: error
+          compression-level: 0
+          name: openapi.dereferenced.yaml
+  webpack:
     runs-on: ubuntu-latest
     name: Build Webpack
+    needs: pre
+    if: needs.pre.outputs.webpack != 'true'
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-        with:
-          version: latest
-      - name: Install Dependencies
-        run: pnpm i --frozen-lockfile --ignore-scripts
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/pnpm
       - name: Build
-        run: pnpm run build:webpack
+        run: NODE_ENV=production pnpm run build:webpack
+      - name: Upload Webpack
+        uses: actions/upload-artifact@v4
+        with:
+          path: dist
+          overwrite: true
+          if-no-files-found: error
+          name: webpack

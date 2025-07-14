@@ -2,9 +2,10 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-    mode: process.env.NODE_ENV || "development",
+  mode: process.env.NODE_ENV || "development",
   entry: path.resolve(__dirname, "./src/index.ts"),
   module: {
     rules: [
@@ -35,7 +36,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "index.html"),
       minify: false
-    })
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: path.resolve(__dirname, "openapi.yaml"), to: "openapi.yaml" },
+        { from: path.resolve(__dirname, "openapi.dereferenced.yaml"), to: "openapi.dereferenced.yaml" },
+      ],
+    }),
 ],
   resolve: {
     extensions: [".tsx", ".ts", ".js"],

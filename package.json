@@ -4,13 +4,16 @@
   "description": "This repository is the home of OpenAPI documentation for https://e621.net. It is maintained by [Donovan_DMC](https://e621.net/users/323290). ## You can find the rendered version [here](https://donovandmc.github.io/E621OpenAPI).",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build:openapi && npm run build:webpack",
-    "build:production": "npm run build:openapi && NODE_ENV=production npm run build:webpack",
+    "build": "npm run build:openapi && npm run build:openapi:dereferenced && NODE_ENV=$NODE_ENV npm run build:webpack",
+    "build:production": "NODE_ENV=production npm run build",
     "build:webpack": "webpack",
-    "build:openapi": "node node_modules/swagger-cli/swagger-cli.js bundle ./api/api.yaml --outfile ./openapi.yaml --type yaml",
+    "build:webpack:production": "NODE_ENV=production webpack",
+    "build:openapi": "npm exec swagger-cli -- bundle ./api/api.yaml --outfile ./openapi.yaml --type yaml",
+    "build:openapi:dereferenced": "npm exec swagger-cli -- bundle ./api/api.yaml --outfile ./openapi.dereferenced.yaml --type yaml -r",
     "start": "webpack-dev-server --open",
     "lint": "eslint src",
-    "lint:api": "redocly lint openapi.yaml"
+    "lint:api": "redocly lint openapi.yaml",
+    "lint:validate": "npm exec swagger-cli -- validate ./openapi.yaml"
   },
   "repository": {
     "type": "git",
@@ -36,6 +39,7 @@
     "@types/swagger-ui": "^3.52.4",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",
+    "copy-webpack-plugin": "^13.0.0",
     "css-loader": "^7.1.2",
     "eslint": "^8.57.0",
     "eslint-plugin-import": "^2.29.1",

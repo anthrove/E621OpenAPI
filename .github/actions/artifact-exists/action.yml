@@ -1,0 +1,34 @@
+name: Artifact Exists
+description: Check if a specific artifact exists in the workflow run.
+
+inputs:
+  artifact_name:
+    description: The name of the artifact to check for.
+    required: true
+  github_token:
+    description: "Your GitHub Access Token"
+    required: true
+    default: ${{ github.token }}
+
+outputs:
+  exists:
+    description: Indicates whether the artifact exists or not.
+    value: ${{ steps.check.outputs.exists }}
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Check if artifact exists
+      shell: bash
+      id: check
+      run: |
+        if gh api /repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts \
+          | jq -e ".artifacts[] | select(.name == \"$ARTIFACT_NAME\")" > /dev/null; then
+          echo "exists=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "exists=false" >> "$GITHUB_OUTPUT"
+        fi
+      env:
+        GH_TOKEN: ${{ inputs.github_token }}
+        ARTIFACT_NAME: ${{ inputs.artifact_name }}

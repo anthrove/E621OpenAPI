@@ -13,7 +13,7 @@ info:
   contact:
     name: Donovan_DMC
     url: 'https://e621.net/forum_topics/46279'
-  version: 28ad3ec
+  version: 36b06a2
 servers:
   - url: 'https://e621.net'
     description: E621 (production)
@@ -1347,7 +1347,7 @@ components:
           type: string
           format: date-time
         action:
-          $ref: '#/components/schemas/ModAction'
+          $ref: '#/components/schemas/ModactionActions'
     NewsUpdate:
       type: object
       required:
@@ -6126,7 +6126,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ModactionActions'
+                  $ref: '#/components/schemas/ModAction'
   /news_updates.json:
     get:
       summary: List News Updates

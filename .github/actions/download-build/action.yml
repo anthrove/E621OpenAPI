@@ -1,0 +1,23 @@
+name: Download Build
+description: Download the OpenAPI and Webpack build artifacts.
+
+runs:
+  using: "composite"
+  steps:
+    - name: Remove Existing Files
+      shell: bash
+      run: |
+        rm -rf openapi.yaml openapi.dereferenced.yaml dist
+    - name: Download OpenAPI artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: openapi.yaml
+    - name: Download OpenAPI Dereferenced artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: openapi.dereferenced.yaml
+    - name: Download OpenAPI Webpack artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: webpack
+        path: dist
