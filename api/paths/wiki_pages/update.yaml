@@ -37,6 +37,11 @@ requestBody:
           wiki_page[skip_secondary_validations]:
             type: boolean
             description: Must be Janitor+ to use.
+          wiki_page[category_id]:
+            $ref: "../../components/schemas/tagCategories.yaml"
+          wiki_page[category_is_locked]:
+            type: boolean
+            description: Must be Admin+ to use.
 responses:
   204:
     description: Success

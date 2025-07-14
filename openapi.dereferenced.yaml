@@ -28780,6 +28780,20 @@ paths:
                 'wiki_page[skip_secondary_validations]':
                   type: boolean
                   description: Must be Janitor+ to use.
+                'wiki_page[category_id]':
+                  type: integer
+                  enum:
+                    - 0
+                    - 1
+                    - 3
+                    - 4
+                    - 5
+                    - 6
+                    - 7
+                    - 8
+                'wiki_page[category_is_locked]':
+                  type: boolean
+                  description: Must be Admin+ to use.
       responses:
         '204':
           description: Success
