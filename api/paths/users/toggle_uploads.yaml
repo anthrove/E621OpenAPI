@@ -1,9 +1,8 @@
-summary: Get User Upload Limit
-operationId: getUserUploadLimit
+summary: Toggle User Uploads
+operationId: toggleUserUploads
 tags:
   - Users
-security:
-  - basicAuth: []
+description: You must be Janitor+.
 parameters:
   - name: id
     in: path
@@ -11,8 +10,12 @@ parameters:
     description: The ID of the user. 
     schema:
       type: integer
+security:
+  - basicAuth: []
 responses:
-  200:
-    $ref: "../../components/responses/user.yaml"
+  302:
+    description: Success
   403:
     $ref: "../../components/responses/accessDenied.yaml"
+  404:
+    $ref: "../../components/responses/notFound.yaml"

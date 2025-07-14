@@ -84,6 +84,7 @@ enum:
   - user_flush_favorites
   - post_version_hide
   - post_version_unhide
+  - user_uploads_toggle
   # legacy
   - created_positive_record
   - created_neutral_record

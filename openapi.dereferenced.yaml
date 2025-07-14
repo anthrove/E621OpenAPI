@@ -149,6 +149,7 @@ components:
         - user_flush_favorites
         - post_version_hide
         - post_version_unhide
+        - user_uploads_toggle
         - created_positive_record
         - created_neutral_record
         - created_negative_record
@@ -2081,6 +2082,7 @@ components:
             - user_flush_favorites
             - post_version_hide
             - post_version_unhide
+            - user_uploads_toggle
             - created_positive_record
             - created_neutral_record
             - created_negative_record
@@ -13591,6 +13593,7 @@ paths:
               - user_flush_favorites
               - post_version_hide
               - post_version_unhide
+              - user_uploads_toggle
               - created_positive_record
               - created_neutral_record
               - created_negative_record
@@ -13719,6 +13722,7 @@ paths:
                         - user_flush_favorites
                         - post_version_hide
                         - post_version_unhide
+                        - user_uploads_toggle
                         - created_positive_record
                         - created_neutral_record
                         - created_negative_record
@@ -13858,6 +13862,7 @@ paths:
                       - user_flush_favorites
                       - post_version_hide
                       - post_version_unhide
+                      - user_uploads_toggle
                       - created_positive_record
                       - created_neutral_record
                       - created_negative_record
@@ -26961,109 +26966,7 @@ paths:
                     type: array
                     items:
                       type: string
-  '/users/{id}/flush_favorites.json':
-    post:
-      summary: Clear User Favorites
-      operationId: clearUserFavorites
-      tags:
-        - Users
-      description: You must be Admin+.
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The ID of the user.
-          schema:
-            type: integer
-      security:
-        - basicAuth: []
-      responses:
-        '302':
-          description: Success
-        '403':
-          description: Access Denied
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - success
-                  - reason
-                properties:
-                  success:
-                    type: boolean
-                  reason:
-                    type: string
-                    enum:
-                      - Access Denied
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - success
-                  - reason
-                properties:
-                  success:
-                    type: boolean
-                  reason:
-                    type: string
-                    enum:
-                      - not found
-  '/users/{id}/fix_counts.json':
-    get:
-      summary: Fix User Counts
-      operationId: fixUserCounts
-      tags:
-        - Users
-      description: You must be Janitor+.
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: The ID of the user.
-          schema:
-            type: integer
-      security:
-        - basicAuth: []
-      responses:
-        '302':
-          description: Success
-        '403':
-          description: Access Denied
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - success
-                  - reason
-                properties:
-                  success:
-                    type: boolean
-                  reason:
-                    type: string
-                    enum:
-                      - Access Denied
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - success
-                  - reason
-                properties:
-                  success:
-                    type: boolean
-                  reason:
-                    type: string
-                    enum:
-                      - not found
-  /users/upload_limit.json:
+  '/users/{id}/upload_limit.json':
     get:
       summary: Get User Upload Limit
       operationId: getUserUploadLimit
@@ -27436,6 +27339,159 @@ paths:
                     type: string
                     enum:
                       - Access Denied
+  '/users/{id}/flush_favorites.json':
+    post:
+      summary: Clear User Favorites
+      operationId: clearUserFavorites
+      tags:
+        - Users
+      description: You must be Admin+.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the user.
+          schema:
+            type: integer
+      security:
+        - basicAuth: []
+      responses:
+        '302':
+          description: Success
+        '403':
+          description: Access Denied
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - reason
+                properties:
+                  success:
+                    type: boolean
+                  reason:
+                    type: string
+                    enum:
+                      - Access Denied
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - reason
+                properties:
+                  success:
+                    type: boolean
+                  reason:
+                    type: string
+                    enum:
+                      - not found
+  '/users/{id}/fix_counts.json':
+    get:
+      summary: Fix User Counts
+      operationId: fixUserCounts
+      tags:
+        - Users
+      description: You must be Janitor+.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the user.
+          schema:
+            type: integer
+      security:
+        - basicAuth: []
+      responses:
+        '302':
+          description: Success
+        '403':
+          description: Access Denied
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - reason
+                properties:
+                  success:
+                    type: boolean
+                  reason:
+                    type: string
+                    enum:
+                      - Access Denied
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - reason
+                properties:
+                  success:
+                    type: boolean
+                  reason:
+                    type: string
+                    enum:
+                      - not found
+  '/users/{id}/toggle_uploads.json':
+    get:
+      summary: Toggle User Uploads
+      operationId: toggleUserUploads
+      tags:
+        - Users
+      description: You must be Janitor+.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the user.
+          schema:
+            type: integer
+      security:
+        - basicAuth: []
+      responses:
+        '302':
+          description: Success
+        '403':
+          description: Access Denied
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - reason
+                properties:
+                  success:
+                    type: boolean
+                  reason:
+                    type: string
+                    enum:
+                      - Access Denied
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - reason
+                properties:
+                  success:
+                    type: boolean
+                  reason:
+                    type: string
+                    enum:
+                      - not found
   /maintenance/user/count_fixes.json:
     post:
       summary: Fix User Counts

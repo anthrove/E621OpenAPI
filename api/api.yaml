@@ -757,15 +757,18 @@ paths:
       $ref: "./paths/users/show.yaml"
     patch:
       $ref: "./paths/users/update.yaml"
+  /users/{id}/upload_limit.json:
+    get:
+      $ref: "./paths/users/upload_limit.yaml"
   /users/{id}/flush_favorites.json:
     post:
       $ref: "./paths/users/flush_favorites.yaml"
   /users/{id}/fix_counts.json:
     get:
       $ref: "./paths/users/fix_counts.yaml"
-  /users/upload_limit.json:
+  /users/{id}/toggle_uploads.json:
     get:
-      $ref: "./paths/users/upload_limit.yaml"
+      $ref: "./paths/users/toggle_uploads.yaml"
   /maintenance/user/count_fixes.json:
     post:
       $ref: "./paths/maintenance/user/count_fixes/create.yaml"

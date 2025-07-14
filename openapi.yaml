@@ -149,6 +149,7 @@ components:
         - user_flush_favorites
         - post_version_hide
         - post_version_unhide
+        - user_uploads_toggle
         - created_positive_record
         - created_neutral_record
         - created_negative_record
@@ -10367,6 +10368,19 @@ paths:
           $ref: '#/components/responses/AccessDenied'
         '422':
           $ref: '#/components/responses/ExpectedError'
+  '/users/{id}/upload_limit.json':
+    get:
+      summary: Get User Upload Limit
+      operationId: getUserUploadLimit
+      tags:
+        - Users
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          $ref: '#/components/responses/UserResponse'
+        '403':
+          $ref: '#/components/responses/AccessDenied'
   '/users/{id}/flush_favorites.json':
     post:
       summary: Clear User Favorites
@@ -10413,19 +10427,29 @@ paths:
           $ref: '#/components/responses/AccessDenied'
         '404':
           $ref: '#/components/responses/NotFound'
-  /users/upload_limit.json:
+  '/users/{id}/toggle_uploads.json':
     get:
-      summary: Get User Upload Limit
-      operationId: getUserUploadLimit
+      summary: Toggle User Uploads
+      operationId: toggleUserUploads
       tags:
         - Users
+      description: You must be Janitor+.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the user.
+          schema:
+            type: integer
       security:
         - basicAuth: []
       responses:
-        '200':
-          $ref: '#/components/responses/UserResponse'
+        '302':
+          description: Success
         '403':
           $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /maintenance/user/count_fixes.json:
     post:
       summary: Fix User Counts
