@@ -26803,23 +26803,73 @@ paths:
                     type: string
                     enum:
                       - Access Denied
-        '422':
-          description: Invalid Input Data
+        '404':
+          description: Not Found
           content:
             application/json:
               schema:
                 type: object
                 required:
-                  - errors
-                example:
-                  - errors:
-                      key:
-                        - the error
+                  - success
+                  - reason
                 properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
+                  success:
+                    type: boolean
+                  reason:
+                    type: string
+                    enum:
+                      - not found
+  '/users/{id}/fix_counts.json':
+    get:
+      summary: Fix User Counts
+      operationId: fixUserCounts
+      tags:
+        - Users
+      description: You must be Janitor+.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the user.
+          schema:
+            type: integer
+      security:
+        - basicAuth: []
+      responses:
+        '302':
+          description: Success
+        '403':
+          description: Access Denied
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - reason
+                properties:
+                  success:
+                    type: boolean
+                  reason:
+                    type: string
+                    enum:
+                      - Access Denied
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - reason
+                properties:
+                  success:
+                    type: boolean
+                  reason:
+                    type: string
+                    enum:
+                      - not found
   /users/upload_limit.json:
     get:
       summary: Get User Upload Limit

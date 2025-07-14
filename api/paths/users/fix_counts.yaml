@@ -1,8 +1,8 @@
-summary: Clear User Favorites
-operationId: clearUserFavorites
+summary: Fix User Counts
+operationId: fixUserCounts
 tags:
   - Users
-description: You must be Admin+.
+description: You must be Janitor+.
 parameters:
   - name: id
     in: path

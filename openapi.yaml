@@ -10302,8 +10302,31 @@ paths:
           description: Success
         '403':
           $ref: '#/components/responses/AccessDenied'
-        '422':
-          $ref: '#/components/responses/ExpectedError'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  '/users/{id}/fix_counts.json':
+    get:
+      summary: Fix User Counts
+      operationId: fixUserCounts
+      tags:
+        - Users
+      description: You must be Janitor+.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the user.
+          schema:
+            type: integer
+      security:
+        - basicAuth: []
+      responses:
+        '302':
+          description: Success
+        '403':
+          $ref: '#/components/responses/AccessDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /users/upload_limit.json:
     get:
       summary: Get User Upload Limit

@@ -752,6 +752,9 @@ paths:
   /users/{id}/flush_favorites.json:
     post:
       $ref: "./paths/users/flush_favorites.yaml"
+  /users/{id}/fix_counts.json:
+    get:
+      $ref: "./paths/users/fix_counts.yaml"
   /users/upload_limit.json:
     get:
       $ref: "./paths/users/upload_limit.yaml"
