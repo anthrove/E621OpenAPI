@@ -7,5 +7,11 @@ If you'd like to ask any questions, you can do so [in this forum topic](https://
 ## Raw
 If you need the full spec as a url for an IDE or something similar, this url should always serve the latest version.
 ```
-https://raw.githubusercontent.com/DonovanDMC/E621OpenAPI/master/openapi.yaml
+https://e621.wiki/openapi.yaml
+```
+
+If for some reason you need a dereferenced version, this url can be used instead.
+```
+
+https://e621.wiki/openapi.dereferenced.yaml
 ```

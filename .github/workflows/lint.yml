@@ -1,15 +1,13 @@
 name: Lint
 on:
-  workflow_dispatch:
   workflow_call:
 
+# This requires the build job to have been ran first
+
 jobs:
-  build:
-    uses: ./.github/workflows/build.yml
   code:
     runs-on: ubuntu-latest
     name: Lint Code
-    needs: build
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/pnpm
@@ -19,7 +17,6 @@ jobs:
   api:
     runs-on: ubuntu-latest
     name: Lint API
-    needs: build
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/pnpm
@@ -29,7 +26,6 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     name: Validate API
-    needs: build
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/pnpm

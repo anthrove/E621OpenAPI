@@ -4,8 +4,7 @@ info:
   description: |
     OpenAPI definition for E621's API. You can find the source [here](https://github.com/DonovanDMC/E621OpenAPI)<br>
     This document is intended to compliment E621's existing [API Documentation](https://e621.net/help/api).<br>
-    Note if E621's api is under attack and/or cloudflare protections are enabled, the "Try it out" buttons here will not work.<br>
-    If they are not working, you can check this [Unofficial Status Page](https://status.e621.ws).
+    If the api is not working, you can check this [Unofficial Status Page](https://status.e621.church).
   license:
     name: MIT
     url: 'https://opensource.org/licenses/MIT'

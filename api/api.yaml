@@ -4,8 +4,7 @@ info:
   description: |
     OpenAPI definition for E621's API. You can find the source [here](https://github.com/DonovanDMC/E621OpenAPI)<br>
     This document is intended to compliment E621's existing [API Documentation](https://e621.net/help/api).<br>
-    Note if E621's api is under attack and/or cloudflare protections are enabled, the "Try it out" buttons here will not work.<br>
-    If they are not working, you can check this [Unofficial Status Page](https://status.e621.ws).
+    If the api is not working, you can check this [Unofficial Status Page](https://status.e621.church).
   license:
     name: "MIT"
     url: "https://opensource.org/licenses/MIT"
@@ -260,7 +259,7 @@ paths:
     $ref: "./paths/dmails/markAsUnread.yaml"
   /dmails/mark_all_as_unread.json:
     $ref: "./paths/dmails/markAllAsUnread.yaml"
-  
+
   /dtext_preview.json:
     $ref: "./paths/dtext/preview.yaml"
 
@@ -354,7 +353,6 @@ paths:
   /popular.json:
     $ref: "./paths/popular/popular.yaml"
 
-
   /posts.json:
     $ref: "./paths/posts/posts.yaml"
   /posts/{id}.json:
@@ -373,7 +371,7 @@ paths:
     $ref: "./paths/posts/flag.yaml"
   /posts/random.json:
     $ref: "./paths/posts/random.yaml"
-  
+
   /post_sets.json:
     $ref: "./paths/postsSets/postSets.yaml"
   /post_sets/{id}.json:
@@ -386,7 +384,7 @@ paths:
     $ref: "./paths/postsSets/remove.yaml"
   /post_sets/for_select.json:
     $ref: "./paths/postsSets/select.yaml"
-  
+
   /post_approvals.json:
     $ref: "./paths/postApprovals/postApprovals.yaml"
   /post_events.json:
@@ -419,7 +417,7 @@ paths:
     $ref: "./paths/postVotes/lock.yaml"
   /post_votes/delete.json:
     $ref: "./paths/postVotes/delete.yaml"
-  
+
   /tags.json:
     $ref: "./paths/tags/tags.yaml"
   /tags/{id}.json:
@@ -452,7 +450,7 @@ paths:
 
   /related_tag/bulk.json:
     $ref: "./paths/relatedTag/bulk.yaml"
-  
+
   /takedowns.json:
     $ref: "./paths/takedowns/takedowns.yaml"
   /takedowns/{id}.json:
@@ -477,14 +475,14 @@ paths:
 
   /uploads.json:
     $ref: "./paths/uploads/uploads.yaml"
-  
+
   /upload_whitelists.json:
     $ref: "./paths/uploadWhitelists/uploadWhitelists.yaml"
   /upload_whitelists/{id}.json:
     $ref: "./paths/uploadWhitelists/id.yaml"
   /upload_whitelists/{id}/is_allowed.json:
     $ref: "./paths/uploadWhitelists/isAllowed.yaml"
-  
+
   /users.json:
     $ref: "./paths/users/users.yaml"
   /users/{id}.json:
@@ -504,29 +502,29 @@ paths:
     $ref: "./paths/userFeedbacks/delete.yaml"
   /user_feedbacks/{id}/undelete.json:
     $ref: "./paths/userFeedbacks/undelete.yaml"
-  
+
   /user_name_change_requests.json:
     $ref: "./paths/userNameChangeRequests/userNameChangeRequests.yaml"
   /user_name_change_requests/{id}.json:
     $ref: "./paths/userNameChangeRequests/id.yaml"
-  
+
   /wiki_pages.json:
     $ref: "./paths/wikiPages/wikiPages.yaml"
   /wiki_pages/{id}.json:
     $ref: "./paths/wikiPages/id.yaml"
   /wiki_page/{id}/revert.json:
     $ref: "./paths/wikiPages/revert.yaml"
-    
+
   /wiki_page_versions.json:
     $ref: "./paths/wikiPageVersions/wikiPageVersions.yaml"
   /wiki_page_versions/{id}.json:
     $ref: "./paths/wikiPageVersions/id.yaml"
-  
+
   /admin/users/alt_list.json:
     $ref: "./paths/admin/altList.yaml"
   /admins/users/{id}.json:
     $ref: "./paths/admin/id.yaml"
-  
+
   /moderator/post/posts/{id}/delete.json:
     $ref: "./paths/moderator/postDelete.yaml"
   /moderator/post/posts/{id}/undelete.json:
