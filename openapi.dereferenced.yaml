@@ -35,9 +35,7 @@ components:
       in: path
       required: true
       schema:
-        oneOf:
-          - type: integer
-          - type: string
+        type: string
       description: An ID that can be either an integer or a name.
     limit:
       name: limit
@@ -62,6 +60,42 @@ components:
       schema:
         type: string
   schemas:
+    AccessDeniedResponse:
+      type: object
+      required:
+        - success
+        - reason
+      properties:
+        success:
+          type: boolean
+        reason:
+          type: string
+          enum:
+            - Access Denied
+    NotFoundResponse:
+      type: object
+      required:
+        - success
+        - reason
+      properties:
+        success:
+          type: boolean
+        reason:
+          type: string
+          enum:
+            - not found
+    WarningRecordType:
+      type: object
+      required:
+        - record_type
+      properties:
+        record_type:
+          type: string
+          enum:
+            - unmark
+            - ban
+            - record
+            - warning
     ModActionActions:
       type: string
       enum:
@@ -3082,6 +3116,36 @@ components:
             - 6
             - 7
             - 8
+    StaffNote:
+      type: object
+      required:
+        - id
+        - created_at
+        - updated_at
+        - user_id
+        - creator_id
+        - body
+        - is_deleted
+        - updater_id
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        user_id:
+          type: integer
+        creator_id:
+          type: integer
+        body:
+          type: string
+        is_deleted:
+          type: boolean
+        updater_id:
+          type: integer
     Tag:
       type: object
       required:
@@ -4500,9 +4564,7 @@ paths:
           in: path
           required: true
           schema:
-            oneOf:
-              - type: integer
-              - type: string
+            type: string
           description: An ID that can be either an integer or a name.
       responses:
         '200':
@@ -4635,9 +4697,7 @@ paths:
           in: path
           required: true
           schema:
-            oneOf:
-              - type: integer
-              - type: string
+            type: string
           description: An ID that can be either an integer or a name.
       requestBody:
         content:
@@ -4733,9 +4793,7 @@ paths:
           in: path
           required: true
           schema:
-            oneOf:
-              - type: integer
-              - type: string
+            type: string
           description: An ID that can be either an integer or a name.
       responses:
         '204':
@@ -4787,9 +4845,7 @@ paths:
           in: path
           required: true
           schema:
-            oneOf:
-              - type: integer
-              - type: string
+            type: string
           description: An ID that can be either an integer or a name.
         - name: version_id
           in: query
@@ -5392,9 +5448,7 @@ paths:
           in: path
           required: true
           schema:
-            oneOf:
-              - type: integer
-              - type: string
+            type: string
           description: An ID that can be either an integer or a name.
       responses:
         '200':
@@ -5463,9 +5517,7 @@ paths:
           in: path
           required: true
           schema:
-            oneOf:
-              - type: integer
-              - type: string
+            type: string
           description: An ID that can be either an integer or a name.
       requestBody:
         content:
@@ -5591,9 +5643,7 @@ paths:
           in: path
           required: true
           schema:
-            oneOf:
-              - type: integer
-              - type: string
+            type: string
           description: An ID that can be either an integer or a name.
       responses:
         '204':
@@ -5644,9 +5694,7 @@ paths:
           in: path
           required: true
           schema:
-            oneOf:
-              - type: integer
-              - type: string
+            type: string
           description: An ID that can be either an integer or a name.
       responses:
         '204':
@@ -5697,9 +5745,7 @@ paths:
           in: path
           required: true
           schema:
-            oneOf:
-              - type: integer
-              - type: string
+            type: string
           description: An ID that can be either an integer or a name.
       responses:
         '204':
