@@ -1858,7 +1858,7 @@ components:
         has_notes:
           type: boolean
         duration:
-          type: integer
+          type: number
           nullable: true
     PostApproval:
       type: object

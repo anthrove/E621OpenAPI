@@ -2736,7 +2736,7 @@ components:
         has_notes:
           type: boolean
         duration:
-          type: integer
+          type: number
           nullable: true
     PostApproval:
       type: object
@@ -9708,7 +9708,7 @@ paths:
                         has_notes:
                           type: boolean
                         duration:
-                          type: integer
+                          type: number
                           nullable: true
         '403':
           description: Access Denied
@@ -10138,7 +10138,7 @@ paths:
                       has_notes:
                         type: boolean
                       duration:
-                        type: integer
+                        type: number
                         nullable: true
         '403':
           description: Access Denied
@@ -16031,7 +16031,7 @@ paths:
                         has_notes:
                           type: boolean
                         duration:
-                          type: integer
+                          type: number
                           nullable: true
   /posts.json:
     get:
@@ -16447,7 +16447,7 @@ paths:
                         has_notes:
                           type: boolean
                         duration:
-                          type: integer
+                          type: number
                           nullable: true
   '/posts/{id}.json':
     get:
@@ -16841,7 +16841,7 @@ paths:
                       has_notes:
                         type: boolean
                       duration:
-                        type: integer
+                        type: number
                         nullable: true
         '404':
           description: Not Found
@@ -17321,7 +17321,7 @@ paths:
                   has_notes:
                     type: boolean
                   duration:
-                    type: integer
+                    type: number
                     nullable: true
         '403':
           description: Access Denied
@@ -17767,7 +17767,7 @@ paths:
                       has_notes:
                         type: boolean
                       duration:
-                        type: integer
+                        type: number
                         nullable: true
         '403':
           description: Access Denied
@@ -18223,7 +18223,7 @@ paths:
                       has_notes:
                         type: boolean
                       duration:
-                        type: integer
+                        type: number
                         nullable: true
         '403':
           description: Access Denied
@@ -18824,7 +18824,7 @@ paths:
                       has_notes:
                         type: boolean
                       duration:
-                        type: integer
+                        type: number
                         nullable: true
         '403':
           description: Access Denied
@@ -19325,7 +19325,7 @@ paths:
                       has_notes:
                         type: boolean
                       duration:
-                        type: integer
+                        type: number
                         nullable: true
         '404':
           description: Not Found
@@ -21765,7 +21765,7 @@ paths:
                       has_notes:
                         type: boolean
                       duration:
-                        type: integer
+                        type: number
                         nullable: true
         '403':
           description: Access Denied
@@ -30457,7 +30457,7 @@ paths:
                       has_notes:
                         type: boolean
                       duration:
-                        type: integer
+                        type: number
                         nullable: true
         '403':
           description: Access Denied
@@ -30903,7 +30903,7 @@ paths:
                       has_notes:
                         type: boolean
                       duration:
-                        type: integer
+                        type: number
                         nullable: true
         '403':
           description: Access Denied
@@ -31425,7 +31425,7 @@ paths:
                       has_notes:
                         type: boolean
                       duration:
-                        type: integer
+                        type: number
                         nullable: true
         '403':
           description: Access Denied
