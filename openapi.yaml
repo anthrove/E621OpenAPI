@@ -2869,23 +2869,23 @@ components:
             oneOf:
               - $ref: '#/components/schemas/FullUser'
               - $ref: '#/components/schemas/FullCurrentUser'
-    DMailRespomse:
+    DMailResponse:
       description: Success
       content:
         application/json:
-          schema:
-            anyOf:
-              - type: array
-                items:
-                  $ref: '#/components/schemas/DMail'
-              - type: object
-                description: No Results
-                required:
-                  $ref: '#/components/schemas/DMail'
-                properties:
-                  dmails:
-                    type: array
-                    maxItems: 0
+          schema: null
+          anyOf:
+            - type: array
+              items:
+                $ref: '#/components/schemas/DMail'
+            - type: object
+              description: No Results
+              required:
+                - dmails
+              properties:
+                dmails:
+                  type: array
+                  maxItems: 0
   requestBodies:
     warning:
       content:
@@ -4678,7 +4678,7 @@ paths:
             type: boolean
       responses:
         '200':
-          $ref: '#/components/responses/DMailRespomse'
+          $ref: '#/components/responses/DMailResponse'
   '/dmails/{id}.json':
     get:
       summary: Get DMail
