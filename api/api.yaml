@@ -189,6 +189,8 @@ components:
       $ref: "./components/responses/messageError.yaml"
     UserResponse:
       $ref: "./components/responses/user.yaml"
+    DMailRespomse:
+      $ref: "./components/responses/dmail.yaml"
   requestBodies:
     warning:
       $ref: "./components/requestBodies/warning.yaml"
