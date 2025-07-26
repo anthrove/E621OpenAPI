@@ -803,6 +803,21 @@ components:
         updated_at:
           type: string
           format: date-time
+    DMailResponseArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/DMail'
+    DMailResponseEmpty:
+      type: object
+      description: No Results
+      required:
+        - dmails
+      properties:
+        dmails:
+          type: array
+          maxItems: 0
+          items:
+            $ref: '#/components/schemas/DMail'
     DeferredPost:
       type: object
       required:
@@ -2873,19 +2888,10 @@ components:
       description: Success
       content:
         application/json:
-          schema: null
-          anyOf:
-            - type: array
-              items:
-                $ref: '#/components/schemas/DMail'
-            - type: object
-              description: No Results
-              required:
-                - dmails
-              properties:
-                dmails:
-                  type: array
-                  maxItems: 0
+          schema:
+            anyOf:
+              - $ref: '#/components/schemas/DMailResponseArray'
+              - $ref: '#/components/schemas/DMailResponseEmpty'
   requestBodies:
     warning:
       content:

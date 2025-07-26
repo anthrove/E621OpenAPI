@@ -90,6 +90,10 @@ components:
       $ref: "./components/schemas/currentUser.yaml"
     DMail:
       $ref: "./components/schemas/dMail.yaml"
+    DMailResponseArray:
+      $ref: "./components/schemas/dmailResponseArray.yaml"
+    DMailResponseEmpty:
+      $ref: "./components/schemas/dmailResponseEmpty.yaml"
     DeferredPost:
       $ref: "./components/schemas/deferredPost.yaml"
     DTextResponse:

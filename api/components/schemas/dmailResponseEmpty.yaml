@@ -1,0 +1,10 @@
+type: object
+description: No Results
+required:
+  - dmails
+properties:
+  dmails:
+    type: array
+    maxItems: 0
+    items:
+      $ref: "../schemas/dMail.yaml"

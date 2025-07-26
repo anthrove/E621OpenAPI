@@ -871,6 +871,89 @@ components:
         updated_at:
           type: string
           format: date-time
+    DMailResponseArray:
+      type: array
+      items:
+        type: object
+        required:
+          - id
+          - owner_id
+          - from_id
+          - to_id
+          - title
+          - body
+          - is_read
+          - is_deleted
+          - created_at
+          - updated_at
+        properties:
+          id:
+            type: integer
+          owner_id:
+            type: integer
+          from_id:
+            type: integer
+          to_id:
+            type: integer
+          title:
+            type: string
+          body:
+            type: string
+          is_read:
+            type: boolean
+          is_deleted:
+            type: boolean
+          created_at:
+            type: string
+            format: date-time
+          updated_at:
+            type: string
+            format: date-time
+    DMailResponseEmpty:
+      type: object
+      description: No Results
+      required:
+        - dmails
+      properties:
+        dmails:
+          type: array
+          maxItems: 0
+          items:
+            type: object
+            required:
+              - id
+              - owner_id
+              - from_id
+              - to_id
+              - title
+              - body
+              - is_read
+              - is_deleted
+              - created_at
+              - updated_at
+            properties:
+              id:
+                type: integer
+              owner_id:
+                type: integer
+              from_id:
+                type: integer
+              to_id:
+                type: integer
+              title:
+                type: string
+              body:
+                type: string
+              is_read:
+                type: boolean
+              is_deleted:
+                type: boolean
+              created_at:
+                type: string
+                format: date-time
+              updated_at:
+                type: string
+                format: date-time
     DeferredPost:
       type: object
       required:
@@ -4243,53 +4326,89 @@ components:
       description: Success
       content:
         application/json:
-          schema: null
-          anyOf:
-            - type: array
-              items:
-                type: object
+          schema:
+            anyOf:
+              - type: array
+                items:
+                  type: object
+                  required:
+                    - id
+                    - owner_id
+                    - from_id
+                    - to_id
+                    - title
+                    - body
+                    - is_read
+                    - is_deleted
+                    - created_at
+                    - updated_at
+                  properties:
+                    id:
+                      type: integer
+                    owner_id:
+                      type: integer
+                    from_id:
+                      type: integer
+                    to_id:
+                      type: integer
+                    title:
+                      type: string
+                    body:
+                      type: string
+                    is_read:
+                      type: boolean
+                    is_deleted:
+                      type: boolean
+                    created_at:
+                      type: string
+                      format: date-time
+                    updated_at:
+                      type: string
+                      format: date-time
+              - type: object
+                description: No Results
                 required:
-                  - id
-                  - owner_id
-                  - from_id
-                  - to_id
-                  - title
-                  - body
-                  - is_read
-                  - is_deleted
-                  - created_at
-                  - updated_at
+                  - dmails
                 properties:
-                  id:
-                    type: integer
-                  owner_id:
-                    type: integer
-                  from_id:
-                    type: integer
-                  to_id:
-                    type: integer
-                  title:
-                    type: string
-                  body:
-                    type: string
-                  is_read:
-                    type: boolean
-                  is_deleted:
-                    type: boolean
-                  created_at:
-                    type: string
-                    format: date-time
-                  updated_at:
-                    type: string
-                    format: date-time
-            - type: object
-              description: No Results
-              required:
-                - dmails
-              properties:
-                dmails:
-                  type: array
-                  maxItems: 0
+                  dmails:
+                    type: array
+                    maxItems: 0
+                    items:
+                      type: object
+                      required:
+                        - id
+                        - owner_id
+                        - from_id
+                        - to_id
+                        - title
+                        - body
+                        - is_read
+                        - is_deleted
+                        - created_at
+                        - updated_at
+                      properties:
+                        id:
+                          type: integer
+                        owner_id:
+                          type: integer
+                        from_id:
+                          type: integer
+                        to_id:
+                          type: integer
+                        title:
+                          type: string
+                        body:
+                          type: string
+                        is_read:
+                          type: boolean
+                        is_deleted:
+                          type: boolean
+                        created_at:
+                          type: string
+                          format: date-time
+                        updated_at:
+                          type: string
+                          format: date-time
   requestBodies:
     warning:
       content:
@@ -8717,53 +8836,89 @@ paths:
           description: Success
           content:
             application/json:
-              schema: null
-              anyOf:
-                - type: array
-                  items:
-                    type: object
+              schema:
+                anyOf:
+                  - type: array
+                    items:
+                      type: object
+                      required:
+                        - id
+                        - owner_id
+                        - from_id
+                        - to_id
+                        - title
+                        - body
+                        - is_read
+                        - is_deleted
+                        - created_at
+                        - updated_at
+                      properties:
+                        id:
+                          type: integer
+                        owner_id:
+                          type: integer
+                        from_id:
+                          type: integer
+                        to_id:
+                          type: integer
+                        title:
+                          type: string
+                        body:
+                          type: string
+                        is_read:
+                          type: boolean
+                        is_deleted:
+                          type: boolean
+                        created_at:
+                          type: string
+                          format: date-time
+                        updated_at:
+                          type: string
+                          format: date-time
+                  - type: object
+                    description: No Results
                     required:
-                      - id
-                      - owner_id
-                      - from_id
-                      - to_id
-                      - title
-                      - body
-                      - is_read
-                      - is_deleted
-                      - created_at
-                      - updated_at
+                      - dmails
                     properties:
-                      id:
-                        type: integer
-                      owner_id:
-                        type: integer
-                      from_id:
-                        type: integer
-                      to_id:
-                        type: integer
-                      title:
-                        type: string
-                      body:
-                        type: string
-                      is_read:
-                        type: boolean
-                      is_deleted:
-                        type: boolean
-                      created_at:
-                        type: string
-                        format: date-time
-                      updated_at:
-                        type: string
-                        format: date-time
-                - type: object
-                  description: No Results
-                  required:
-                    - dmails
-                  properties:
-                    dmails:
-                      type: array
-                      maxItems: 0
+                      dmails:
+                        type: array
+                        maxItems: 0
+                        items:
+                          type: object
+                          required:
+                            - id
+                            - owner_id
+                            - from_id
+                            - to_id
+                            - title
+                            - body
+                            - is_read
+                            - is_deleted
+                            - created_at
+                            - updated_at
+                          properties:
+                            id:
+                              type: integer
+                            owner_id:
+                              type: integer
+                            from_id:
+                              type: integer
+                            to_id:
+                              type: integer
+                            title:
+                              type: string
+                            body:
+                              type: string
+                            is_read:
+                              type: boolean
+                            is_deleted:
+                              type: boolean
+                            created_at:
+                              type: string
+                              format: date-time
+                            updated_at:
+                              type: string
+                              format: date-time
   '/dmails/{id}.json':
     get:
       summary: Get DMail
